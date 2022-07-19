@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -n 'payload0_config0_task16 '
+./get_metric "$1" payload0_config0_task16 | tail -n 5 | head -n 1
+
+echo -n 'payload1_config0_task16 '
+./get_metric "$1" payload1_config0_task16 | tail -n 5 | head -n 1
+
+echo -n 'payload0_config1_task16 '
+./get_metric "$1" payload0_config1_task16 | tail -n 5 | head -n 1
+
+echo -n 'payload1_config1_task16 '
+./get_metric "$1" payload1_config1_task16 | tail -n 5 | head -n 1
+

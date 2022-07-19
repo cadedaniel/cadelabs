@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -x
+
+for i in $(seq 1 10); do
+    ./script.py "$@"
+done

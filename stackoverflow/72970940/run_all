@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+./run_n --pass-payload --without-config-obj | tee payload1_config0_task16
+./run_n --pass-payload --with-config-obj | tee payload1_config1_task16
+./run_n --no-pass-payload --without-config-obj | tee payload0_config0_task16
+./run_n --no-pass-payload --with-config-obj | tee payload0_config1_task16
