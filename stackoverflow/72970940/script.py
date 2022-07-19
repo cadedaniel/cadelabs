@@ -6,6 +6,19 @@ import ray
 import click
 import sys
 
+'''
+tasks: 1, 8, 16
+payload0_config0: +0, +0.89, +2.98
+payload0_config1: +18.6 +132.1 +257.49
+payload1_config0: +1.93 +14.38 +30.8
+payload1_config1: +27.6 +210.1 +415.9
+
+0.0, 0.11, 0.19
+16.5, 16.5, 16.1
+1.93, 1.79, 1.93
+27.6, 26.26, 25.99
+
+'''
 
 class DummyObject:
     def do_something(self):
@@ -14,6 +27,7 @@ class DummyObject:
 
 @ray.remote
 def dummy_fun(config, payload):
+
     return type(config), type(payload)
 
 
@@ -49,7 +63,7 @@ def run_problem(pass_payload: bool, with_config_obj: bool, num_tasks: int, paylo
     result = ray.get(result_id)
 
     end_memory = psutil.virtual_memory()
-    print_memory_diff('[start_memory-end_memory]', start_memory, end_memory, only_show_free)
+    print_memory_diff('', start_memory, end_memory, only_show_free)
 
     ray.shutdown()
 

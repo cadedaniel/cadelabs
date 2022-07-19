@@ -1,0 +1,6 @@
+prettytable
+ray
+nltk
+psutil
+click
+cloudpickle
