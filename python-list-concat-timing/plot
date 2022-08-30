@@ -1,13 +1,55 @@
 #!/usr/bin/env python3
 
+import sys
+
+if sys.stdin.isatty():
+    with open('wide_highres') as f:
+        input_data = f.read()
+else:
+    input_data = sys.stdin.read()
+
+input_data = input_data.split('\n')
+labels = [s.strip('=') for s in filter(lambda value: '===' in value, input_data)]
+input_data = list(filter(lambda value: '2^' in value and 'ms' in value and 'ns' in value, input_data))
+
+num_tests_per_label = int(len(input_data) / len(labels))
+
+if num_tests_per_label * len(labels) != len(input_data):
+    raise ValueError(f'irregular input data per label {num_tests_per_label} * {len(labels)} != {len(input_data)}')
+
+label_to_raw_values = {}
+for i, label in enumerate(labels):
+    start, end = i*num_tests_per_label, (i+1)*num_tests_per_label
+    label_to_raw_values[label] = input_data[start:end]
+
+xs = []
+ys = []
 import math
-xaxis = list(range(600, 1200))
-y1 = [math.sin(i/20)+i/300 for i in range(600)]
-y2 = [math.cos(i/20)+i/300 for i in range(600)]
-y3 = [math.sin(i/20) for i in range(600)]
+for label, raw_values in label_to_raw_values.items():
+    split = [s.split(' ') for s in raw_values]
+    start = 5
+    xs.append([float(s[0][2:]) for s in split[start:]])
+    y = [float(s[2][:-2]) for s in split[start:]]
+    ys.append(y)
 
-ys = [y1, y2, y3]
-xs = [xaxis for _ in ys]
-
-from uniplot import plot
-plot(xs=xs, ys=ys, title="Sine wave")
+if '-term' in sys.argv:
+    from uniplot import plot
+    plot(
+        xs=xs,
+        ys=ys,
+        legend_labels=labels,
+        y_min=0,
+        y_max=150,
+        x_unit='(2^)',
+        y_unit='ns',
+        title="Per-element time spent (2^x elements, in ns)",
+    )
+else:
+    import matplotlib.pyplot as plt
+    for x, y, label in zip(xs, ys, labels):
+        plt.plot(x, y, label=label)
+    plt.legend()
+    plt.xlabel('number of elements (log_2)')
+    plt.ylabel('time per element (ns)')
+    plt.grid(visible=True)
+    plt.show()
