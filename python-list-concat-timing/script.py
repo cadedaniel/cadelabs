@@ -96,8 +96,7 @@ results = ray.get(
 for strategy, test_result in zip(strategies, results):
     print(f"==={strategy}")
     print(f"num_elements total_time time_per_element")
-    times, num_elems = test_result
-    for time, num_elem in zip(times, num_elems):
+    for time, num_elem in zip(*test_result):
         time_per_element_ns = 10e6 * time / num_elem
         power = int(math.log(num_elem, 2))
         print(f"2^{power} {time:0.2f}ms {time_per_element_ns:0.2f}ns")
