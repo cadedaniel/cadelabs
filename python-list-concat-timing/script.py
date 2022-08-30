@@ -58,6 +58,8 @@ def test_strategy(strategy: str, trial_set: str = "fast"):
         powers = (21, 25, 28)
     elif trial_set == "highres":
         powers = range(21, 29, 1)
+    elif trial_set == "wide_highres":
+        powers = range(1, 31, 1)
     else:
         raise ValueError(f"unknown trial set {trial_set}")
     trials = [1 << power for power in powers]
@@ -88,7 +90,7 @@ strategies = [
     "slow_create_list",
     "very_slow_create_list",
 ]
-trial_set = "highres"
+trial_set = "fast"
 results = ray.get(
     [test_strategy.remote(strategy, trial_set) for strategy in strategies]
 )
