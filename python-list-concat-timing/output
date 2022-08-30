@@ -1,0 +1,52 @@
+2022-08-29 17:58:13,598	INFO worker.py:1312 -- Connecting to existing Ray cluster at address: 127.0.0.1:6379...
+2022-08-29 17:58:13,605	INFO worker.py:1487 -- Connected to Ray cluster. View the dashboard at [1m[32mhttp://127.0.0.1:8265[39m[22m.
+===append
+num_elements total_time time_per_element
+2^21 0.12ms 0.59ns
+2^22 0.25ms 0.60ns
+2^23 0.63ms 0.75ns
+2^24 1.92ms 1.15ns
+2^25 2.52ms 0.75ns
+2^26 4.72ms 0.70ns
+2^27 31.04ms 2.31ns
+2^28 56.71ms 2.11ns
+===prepend
+num_elements total_time time_per_element
+2^21 8.17ms 38.97ns
+2^22 16.80ms 40.05ns
+2^23 35.38ms 42.17ns
+2^24 71.01ms 42.32ns
+2^25 140.42ms 41.85ns
+2^26 268.18ms 39.96ns
+2^27 550.52ms 41.02ns
+2^28 1119.31ms 41.70ns
+===create_list
+num_elements total_time time_per_element
+2^21 3.81ms 18.18ns
+2^22 7.50ms 17.88ns
+2^23 15.10ms 18.01ns
+2^24 29.77ms 17.74ns
+2^25 60.23ms 17.95ns
+2^26 138.44ms 20.63ns
+2^27 265.78ms 19.80ns
+2^28 525.04ms 19.56ns
+===slow_create_list
+num_elements total_time time_per_element
+2^21 60.20ms 287.06ns
+2^22 119.48ms 284.85ns
+2^23 241.73ms 288.16ns
+2^24 507.74ms 302.63ns
+2^25 983.78ms 293.19ns
+2^26 1931.31ms 287.79ns
+2^27 3669.25ms 273.38ns
+2^28 9007.18ms 335.54ns
+===very_slow_create_list
+num_elements total_time time_per_element
+2^21 118.54ms 565.22ns
+2^22 242.09ms 577.19ns
+2^23 463.68ms 552.75ns
+2^24 927.67ms 552.93ns
+2^25 1842.57ms 549.13ns
+2^26 3702.41ms 551.70ns
+2^27 7202.93ms 536.66ns
+2^28 15176.63ms 565.37ns
