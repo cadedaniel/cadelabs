@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import math
+xaxis = list(range(600, 1200))
+y1 = [math.sin(i/20)+i/300 for i in range(600)]
+y2 = [math.cos(i/20)+i/300 for i in range(600)]
+y3 = [math.sin(i/20) for i in range(600)]
+
+ys = [y1, y2, y3]
+xs = [xaxis for _ in ys]
+
+from uniplot import plot
+plot(xs=xs, ys=ys, title="Sine wave")
