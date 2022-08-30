@@ -4,6 +4,7 @@ import time
 import math
 import ray
 
+
 @ray.remote(num_cpus=1)
 def time_very_slow_create_list(num_elem: int) -> float:
     start_time = time.time()
@@ -13,12 +14,14 @@ def time_very_slow_create_list(num_elem: int) -> float:
     stop_time = time.time()
     return 1000 * (stop_time - start_time)
 
+
 @ray.remote(num_cpus=1)
 def time_slow_create_list(num_elem: int) -> float:
     start_time = time.time()
     a = [None for _ in range(num_elem)]
     stop_time = time.time()
     return 1000 * (stop_time - start_time)
+
 
 @ray.remote(num_cpus=1)
 def time_prepend(num_elem: int) -> float:
@@ -28,6 +31,7 @@ def time_prepend(num_elem: int) -> float:
     stop_time = time.time()
     return 1000 * (stop_time - start_time)
 
+
 @ray.remote(num_cpus=1)
 def time_append(num_elem: int) -> float:
     a = [None] * num_elem
@@ -36,6 +40,7 @@ def time_append(num_elem: int) -> float:
     stop_time = time.time()
     return 1000 * (stop_time - start_time)
 
+
 @ray.remote(num_cpus=1)
 def time_create_list(num_elem: int) -> float:
     start_time = time.time()
@@ -43,31 +48,32 @@ def time_create_list(num_elem: int) -> float:
     stop_time = time.time()
     return 1000 * (stop_time - start_time)
 
+
 @ray.remote(num_cpus=1)
-def test_strategy(strategy: str, trial_set: str = 'fast'):
-    
-    if trial_set == 'fast':
+def test_strategy(strategy: str, trial_set: str = "fast"):
+
+    if trial_set == "fast":
         powers = (21, 23, 25)
-    elif trial_set == 'lowres':
+    elif trial_set == "lowres":
         powers = (21, 25, 28)
-    elif trial_set == 'highres':
+    elif trial_set == "highres":
         powers = range(21, 29, 1)
     else:
-        raise ValueError(f'unknown trial set {trial_set}')
+        raise ValueError(f"unknown trial set {trial_set}")
     trials = [1 << power for power in powers]
-    
-    if strategy == 'prepend':
+
+    if strategy == "prepend":
         f = time_prepend
-    elif strategy == 'append':
+    elif strategy == "append":
         f = time_append
-    elif strategy == 'create_list':
+    elif strategy == "create_list":
         f = time_create_list
-    elif strategy == 'slow_create_list':
+    elif strategy == "slow_create_list":
         f = time_slow_create_list
-    elif strategy == 'very_slow_create_list':
+    elif strategy == "very_slow_create_list":
         f = time_very_slow_create_list
     else:
-        raise ValueError(f'unknown strategy {strategy}')
+        raise ValueError(f"unknown strategy {strategy}")
 
     times = ray.get([f.remote(num_elem) for num_elem in trials])
     return times, trials
@@ -76,20 +82,20 @@ def test_strategy(strategy: str, trial_set: str = 'fast'):
 ray.init()
 
 strategies = [
-    'append',
-    'prepend',
-    'create_list',
-    'slow_create_list',
-    'very_slow_create_list'
+    "append",
+    "prepend",
+    "create_list",
+    "slow_create_list",
+    "very_slow_create_list",
 ]
-trial_set = 'highres'
+trial_set = "highres"
 results = ray.get(
     [test_strategy.remote(strategy, trial_set) for strategy in strategies]
 )
 
 for strategy, test_result in zip(strategies, results):
-    print(f'==={strategy}')
-    print(f'num_elements total_time time_per_element')
+    print(f"==={strategy}")
+    print(f"num_elements total_time time_per_element")
     times, num_elems = test_result
     for time, num_elem in zip(times, num_elems):
         time_per_element_ns = 10e6 * time / num_elem
