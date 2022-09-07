@@ -22,6 +22,7 @@ def arg_only_worker(x):
 
 @ray.remote
 def arg_and_rval_worker(x):
+    assert len(x) == arg_data_size
     return os.urandom(rval_data_size)
 
 
@@ -45,6 +46,9 @@ def test_method(method):
         else:
             ref = method.remote()
         rval = ray.get(ref)
+
+        if rval:
+            assert len(rval) == rval_data_size
 
         del arg
         del rval
