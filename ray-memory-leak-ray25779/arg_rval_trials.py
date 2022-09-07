@@ -6,8 +6,8 @@ import gc
 import time
 
 ray.init(address='localhost:6379')
-arg_data_size = 5 * 1 << 20 # 5MB
-rval_data_size = arg_data_size
+arg_data_size = 3 * 1 << 20 # 3MB
+rval_data_size = 2 * 1 << 20 #2MB
 
 @ray.remote
 def rval_only_worker():
