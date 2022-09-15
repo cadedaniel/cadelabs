@@ -1,0 +1,55 @@
+cluster_name: cade-ray-distributed-jax
+
+#max_workers: 2
+
+docker:
+  image: "959243851260.dkr.ecr.us-west-2.amazonaws.com/cade-test:ray-dist-jax"
+  #image: "rayproject/ray:2.0.0-py37-gpu"
+  container_name: "ray_container"
+  worker_run_options:
+    - --gpus=all
+
+provider:
+  type: aws
+  region: us-west-2
+  availability_zone: us-west-2a
+
+auth:
+  ssh_user: ubuntu
+  ssh_private_key: ~/.ssh/cade-legacy-work.pem
+
+initialization_commands:
+    - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 959243851260.dkr.ecr.us-west-2.amazonaws.com
+
+available_node_types:
+  # Configurations for the head node.
+  head:
+    resources:
+      cpu: 0
+    node_config:
+      InstanceType: m5.4xlarge
+      ImageId: latest_dlami
+      KeyName: cade-legacy-work
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 1000
+
+  worker:
+    min_workers: 2
+    max_workers: 2
+    resources:
+      cpu: 8
+      gpu: 1
+    node_config:
+      InstanceType: p3.2xlarge
+      ImageId: latest_dlami
+      KeyName: cade-legacy-work
+      IamInstanceProfile:
+        Arn: arn:aws:iam::959243851260:instance-profile/ray-autoscaler-v1 
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 1000
+
+head_node_type: head
