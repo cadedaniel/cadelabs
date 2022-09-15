@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+output=$( docker build -f Dockerfile . 2>&1 | tee /dev/tty )
+image_id=$(echo "$output" | grep 'Successfully built' | awk '{print $3}')
+echo Running $image_id
+docker run \
+    -v /home/ubuntu/dev/cadelabs/distributed-jax-ray/build:/workspace \
+    -u $(id -u):$(id -g) \
+    --gpus=all \
+    -it \
+    "$image_id" bash

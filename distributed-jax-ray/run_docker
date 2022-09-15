@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+nvidia-docker \
+    run \
+    -it \
+    -v /home/ubuntu/dev:/workspace/dev \
+    nvidia/cuda:11.6.1-runtime-ubuntu18.04 \
+    bash
