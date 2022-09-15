@@ -1,0 +1,32 @@
+#!/usr/bin/python3.9
+
+import tensorflow as tf
+import numpy as np
+
+
+dataset_size = 1000
+image_dims = (1, 224, 224, 3)
+train_dataset_size_ratio = 0.8
+
+dataset = np.empty((dataset_size, *image_dims), dtype=np.uint8)
+labels = np.empty((dataset_size, 1), dtype=np.int32)
+
+train_examples = dataset[:int(dataset_size * train_dataset_size_ratio)]
+train_labels = labels[:int(dataset_size * train_dataset_size_ratio)]
+
+test_examples  = dataset[int(dataset_size * train_dataset_size_ratio):]
+test_labels = labels[int(dataset_size * train_dataset_size_ratio):]
+
+train_dataset = tf.data.Dataset.from_tensor_slices((train_examples, train_labels))
+test_dataset = tf.data.Dataset.from_tensor_slices((test_examples, test_labels))
+
+model = tf.keras.applications.resnet50.ResNet50(
+    weights=None,
+    #input_tensor=None,
+    #input_shape=None,
+    #pooling=None,
+    #classes=1000,
+)
+
+model.compile(optimizer="rmsprop", loss="sparse_categorical_crossentropy")
+model.fit(train_dataset)
