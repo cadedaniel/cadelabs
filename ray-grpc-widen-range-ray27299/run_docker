@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+nvidia-docker \
+    run \
+    -it \
+    -v /home/ubuntu/dev:/workspace/dev \
+    rayproject/ray-ml:2.0.0-gpu \
+    bash

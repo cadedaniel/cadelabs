@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+versions="1.43 1.44 1.45 1.46 1.47 1.48.1"
+
+for version in $versions; do
+    printf "Uninstalling\n"
+    pip uninstall grpcio -y
+
+    printf "Installing version $version\n"
+
+    pip install grpcio==$version
+
+    printf "Running script on version $version\n"
+    ./script.py
+done
