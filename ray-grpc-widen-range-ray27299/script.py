@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-
 import ray
-
 ray.init()
 
-print('hello world')
+
+@ray.remote
+def task(argument):
+    print(argument)
+
+ray.get(task.remote('Hello world'))
