@@ -2,16 +2,31 @@
 
 set -e
 
-versions="1.43 1.44 1.45 1.46 1.47 1.48.1"
+source /home/ray/anaconda3/etc/profile.d/conda.sh
 
-for version in $versions; do
-    printf "Uninstalling\n"
-    pip uninstall grpcio -y
+ray_wheels="$(aws s3 ls s3://ray-ci-artifact-pr-public/c57889c52b33b1c37be08eaa57f6fa18c557ba9b/tmp/artifacts/.whl/ | grep -v 'cpp' | awk '{print $4}')"
+grpcio_versions="1.43 1.44 1.45 1.46 1.47 1.48.1"
 
-    printf "Installing version $version\n"
+for ray_wheel in $ray_wheels; do
 
-    pip install grpcio==$version
+    echo $ray_wheel
+    conda_create_cmd=$(echo $ray_wheel | sed 's/-/ /'g | awk '{print $3}' | sed 's/cp//g' | sed 's/3/3\./g' | sed 's/^/conda create -n temp python=/g')
+    $conda_create_cmd --yes
+    conda activate temp
+    
+    for grpcio_version in $grpcio_versions; do
+        printf "Uninstalling\n"
+        pip uninstall grpcio -y
+        pip uninstall ray -y
+    
+        printf "Installing grpcio_version $grpcio_version\n"
+    
+        pip install grpcio==$grpcio_version
 
-    printf "Running script on version $version\n"
-    ./script.py
+        printf "Installing Ray wheel $ray_wheel"
+        pip install "https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/08c7c6107f54c500b628721dc4e80bc23fe7b17d/tmp/artifacts/.whl/$ray_wheel"
+    
+        printf "Running script on grpcio_version $grpcio_version\n"
+        ./script.py
+    done
 done

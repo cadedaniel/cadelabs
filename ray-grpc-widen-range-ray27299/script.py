@@ -5,6 +5,7 @@ ray.init()
 
 @ray.remote
 def task(argument):
-    print(argument)
+    import grpc
+    print(argument, grpc.__version__)
 
 ray.get(task.remote('Hello world'))
