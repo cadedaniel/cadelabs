@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+ssh \
+    -tt \
+    -L 8265:localhost:8265 \
+    -L 6379:localhost:6379 \
+    -i ~/.ssh/cade-legacy-work.pem \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -o IdentitiesOnly=yes \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=5 \
+    -o ServerAliveCountMax=3 \
+    -o ConnectTimeout=120s \
+    ubuntu@34.222.158.25 \
+    sleep 365d
+
+    #-o ControlMaster=auto \
+    #-o ControlPath=/tmp/ray_ssh_b2224209fc/3e4faba1b5/%C \
+    #-o ControlPersist=10s \

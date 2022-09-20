@@ -8,11 +8,13 @@ docker:
   container_name: "ray_container"
   worker_run_options:
     - --gpus=all
+  #pull_before_run: True
 
 provider:
   type: aws
   region: us-west-2
   availability_zone: us-west-2a
+  cache_stopped_nodes: False
 
 auth:
   ssh_user: ubuntu
@@ -30,6 +32,8 @@ available_node_types:
       InstanceType: m5.4xlarge
       ImageId: latest_dlami
       KeyName: cade-legacy-work
+      IamInstanceProfile:
+        Arn: arn:aws:iam::959243851260:instance-profile/ray-autoscaler-v1 
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:

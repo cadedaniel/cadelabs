@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ssh "ubuntu@$1" -i ~/.ssh/cade-legacy-work.pem

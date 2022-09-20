@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+function work {
+    local ip=$1
+    ssh ubuntu@$ip -i ~/.ssh/cade-legacy-work.pem docker kill ray_container
+    ssh ubuntu@$ip -i ~/.ssh/cade-legacy-work.pem docker pull 959243851260.dkr.ecr.us-west-2.amazonaws.com/cade-test:ray-dist-jax
+    ssh ubuntu@$ip -i ~/.ssh/cade-legacy-work.pem docker run --rm --name ray_container -d -it  -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 --gpus=all --shm-size='20825740615.68b' --runtime=nvidia --net=host 959243851260.dkr.ecr.us-west-2.amazonaws.com/cade-test:ray-dist-jax bash
+}
+
+ips=$(ray get-worker-ips cluster.yaml | grep -v 'Creating AWS')
+for ip in $ips; do
+    work $ip &
+done
+wait
