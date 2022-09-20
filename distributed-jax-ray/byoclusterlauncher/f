@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import fabric
+
+ips = """
+35.89.134.30
+34.219.15.50
+52.88.239.117
+54.68.31.32
+""".strip().split('\n')
+
+connect_kwargs = {
+}
+
+group = fabric.group.ThreadingGroup(*ips, user='ubuntu', connect_kwargs=connect_kwargs)
+#results = group.run('docker pull rayproject/ray-ml:2.0.0-py36-cpu')
+#for key, value in results.items():
+#    print(key, value)
+
+#results = group.run('docker run -itd --name ray rayproject/ray-ml:2.0.0-py36-cpu sleep 365d')
+#for key, value in results.items():
+#    print(key, value)
+
+results = group.run('docker exec ray ray start --address=35.89.134.30')
+for key, value in results.items():
+    print(key, value)
+
+results = group.run('docker ps')
+for key, value in results.items():
+    print(key, value)
+
+#result = Connection('web1.example.com').run('uname -s', hide=True)
+#msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+#print(msg.format(result))
+#print(ips)
