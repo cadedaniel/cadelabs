@@ -1,0 +1,1893 @@
+ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/ray/anaconda3/envs/temp
+
+  added / updated specs:
+    - python=3.10
+
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+  bzip2              pkgs/main/linux-64::bzip2-1.0.8-h7b6447c_0
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.07.19-h06a4308_0
+  certifi            pkgs/main/linux-64::certifi-2022.9.14-py310h06a4308_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+  libuuid            pkgs/main/linux-64::libuuid-1.0.3-h7f8727e_2
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h5eee18b_3
+  openssl            pkgs/main/linux-64::openssl-1.1.1q-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-22.1.2-py310h06a4308_0
+  python             pkgs/main/linux-64::python-3.10.4-h12debd9_0
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  setuptools         pkgs/main/linux-64::setuptools-63.4.1-py310h06a4308_0
+  sqlite             pkgs/main/linux-64::sqlite-3.39.2-h5082296_0
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0
+  tzdata             pkgs/main/noarch::tzdata-2022c-h04d1e81_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7f8727e_1
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h5eee18b_3
+
+
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.13.0
+  latest version: 4.14.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+#
+# To activate this environment, use
+#
+#     $ conda activate temp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Uninstalling
+WARNING: Skipping grpcio as it is not installed.
+WARNING: Skipping ray as it is not installed.
+Installing grpcio_version 1.43
+Collecting grpcio==1.43
+  Using cached grpcio-1.43.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+Collecting six>=1.5.2
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, grpcio
+Successfully installed grpcio-1.43.0 six-1.16.0
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.43.0)
+Collecting attrs
+  Using cached attrs-22.1.0-py2.py3-none-any.whl (58 kB)
+Collecting virtualenv>=20.0.24
+  Using cached virtualenv-20.16.5-py3-none-any.whl (8.8 MB)
+Collecting packaging
+  Using cached packaging-21.3-py3-none-any.whl (40 kB)
+Collecting requests
+  Using cached requests-2.28.1-py3-none-any.whl (62 kB)
+Collecting numpy>=1.19.3
+  Using cached numpy-1.23.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.1 MB)
+Collecting pyyaml
+  Using cached PyYAML-6.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (682 kB)
+Collecting jsonschema
+  Using cached jsonschema-4.16.0-py3-none-any.whl (83 kB)
+Collecting aiosignal
+  Using cached aiosignal-1.2.0-py3-none-any.whl (8.2 kB)
+Collecting filelock
+  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)
+Collecting protobuf<4.0.0,>=3.15.3
+  Using cached protobuf-3.20.2-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.1 MB)
+Collecting frozenlist
+  Using cached frozenlist-1.3.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (149 kB)
+Collecting msgpack<2.0.0,>=1.0.0
+  Using cached msgpack-1.0.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (316 kB)
+Collecting click<=8.0.4,>=7.0
+  Using cached click-8.0.4-py3-none-any.whl (97 kB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Collecting platformdirs<3,>=2.4
+  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)
+Collecting distlib<1,>=0.3.5
+  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0
+  Using cached pyrsistent-0.18.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (115 kB)
+Collecting pyparsing!=3.0.5,>=2.0.2
+  Using cached pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Collecting idna<4,>=2.5
+  Using cached idna-3.4-py3-none-any.whl (61 kB)
+Collecting charset-normalizer<3,>=2
+  Using cached charset_normalizer-2.1.1-py3-none-any.whl (39 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Using cached urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+Installing collected packages: msgpack, distlib, urllib3, pyyaml, pyrsistent, pyparsing, protobuf, platformdirs, numpy, idna, frozenlist, filelock, click, charset-normalizer, attrs, virtualenv, requests, packaging, jsonschema, aiosignal, ray
+Successfully installed aiosignal-1.2.0 attrs-22.1.0 charset-normalizer-2.1.1 click-8.0.4 distlib-0.3.6 filelock-3.8.0 frozenlist-1.3.1 idna-3.4 jsonschema-4.16.0 msgpack-1.0.4 numpy-1.23.3 packaging-21.3 platformdirs-2.5.2 protobuf-3.20.2 pyparsing-3.0.9 pyrsistent-0.18.1 pyyaml-6.0 ray-3.0.0.dev0 requests-2.28.1 urllib3-1.26.12 virtualenv-20.16.5
+Running script on grpcio_version 1.43
+2022-09-19 17:46:15,766	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:46:15,884	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=11965)[0m Hello world 1.43.0 3.10.4
+Uninstalling
+Found existing installation: grpcio 1.43.0
+Uninstalling grpcio-1.43.0:
+  Successfully uninstalled grpcio-1.43.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.44
+Collecting grpcio==1.44
+  Using cached grpcio-1.44.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio==1.44) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.44.0
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.44.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: packaging in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (21.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from packaging->ray==3.0.0.dev0) (3.0.9)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.44
+E0919 17:46:31.556649814   12209 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:46:31.562365966   12209 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:46:32,275	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+E0919 17:46:32.277790503   12209 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:46:32.282118550   12209 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:46:32,392	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=12296)[0m Hello world 1.44.0 3.10.4
+Uninstalling
+Found existing installation: grpcio 1.44.0
+Uninstalling grpcio-1.44.0:
+  Successfully uninstalled grpcio-1.44.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.45
+Collecting grpcio==1.45
+  Using cached grpcio-1.45.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio==1.45) (1.16.0)
+WARNING: The candidate selected for download or install is a yanked version: 'grpcio' candidate (version 1.45.0 at https://files.pythonhosted.org/packages/0e/61/2ff6bfb320736ba11f4d9448bf9b5bfe33651249dce4ecb3276cf8a799b7/grpcio-1.45.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=db1c45daa35c64f17498af1ba6eb1d0a8d88a8a0b6b322f960ab461e7ef0419e (from https://pypi.org/simple/grpcio/) (requires-python:>=3.6))
+Reason for being yanked: Segfaults
+Installing collected packages: grpcio
+Successfully installed grpcio-1.45.0
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.45.0)
+Requirement already satisfied: packaging in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (21.3)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from packaging->ray==3.0.0.dev0) (3.0.9)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.45
+2022-09-19 17:46:48,750	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:46:48,865	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=12620)[0m Hello world 1.45.0 3.10.4
+Uninstalling
+Found existing installation: grpcio 1.45.0
+Uninstalling grpcio-1.45.0:
+  Successfully uninstalled grpcio-1.45.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.46
+Collecting grpcio==1.46
+  Using cached grpcio-1.46.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio==1.46) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.46.0
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.46.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: packaging in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (21.3)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from packaging->ray==3.0.0.dev0) (3.0.9)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.46
+2022-09-19 17:47:05,123	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:47:05,241	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=12966)[0m Hello world 1.46.0 3.10.4
+Uninstalling
+Found existing installation: grpcio 1.46.0
+Uninstalling grpcio-1.46.0:
+  Successfully uninstalled grpcio-1.46.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.47
+Collecting grpcio==1.47
+  Using cached grpcio-1.47.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio==1.47) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.47.0
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: packaging in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (21.3)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.47.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from packaging->ray==3.0.0.dev0) (3.0.9)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.47
+2022-09-19 17:47:21,587	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:47:21,704	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=13318)[0m Hello world 1.47.0 3.10.4
+Uninstalling
+Found existing installation: grpcio 1.47.0
+Uninstalling grpcio-1.47.0:
+  Successfully uninstalled grpcio-1.47.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.48.1
+Collecting grpcio==1.48.1
+  Using cached grpcio-1.48.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio==1.48.1) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.48.1
+Installing Ray wheel ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp310-cp310-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: packaging in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (21.3)
+Requirement already satisfied: grpcio>=1.42.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from ray==3.0.0.dev0) (1.48.1)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from grpcio>=1.42.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from packaging->ray==3.0.0.dev0) (3.0.9)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.10/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.48.1
+2022-09-19 17:47:38,039	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:47:38,158	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=13704)[0m Hello world 1.48.1 3.10.4
+ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/ray/anaconda3/envs/temp
+
+  added / updated specs:
+    - python=3.6
+
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.07.19-h06a4308_0
+  certifi            pkgs/main/linux-64::certifi-2021.5.30-py36h06a4308_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h5eee18b_3
+  openssl            pkgs/main/linux-64::openssl-1.1.1q-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-21.2.2-py36h06a4308_0
+  python             pkgs/main/linux-64::python-3.6.13-h12debd9_1
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  setuptools         pkgs/main/linux-64::setuptools-58.0.4-py36h06a4308_0
+  sqlite             pkgs/main/linux-64::sqlite-3.39.2-h5082296_0
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7f8727e_1
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h5eee18b_3
+
+
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.13.0
+  latest version: 4.14.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+#
+# To activate this environment, use
+#
+#     $ conda activate temp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Uninstalling
+WARNING: Skipping grpcio as it is not installed.
+WARNING: Skipping ray as it is not installed.
+Installing grpcio_version 1.43
+Collecting grpcio==1.43
+  Using cached grpcio-1.43.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+Collecting six>=1.5.2
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, grpcio
+Successfully installed grpcio-1.43.0 six-1.16.0
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Downloading https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Collecting numpy>=1.16
+  Using cached numpy-1.19.5-cp36-cp36m-manylinux2010_x86_64.whl (14.8 MB)
+Collecting typing-extensions
+  Using cached typing_extensions-4.1.1-py3-none-any.whl (26 kB)
+Collecting msgpack<2.0.0,>=1.0.0
+  Using cached msgpack-1.0.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (300 kB)
+Collecting filelock
+  Using cached filelock-3.4.1-py3-none-any.whl (9.9 kB)
+Collecting aiosignal
+  Using cached aiosignal-1.2.0-py3-none-any.whl (8.2 kB)
+Collecting requests
+  Using cached requests-2.27.1-py2.py3-none-any.whl (63 kB)
+Collecting dataclasses
+  Using cached dataclasses-0.8-py3-none-any.whl (19 kB)
+Collecting attrs
+  Using cached attrs-22.1.0-py2.py3-none-any.whl (58 kB)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.43.0)
+Collecting frozenlist
+  Using cached frozenlist-1.2.0-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (191 kB)
+Collecting virtualenv>=20.0.24
+  Using cached virtualenv-20.16.5-py3-none-any.whl (8.8 MB)
+Collecting protobuf<4.0.0,>=3.15.3
+  Using cached protobuf-3.19.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)
+Collecting pyyaml
+  Using cached PyYAML-6.0-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (603 kB)
+Collecting jsonschema
+  Using cached jsonschema-3.2.0-py2.py3-none-any.whl (56 kB)
+Collecting click<=8.0.4,>=7.0
+  Using cached click-8.0.4-py3-none-any.whl (97 kB)
+Collecting importlib-metadata
+  Using cached importlib_metadata-4.8.3-py3-none-any.whl (17 kB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Collecting platformdirs<3,>=2.4
+  Using cached platformdirs-2.4.0-py3-none-any.whl (14 kB)
+Collecting distlib<1,>=0.3.5
+  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)
+Collecting importlib-resources>=5.4
+  Using cached importlib_resources-5.4.0-py3-none-any.whl (28 kB)
+Collecting zipp>=0.5
+  Using cached zipp-3.6.0-py3-none-any.whl (5.3 kB)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Collecting pyrsistent>=0.14.0
+  Using cached pyrsistent-0.18.0-cp36-cp36m-manylinux1_x86_64.whl (117 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Using cached urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.4-py3-none-any.whl (61 kB)
+Collecting charset-normalizer~=2.0.0
+  Using cached charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Installing collected packages: zipp, typing-extensions, urllib3, pyrsistent, platformdirs, importlib-resources, importlib-metadata, idna, frozenlist, filelock, distlib, charset-normalizer, attrs, virtualenv, requests, pyyaml, protobuf, numpy, msgpack, jsonschema, dataclasses, click, aiosignal, ray
+Successfully installed aiosignal-1.2.0 attrs-22.1.0 charset-normalizer-2.0.12 click-8.0.4 dataclasses-0.8 distlib-0.3.6 filelock-3.4.1 frozenlist-1.2.0 idna-3.4 importlib-metadata-4.8.3 importlib-resources-5.4.0 jsonschema-3.2.0 msgpack-1.0.4 numpy-1.19.5 platformdirs-2.4.0 protobuf-3.19.5 pyrsistent-0.18.0 pyyaml-6.0 ray-3.0.0.dev0 requests-2.27.1 typing-extensions-4.1.1 urllib3-1.26.12 virtualenv-20.16.5 zipp-3.6.0
+Running script on grpcio_version 1.43
+2022-09-19 17:48:09,938	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:48:10,056	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=14381)[0m Hello world 1.43.0 3.6.13
+Uninstalling
+Found existing installation: grpcio 1.43.0
+Uninstalling grpcio-1.43.0:
+  Successfully uninstalled grpcio-1.43.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.44
+Collecting grpcio==1.44
+  Using cached grpcio-1.44.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio==1.44) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.44.0
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (4.1.1)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (2.27.1)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.19.5)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.19.5)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.44.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: dataclasses in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (0.8)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.2.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.4.1)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.8.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.4.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: importlib-resources>=5.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (5.4.0)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.6.0)
+Requirement already satisfied: pyrsistent>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.0)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2.0.12)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.44
+E0919 17:48:26.761397256   14664 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:48:26.766711630   14664 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:48:27,584	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+E0919 17:48:27.585984672   14664 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:48:27.590405029   14664 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:48:27,701	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=14759)[0m Hello world 1.44.0 3.6.13
+Uninstalling
+Found existing installation: grpcio 1.44.0
+Uninstalling grpcio-1.44.0:
+  Successfully uninstalled grpcio-1.44.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.45
+Collecting grpcio==1.45
+  Downloading grpcio-1.45.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio==1.45) (1.16.0)
+WARNING: The candidate selected for download or install is a yanked version: 'grpcio' candidate (version 1.45.0 at https://files.pythonhosted.org/packages/49/24/1d4f6a1b65b79fe348750c89ccc1f095deed1877f2df9cc2e86e5c797908/grpcio-1.45.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=0b18c86a9cfbedd0c4e083690fecc82027b3f938100ed0af8db77d52a171eb1e (from https://pypi.org/simple/grpcio/) (requires-python:>=3.6))
+Reason for being yanked: Segfaults
+Installing collected packages: grpcio
+Successfully installed grpcio-1.45.0
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (2.27.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.2.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.19.5)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.19.5)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (4.1.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.45.0)
+Requirement already satisfied: dataclasses in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (0.8)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.4.1)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.8.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.4.0)
+Requirement already satisfied: importlib-resources>=5.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (5.4.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.6.0)
+Requirement already satisfied: pyrsistent>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.0)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2.0.12)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.45
+2022-09-19 17:48:46,296	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:48:46,417	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=15141)[0m Hello world 1.45.0 3.6.13
+Uninstalling
+Found existing installation: grpcio 1.45.0
+Uninstalling grpcio-1.45.0:
+  Successfully uninstalled grpcio-1.45.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.46
+Collecting grpcio==1.46
+  Downloading grpcio-1.46.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio==1.46) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.46.0
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (4.1.1)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.19.5)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: dataclasses in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (0.8)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (2.27.1)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.4.1)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.2.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.46.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.19.5)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.8.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: importlib-resources>=5.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (5.4.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.4.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.6.0)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Requirement already satisfied: pyrsistent>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2.0.12)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.46
+2022-09-19 17:49:04,222	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:49:04,342	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=15544)[0m Hello world 1.46.0 3.6.13
+Uninstalling
+Found existing installation: grpcio 1.46.0
+Uninstalling grpcio-1.46.0:
+  Successfully uninstalled grpcio-1.46.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.47
+Collecting grpcio==1.47
+  Downloading grpcio-1.47.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio==1.47) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.47.0
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.19.5)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.47.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.4.1)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.19.5)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.2.0)
+Requirement already satisfied: dataclasses in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (0.8)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (2.27.1)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (4.1.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.8.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.4.0)
+Requirement already satisfied: importlib-resources>=5.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (5.4.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.6.0)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Requirement already satisfied: pyrsistent>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.0)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2.0.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.47
+2022-09-19 17:49:22,131	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:49:22,250	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=15941)[0m Hello world 1.47.0 3.6.13
+Uninstalling
+Found existing installation: grpcio 1.47.0
+Uninstalling grpcio-1.47.0:
+  Successfully uninstalled grpcio-1.47.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.48.1
+Collecting grpcio==1.48.1
+  Downloading grpcio-1.48.1-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio==1.48.1) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.48.1
+Installing Ray wheel ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp36-cp36m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (2.27.1)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.19.5)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.4.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: dataclasses in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (0.8)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.48.1)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.19.5)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (3.2.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from ray==3.0.0.dev0) (4.1.1)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.8.3)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: importlib-resources>=5.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (5.4.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.4.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.6.0)
+Requirement already satisfied: setuptools in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (58.0.4)
+Requirement already satisfied: pyrsistent>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2.0.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.6/site-packages (from requests->ray==3.0.0.dev0) (2021.5.30)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.48.1
+2022-09-19 17:49:39,924	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:49:40,046	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=16382)[0m Hello world 1.48.1 3.6.13
+ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/ray/anaconda3/envs/temp
+
+  added / updated specs:
+    - python=3.7
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    certifi-2022.9.14          |   py37h06a4308_0         155 KB
+    python-3.7.13              |       h12debd9_0        46.2 MB
+    ------------------------------------------------------------
+                                           Total:        46.4 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.07.19-h06a4308_0
+  certifi            pkgs/main/linux-64::certifi-2022.9.14-py37h06a4308_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h5eee18b_3
+  openssl            pkgs/main/linux-64::openssl-1.1.1q-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-22.1.2-py37h06a4308_0
+  python             pkgs/main/linux-64::python-3.7.13-h12debd9_0
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  setuptools         pkgs/main/linux-64::setuptools-63.4.1-py37h06a4308_0
+  sqlite             pkgs/main/linux-64::sqlite-3.39.2-h5082296_0
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7f8727e_1
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h5eee18b_3
+
+
+
+Downloading and Extracting Packages
+certifi-2022.9.14    | 155 KB    |            |   0% certifi-2022.9.14    | 155 KB    | ########## | 100% certifi-2022.9.14    | 155 KB    | ########## | 100% 
+python-3.7.13        | 46.2 MB   |            |   0% python-3.7.13        | 46.2 MB   | #2         |  12% python-3.7.13        | 46.2 MB   | ###1       |  31% python-3.7.13        | 46.2 MB   | #####2     |  52% python-3.7.13        | 46.2 MB   | #######1   |  72% python-3.7.13        | 46.2 MB   | #########7 |  97% python-3.7.13        | 46.2 MB   | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.13.0
+  latest version: 4.14.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+#
+# To activate this environment, use
+#
+#     $ conda activate temp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Uninstalling
+WARNING: Skipping grpcio as it is not installed.
+WARNING: Skipping ray as it is not installed.
+Installing grpcio_version 1.43
+Collecting grpcio==1.43
+  Downloading grpcio-1.43.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 45.0 MB/s eta 0:00:00
+Collecting six>=1.5.2
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, grpcio
+Successfully installed grpcio-1.43.0 six-1.16.0
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Downloading https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.6/59.6 MB 12.3 MB/s eta 0:00:00
+Collecting pyyaml
+  Downloading PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 596.3/596.3 kB 15.6 MB/s eta 0:00:00
+Collecting requests
+  Using cached requests-2.28.1-py3-none-any.whl (62 kB)
+Collecting typing-extensions
+  Using cached typing_extensions-4.3.0-py3-none-any.whl (25 kB)
+Collecting virtualenv>=20.0.24
+  Using cached virtualenv-20.16.5-py3-none-any.whl (8.8 MB)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.43.0)
+Collecting filelock
+  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)
+Collecting protobuf<4.0.0,>=3.15.3
+  Downloading protobuf-3.20.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 51.4 MB/s eta 0:00:00
+Collecting frozenlist
+  Downloading frozenlist-1.3.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (148 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 148.0/148.0 kB 21.2 MB/s eta 0:00:00
+Collecting msgpack<2.0.0,>=1.0.0
+  Downloading msgpack-1.0.4-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (299 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 299.8/299.8 kB 38.0 MB/s eta 0:00:00
+Collecting click<=8.0.4,>=7.0
+  Using cached click-8.0.4-py3-none-any.whl (97 kB)
+Collecting aiosignal
+  Using cached aiosignal-1.2.0-py3-none-any.whl (8.2 kB)
+Collecting numpy>=1.16
+  Downloading numpy-1.21.6-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (15.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 61.9 MB/s eta 0:00:00
+Collecting attrs
+  Using cached attrs-22.1.0-py2.py3-none-any.whl (58 kB)
+Collecting jsonschema
+  Using cached jsonschema-4.16.0-py3-none-any.whl (83 kB)
+Collecting importlib-metadata
+  Using cached importlib_metadata-4.12.0-py3-none-any.whl (21 kB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Collecting distlib<1,>=0.3.5
+  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)
+Collecting platformdirs<3,>=2.4
+  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)
+Collecting pkgutil-resolve-name>=1.3.10
+  Downloading pkgutil_resolve_name-1.3.10-py3-none-any.whl (4.7 kB)
+Collecting importlib-resources>=1.4.0
+  Using cached importlib_resources-5.9.0-py3-none-any.whl (33 kB)
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0
+  Downloading pyrsistent-0.18.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (117 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.1/117.1 kB 17.0 MB/s eta 0:00:00
+Collecting urllib3<1.27,>=1.21.1
+  Using cached urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Collecting charset-normalizer<3,>=2
+  Using cached charset_normalizer-2.1.1-py3-none-any.whl (39 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.4-py3-none-any.whl (61 kB)
+Collecting zipp>=0.5
+  Using cached zipp-3.8.1-py3-none-any.whl (5.6 kB)
+Installing collected packages: msgpack, distlib, zipp, urllib3, typing-extensions, pyyaml, pyrsistent, protobuf, platformdirs, pkgutil-resolve-name, numpy, idna, frozenlist, filelock, charset-normalizer, attrs, requests, importlib-resources, importlib-metadata, aiosignal, virtualenv, jsonschema, click, ray
+Successfully installed aiosignal-1.2.0 attrs-22.1.0 charset-normalizer-2.1.1 click-8.0.4 distlib-0.3.6 filelock-3.8.0 frozenlist-1.3.1 idna-3.4 importlib-metadata-4.12.0 importlib-resources-5.9.0 jsonschema-4.16.0 msgpack-1.0.4 numpy-1.21.6 pkgutil-resolve-name-1.3.10 platformdirs-2.5.2 protobuf-3.20.2 pyrsistent-0.18.1 pyyaml-6.0 ray-3.0.0.dev0 requests-2.28.1 typing-extensions-4.3.0 urllib3-1.26.12 virtualenv-20.16.5 zipp-3.8.1
+Running script on grpcio_version 1.43
+2022-09-19 17:50:15,913	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:50:16,034	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=16987)[0m Hello world 1.43.0 3.7.13
+Uninstalling
+Found existing installation: grpcio 1.43.0
+Uninstalling grpcio-1.43.0:
+  Successfully uninstalled grpcio-1.43.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.44
+Collecting grpcio==1.44
+  Downloading grpcio-1.44.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 51.1 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio==1.44) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.44.0
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.44.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.3.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.21.6)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.12.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.44
+E0919 17:50:31.809266484   17252 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:50:31.814612350   17252 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:50:32,528	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+E0919 17:50:32.530748790   17252 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:50:32.535490186   17252 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:50:32,646	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=17349)[0m Hello world 1.44.0 3.7.13
+Uninstalling
+Found existing installation: grpcio 1.44.0
+Uninstalling grpcio-1.44.0:
+  Successfully uninstalled grpcio-1.44.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.45
+Collecting grpcio==1.45
+  Downloading grpcio-1.45.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 55.7 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio==1.45) (1.16.0)
+WARNING: The candidate selected for download or install is a yanked version: 'grpcio' candidate (version 1.45.0 at https://files.pythonhosted.org/packages/b8/ab/c7abc950e222c4cab5f7fd92107f3b09553061f673f1a670e6569105f584/grpcio-1.45.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=cc135b77f384a84bac67a37947886986be136356446338d64160a30c85f20c6d (from https://pypi.org/simple/grpcio/) (requires-python:>=3.6))
+Reason for being yanked: Segfaults
+Installing collected packages: grpcio
+Successfully installed grpcio-1.45.0
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.3.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.45.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.21.6)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.12.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.45
+2022-09-19 17:50:49,149	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:50:49,267	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=17709)[0m Hello world 1.45.0 3.7.13
+Uninstalling
+Found existing installation: grpcio 1.45.0
+Uninstalling grpcio-1.45.0:
+  Successfully uninstalled grpcio-1.45.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.46
+Collecting grpcio==1.46
+  Downloading grpcio-1.46.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 51.5 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio==1.46) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.46.0
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.3.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.21.6)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.46.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.12.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.46
+2022-09-19 17:51:05,855	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:51:05,973	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=18097)[0m Hello world 1.46.0 3.7.13
+Uninstalling
+Found existing installation: grpcio 1.46.0
+Uninstalling grpcio-1.46.0:
+  Successfully uninstalled grpcio-1.46.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.47
+Collecting grpcio==1.47
+  Downloading grpcio-1.47.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 46.0 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio==1.47) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.47.0
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.47.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.3.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.21.6)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.12.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.47
+2022-09-19 17:51:22,762	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:51:22,881	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=18476)[0m Hello world 1.47.0 3.7.13
+Uninstalling
+Found existing installation: grpcio 1.47.0
+Uninstalling grpcio-1.47.0:
+  Successfully uninstalled grpcio-1.47.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.48.1
+Collecting grpcio==1.48.1
+  Downloading grpcio-1.48.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 47.4 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio==1.48.1) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.48.1
+Installing Ray wheel ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl (59.6 MB)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.48.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: typing-extensions in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (4.3.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.21.6)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: importlib-metadata in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from click<=8.0.4,>=7.0->ray==3.0.0.dev0) (4.12.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: zipp>=0.5 in /home/ray/anaconda3/envs/temp/lib/python3.7/site-packages (from importlib-metadata->click<=8.0.4,>=7.0->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.48.1
+2022-09-19 17:51:39,530	WARNING services.py:1906 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:51:39,649	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=18903)[0m Hello world 1.48.1 3.7.13
+ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/ray/anaconda3/envs/temp
+
+  added / updated specs:
+    - python=3.8
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    certifi-2022.9.14          |   py38h06a4308_0         154 KB
+    pip-22.1.2                 |   py38h06a4308_0         2.5 MB
+    python-3.8.13              |       h12debd9_0        18.8 MB
+    setuptools-63.4.1          |   py38h06a4308_0         1.1 MB
+    ------------------------------------------------------------
+                                           Total:        22.5 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.07.19-h06a4308_0
+  certifi            pkgs/main/linux-64::certifi-2022.9.14-py38h06a4308_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h5eee18b_3
+  openssl            pkgs/main/linux-64::openssl-1.1.1q-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-22.1.2-py38h06a4308_0
+  python             pkgs/main/linux-64::python-3.8.13-h12debd9_0
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  setuptools         pkgs/main/linux-64::setuptools-63.4.1-py38h06a4308_0
+  sqlite             pkgs/main/linux-64::sqlite-3.39.2-h5082296_0
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7f8727e_1
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h5eee18b_3
+
+
+
+Downloading and Extracting Packages
+python-3.8.13        | 18.8 MB   |            |   0% python-3.8.13        | 18.8 MB   | 3          |   4% python-3.8.13        | 18.8 MB   | ######6    |  66% python-3.8.13        | 18.8 MB   | ########## | 100% 
+pip-22.1.2           | 2.5 MB    |            |   0% pip-22.1.2           | 2.5 MB    | ########## | 100% pip-22.1.2           | 2.5 MB    | ########## | 100% 
+certifi-2022.9.14    | 154 KB    |            |   0% certifi-2022.9.14    | 154 KB    | ########## | 100% 
+setuptools-63.4.1    | 1.1 MB    |            |   0% setuptools-63.4.1    | 1.1 MB    | ########## | 100% setuptools-63.4.1    | 1.1 MB    | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.13.0
+  latest version: 4.14.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+#
+# To activate this environment, use
+#
+#     $ conda activate temp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Uninstalling
+WARNING: Skipping grpcio as it is not installed.
+WARNING: Skipping ray as it is not installed.
+Installing grpcio_version 1.43
+Collecting grpcio==1.43
+  Downloading grpcio-1.43.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 46.9 MB/s eta 0:00:00
+Collecting six>=1.5.2
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, grpcio
+Successfully installed grpcio-1.43.0 six-1.16.0
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Downloading https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.4/59.4 MB 12.3 MB/s eta 0:00:00
+Collecting numpy>=1.16
+  Downloading numpy-1.23.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.1/17.1 MB 64.7 MB/s eta 0:00:00
+Collecting frozenlist
+  Downloading frozenlist-1.3.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (161 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 161.3/161.3 kB 24.0 MB/s eta 0:00:00
+Collecting pyyaml
+  Downloading PyYAML-6.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (701 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 701.2/701.2 kB 60.1 MB/s eta 0:00:00
+Collecting attrs
+  Using cached attrs-22.1.0-py2.py3-none-any.whl (58 kB)
+Collecting protobuf<4.0.0,>=3.15.3
+  Downloading protobuf-3.20.2-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 69.5 MB/s eta 0:00:00
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.43.0)
+Collecting click<=8.0.4,>=7.0
+  Using cached click-8.0.4-py3-none-any.whl (97 kB)
+Collecting filelock
+  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)
+Collecting virtualenv>=20.0.24
+  Using cached virtualenv-20.16.5-py3-none-any.whl (8.8 MB)
+Collecting jsonschema
+  Using cached jsonschema-4.16.0-py3-none-any.whl (83 kB)
+Collecting msgpack<2.0.0,>=1.0.0
+  Downloading msgpack-1.0.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (322 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 322.5/322.5 kB 38.5 MB/s eta 0:00:00
+Collecting aiosignal
+  Using cached aiosignal-1.2.0-py3-none-any.whl (8.2 kB)
+Collecting requests
+  Using cached requests-2.28.1-py3-none-any.whl (62 kB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Collecting platformdirs<3,>=2.4
+  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)
+Collecting distlib<1,>=0.3.5
+  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0
+  Downloading pyrsistent-0.18.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (119 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 119.8/119.8 kB 20.3 MB/s eta 0:00:00
+Collecting pkgutil-resolve-name>=1.3.10
+  Using cached pkgutil_resolve_name-1.3.10-py3-none-any.whl (4.7 kB)
+Collecting importlib-resources>=1.4.0
+  Using cached importlib_resources-5.9.0-py3-none-any.whl (33 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.4-py3-none-any.whl (61 kB)
+Collecting charset-normalizer<3,>=2
+  Using cached charset_normalizer-2.1.1-py3-none-any.whl (39 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Using cached urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Collecting zipp>=3.1.0
+  Using cached zipp-3.8.1-py3-none-any.whl (5.6 kB)
+Installing collected packages: msgpack, distlib, zipp, urllib3, pyyaml, pyrsistent, protobuf, platformdirs, pkgutil-resolve-name, numpy, idna, frozenlist, filelock, click, charset-normalizer, attrs, virtualenv, requests, importlib-resources, aiosignal, jsonschema, ray
+Successfully installed aiosignal-1.2.0 attrs-22.1.0 charset-normalizer-2.1.1 click-8.0.4 distlib-0.3.6 filelock-3.8.0 frozenlist-1.3.1 idna-3.4 importlib-resources-5.9.0 jsonschema-4.16.0 msgpack-1.0.4 numpy-1.23.3 pkgutil-resolve-name-1.3.10 platformdirs-2.5.2 protobuf-3.20.2 pyrsistent-0.18.1 pyyaml-6.0 ray-3.0.0.dev0 requests-2.28.1 urllib3-1.26.12 virtualenv-20.16.5 zipp-3.8.1
+Running script on grpcio_version 1.43
+2022-09-19 17:52:09,027	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:52:09,145	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=19490)[0m Hello world 1.43.0 3.8.13
+Uninstalling
+Found existing installation: grpcio 1.43.0
+Uninstalling grpcio-1.43.0:
+  Successfully uninstalled grpcio-1.43.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.44
+Collecting grpcio==1.44
+  Downloading grpcio-1.44.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 41.8 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio==1.44) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.44.0
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.44.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: zipp>=3.1.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.44
+E0919 17:52:24.721955808   19743 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:52:24.727442360   19743 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:52:25,441	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+E0919 17:52:25.443583927   19743 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:52:25.448093155   19743 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:52:25,558	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=19836)[0m Hello world 1.44.0 3.8.13
+Uninstalling
+Found existing installation: grpcio 1.44.0
+Uninstalling grpcio-1.44.0:
+  Successfully uninstalled grpcio-1.44.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.45
+Collecting grpcio==1.45
+  Downloading grpcio-1.45.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 48.1 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio==1.45) (1.16.0)
+WARNING: The candidate selected for download or install is a yanked version: 'grpcio' candidate (version 1.45.0 at https://files.pythonhosted.org/packages/7d/f9/e319f83f437aaab814880eceeeb6e91fc8f83f513fae979308a45d178d0f/grpcio-1.45.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=fb23ed6ed84ae312df03e96c7a7cd3aa5f7e3a1ad7066fdb6cd47f1bd334196c (from https://pypi.org/simple/grpcio/) (requires-python:>=3.6))
+Reason for being yanked: Segfaults
+Installing collected packages: grpcio
+Successfully installed grpcio-1.45.0
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.45.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: zipp>=3.1.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.45
+2022-09-19 17:52:42,086	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:52:42,203	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=20175)[0m Hello world 1.45.0 3.8.13
+Uninstalling
+Found existing installation: grpcio 1.45.0
+Uninstalling grpcio-1.45.0:
+  Successfully uninstalled grpcio-1.45.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.46
+Collecting grpcio==1.46
+  Downloading grpcio-1.46.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 45.6 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio==1.46) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.46.0
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.46.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: zipp>=3.1.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.46
+2022-09-19 17:52:58,709	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:52:58,826	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=20551)[0m Hello world 1.46.0 3.8.13
+Uninstalling
+Found existing installation: grpcio 1.46.0
+Uninstalling grpcio-1.46.0:
+  Successfully uninstalled grpcio-1.46.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.47
+Collecting grpcio==1.47
+  Downloading grpcio-1.47.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 48.9 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio==1.47) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.47.0
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.47.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: zipp>=3.1.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.47
+2022-09-19 17:53:14,985	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:53:15,102	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=20917)[0m Hello world 1.47.0 3.8.13
+Uninstalling
+Found existing installation: grpcio 1.47.0
+Uninstalling grpcio-1.47.0:
+  Successfully uninstalled grpcio-1.47.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.48.1
+Collecting grpcio==1.48.1
+  Downloading grpcio-1.48.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 56.4 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio==1.48.1) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.48.1
+Installing Ray wheel ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.48.1)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: numpy>=1.16 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (1.3.10)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from jsonschema->ray==3.0.0.dev0) (5.9.0)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: zipp>=3.1.0 in /home/ray/anaconda3/envs/temp/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema->ray==3.0.0.dev0) (3.8.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.48.1
+2022-09-19 17:53:31,439	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:53:31,558	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=21328)[0m Hello world 1.48.1 3.8.13
+ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/ray/anaconda3/envs/temp
+
+  added / updated specs:
+    - python=3.9
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    certifi-2022.9.14          |   py39h06a4308_0         155 KB
+    pip-22.1.2                 |   py39h06a4308_0         2.5 MB
+    python-3.9.13              |       haa1d7c7_1        20.8 MB
+    setuptools-63.4.1          |   py39h06a4308_0         1.1 MB
+    ------------------------------------------------------------
+                                           Total:        24.5 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.07.19-h06a4308_0
+  certifi            pkgs/main/linux-64::certifi-2022.9.14-py39h06a4308_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h5eee18b_3
+  openssl            pkgs/main/linux-64::openssl-1.1.1q-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-22.1.2-py39h06a4308_0
+  python             pkgs/main/linux-64::python-3.9.13-haa1d7c7_1
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  setuptools         pkgs/main/linux-64::setuptools-63.4.1-py39h06a4308_0
+  sqlite             pkgs/main/linux-64::sqlite-3.39.2-h5082296_0
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0
+  tzdata             pkgs/main/noarch::tzdata-2022c-h04d1e81_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7f8727e_1
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h5eee18b_3
+
+
+
+Downloading and Extracting Packages
+setuptools-63.4.1    | 1.1 MB    |            |   0% setuptools-63.4.1    | 1.1 MB    | ########## | 100% setuptools-63.4.1    | 1.1 MB    | ########## | 100% 
+certifi-2022.9.14    | 155 KB    |            |   0% certifi-2022.9.14    | 155 KB    | ########## | 100% 
+python-3.9.13        | 20.8 MB   |            |   0% python-3.9.13        | 20.8 MB   | ###2       |  33% python-3.9.13        | 20.8 MB   | ########6  |  87% python-3.9.13        | 20.8 MB   | ########## | 100% 
+pip-22.1.2           | 2.5 MB    |            |   0% pip-22.1.2           | 2.5 MB    | ########## | 100% pip-22.1.2           | 2.5 MB    | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.13.0
+  latest version: 4.14.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+#
+# To activate this environment, use
+#
+#     $ conda activate temp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Uninstalling
+WARNING: Skipping grpcio as it is not installed.
+WARNING: Skipping ray as it is not installed.
+Installing grpcio_version 1.43
+Collecting grpcio==1.43
+  Downloading grpcio-1.43.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 51.0 MB/s eta 0:00:00
+Collecting six>=1.5.2
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, grpcio
+Successfully installed grpcio-1.43.0 six-1.16.0
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Downloading https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.4/59.4 MB 16.1 MB/s eta 0:00:00
+Collecting click<=8.0.4,>=7.0
+  Using cached click-8.0.4-py3-none-any.whl (97 kB)
+Collecting filelock
+  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)
+Collecting msgpack<2.0.0,>=1.0.0
+  Downloading msgpack-1.0.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (322 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 322.4/322.4 kB 10.4 MB/s eta 0:00:00
+Collecting protobuf<4.0.0,>=3.15.3
+  Downloading protobuf-3.20.2-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 45.1 MB/s eta 0:00:00
+Collecting aiosignal
+  Using cached aiosignal-1.2.0-py3-none-any.whl (8.2 kB)
+Collecting numpy>=1.19.3
+  Downloading numpy-1.23.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.1/17.1 MB 70.4 MB/s eta 0:00:00
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.43.0)
+Collecting jsonschema
+  Using cached jsonschema-4.16.0-py3-none-any.whl (83 kB)
+Collecting frozenlist
+  Downloading frozenlist-1.3.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (158 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 158.8/158.8 kB 25.9 MB/s eta 0:00:00
+Collecting pyyaml
+  Downloading PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (661 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 661.8/661.8 kB 60.8 MB/s eta 0:00:00
+Collecting virtualenv>=20.0.24
+  Using cached virtualenv-20.16.5-py3-none-any.whl (8.8 MB)
+Collecting attrs
+  Using cached attrs-22.1.0-py2.py3-none-any.whl (58 kB)
+Collecting requests
+  Using cached requests-2.28.1-py3-none-any.whl (62 kB)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Collecting platformdirs<3,>=2.4
+  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)
+Collecting distlib<1,>=0.3.5
+  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0
+  Downloading pyrsistent-0.18.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (115 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 115.6/115.6 kB 20.1 MB/s eta 0:00:00
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Collecting charset-normalizer<3,>=2
+  Using cached charset_normalizer-2.1.1-py3-none-any.whl (39 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Using cached urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.4-py3-none-any.whl (61 kB)
+Installing collected packages: msgpack, distlib, urllib3, pyyaml, pyrsistent, protobuf, platformdirs, numpy, idna, frozenlist, filelock, click, charset-normalizer, attrs, virtualenv, requests, jsonschema, aiosignal, ray
+Successfully installed aiosignal-1.2.0 attrs-22.1.0 charset-normalizer-2.1.1 click-8.0.4 distlib-0.3.6 filelock-3.8.0 frozenlist-1.3.1 idna-3.4 jsonschema-4.16.0 msgpack-1.0.4 numpy-1.23.3 platformdirs-2.5.2 protobuf-3.20.2 pyrsistent-0.18.1 pyyaml-6.0 ray-3.0.0.dev0 requests-2.28.1 urllib3-1.26.12 virtualenv-20.16.5
+Running script on grpcio_version 1.43
+2022-09-19 17:54:00,837	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:54:00,955	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=21890)[0m Hello world 1.43.0 3.9.13
+Uninstalling
+Found existing installation: grpcio 1.43.0
+Uninstalling grpcio-1.43.0:
+  Successfully uninstalled grpcio-1.43.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.44
+Collecting grpcio==1.44
+  Downloading grpcio-1.44.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 47.8 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio==1.44) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.44.0
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.44.0)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.44
+E0919 17:54:17.762386039   22137 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:54:17.767652650   22137 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:54:18,482	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+E0919 17:54:18.484002580   22137 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E0919 17:54:18.488232512   22137 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-09-19 17:54:18,599	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=22219)[0m Hello world 1.44.0 3.9.13
+Uninstalling
+Found existing installation: grpcio 1.44.0
+Uninstalling grpcio-1.44.0:
+  Successfully uninstalled grpcio-1.44.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.45
+Collecting grpcio==1.45
+  Downloading grpcio-1.45.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 58.9 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio==1.45) (1.16.0)
+WARNING: The candidate selected for download or install is a yanked version: 'grpcio' candidate (version 1.45.0 at https://files.pythonhosted.org/packages/7e/16/8ba5fd3289e0a75244689a25ae96f9055af2f6489abcaf430bb0256a8789/grpcio-1.45.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=0fe6acb1439127e0bee773f8a9a3ece290cb4cac4fe8d46b10bc8dda250a990c (from https://pypi.org/simple/grpcio/) (requires-python:>=3.6))
+Reason for being yanked: Segfaults
+Installing collected packages: grpcio
+Successfully installed grpcio-1.45.0
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.45.0)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.45
+2022-09-19 17:54:34,682	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:54:34,798	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=22548)[0m Hello world 1.45.0 3.9.13
+Uninstalling
+Found existing installation: grpcio 1.45.0
+Uninstalling grpcio-1.45.0:
+  Successfully uninstalled grpcio-1.45.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.46
+Collecting grpcio==1.46
+  Downloading grpcio-1.46.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 54.3 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio==1.46) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.46.0
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.46.0)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.46
+2022-09-19 17:54:50,702	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:54:50,818	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=22905)[0m Hello world 1.46.0 3.9.13
+Uninstalling
+Found existing installation: grpcio 1.46.0
+Uninstalling grpcio-1.46.0:
+  Successfully uninstalled grpcio-1.46.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.47
+Collecting grpcio==1.47
+  Downloading grpcio-1.47.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 44.1 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio==1.47) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.47.0
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.47.0)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.47
+2022-09-19 17:55:06,775	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:55:06,891	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=23259)[0m Hello world 1.47.0 3.9.13
+Uninstalling
+Found existing installation: grpcio 1.47.0
+Uninstalling grpcio-1.47.0:
+  Successfully uninstalled grpcio-1.47.0
+Found existing installation: ray 3.0.0.dev0
+Uninstalling ray-3.0.0.dev0:
+  Successfully uninstalled ray-3.0.0.dev0
+Installing grpcio_version 1.48.1
+Collecting grpcio==1.48.1
+  Downloading grpcio-1.48.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 51.5 MB/s eta 0:00:00
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio==1.48.1) (1.16.0)
+Installing collected packages: grpcio
+Successfully installed grpcio-1.48.1
+Installing Ray wheel ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whlCollecting ray==3.0.0.dev0
+  Using cached https://ray-ci-artifact-pr-public.s3.us-west-2.amazonaws.com/0193a19226c29c9988760114d67f6ea9af99f9e7/tmp/artifacts/.whl/ray-3.0.0.dev0-cp39-cp39-manylinux2014_x86_64.whl (59.4 MB)
+Requirement already satisfied: filelock in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.8.0)
+Requirement already satisfied: click<=8.0.4,>=7.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (8.0.4)
+Requirement already satisfied: virtualenv>=20.0.24 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (20.16.5)
+Requirement already satisfied: grpcio>=1.32.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.48.1)
+Requirement already satisfied: numpy>=1.19.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.23.3)
+Requirement already satisfied: pyyaml in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (6.0)
+Requirement already satisfied: requests in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (2.28.1)
+Requirement already satisfied: frozenlist in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.3.1)
+Requirement already satisfied: msgpack<2.0.0,>=1.0.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.0.4)
+Requirement already satisfied: jsonschema in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (4.16.0)
+Requirement already satisfied: attrs in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (22.1.0)
+Requirement already satisfied: protobuf<4.0.0,>=3.15.3 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (3.20.2)
+Requirement already satisfied: aiosignal in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from ray==3.0.0.dev0) (1.2.0)
+Requirement already satisfied: six>=1.5.2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from grpcio>=1.32.0->ray==3.0.0.dev0) (1.16.0)
+Requirement already satisfied: distlib<1,>=0.3.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (0.3.6)
+Requirement already satisfied: platformdirs<3,>=2.4 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from virtualenv>=20.0.24->ray==3.0.0.dev0) (2.5.2)
+Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from jsonschema->ray==3.0.0.dev0) (0.18.1)
+Requirement already satisfied: certifi>=2017.4.17 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2022.9.14)
+Requirement already satisfied: idna<4,>=2.5 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (1.26.12)
+Requirement already satisfied: charset-normalizer<3,>=2 in /home/ray/anaconda3/envs/temp/lib/python3.9/site-packages (from requests->ray==3.0.0.dev0) (2.1.1)
+Installing collected packages: ray
+Successfully installed ray-3.0.0.dev0
+Running script on grpcio_version 1.48.1
+2022-09-19 17:55:23,190	WARNING services.py:1895 -- WARNING: The object store is using /tmp instead of /dev/shm because /dev/shm has only 67108864 bytes available. This will harm performance! You may be able to free up space by deleting files in /dev/shm. If you are inside a Docker container, you can increase /dev/shm size by passing '--shm-size=10.24gb' to 'docker run' (or add it to the run_options list in a Ray cluster config). Make sure to set this to more than 30% of available RAM.
+2022-09-19 17:55:23,310	INFO worker.py:1518 -- Started a local Ray instance.
+Usage stats collection is enabled by default for nightly wheels. To disable this, run the following command: `ray disable-usage-stats` before starting Ray. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+[2m[36m(task pid=23645)[0m Hello world 1.48.1 3.9.13
