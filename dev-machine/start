@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-aws ec2 start-instances --instance-ids i-063de00166989fd7f --region us-west-2
+if ! ./instance_ids | sed 's/,/\n/g' | grep -q "$1"; then
+    echo "[$1] not in instance ids"
+    exit 1
+fi
+
+aws ec2 start-instances --instance-ids $1 --region us-west-2

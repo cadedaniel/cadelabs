@@ -6,7 +6,7 @@ aws \
     ec2 \
     describe-instances \
     --filters \
-    "Name=instance-id,Values=i-063de00166989fd7f" \
+    "Name=instance-id,Values=$(./instance_ids)" \
     --query \
     'Reservations[*].Instances[*].[PublicDnsName]' \
     --output \
