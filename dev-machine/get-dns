@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+aws \
+    --region \
+    us-west-2 \
+    ec2 \
+    describe-instances \
+    --filters \
+    "Name=instance-id,Values=i-063de00166989fd7f" \
+    --query \
+    'Reservations[*].Instances[*].[PublicDnsName]' \
+    --output \
+    text

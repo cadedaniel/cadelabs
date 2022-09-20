@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+aws \
+    ec2 \
+    describe-instances \
+    --query 'Reservations[*].Instances[*].[InstanceId, Tags[?Key==`Name`], State.Name]' \
+    --filters "Name=instance-id,Values=i-063de00166989fd7f,i-0b43e963777db8502" \
+    --o text \
+    --region us-west-2
