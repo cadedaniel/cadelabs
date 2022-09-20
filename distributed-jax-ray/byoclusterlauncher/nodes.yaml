@@ -1,6 +1,6 @@
 cluster_name: cade-ray-distributed-jax
 
-#max_workers: 2
+max_workers: 4
 
 provider:
   type: aws
