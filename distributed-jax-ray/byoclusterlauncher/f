@@ -3,10 +3,10 @@
 import fabric
 
 ips = """
-35.89.134.30
-34.219.15.50
-52.88.239.117
-54.68.31.32
+34.218.243.184
+35.90.2.79
+18.236.177.140
+34.218.239.32
 """.strip().split('\n')
 
 connect_kwargs = {
@@ -21,15 +21,57 @@ group = fabric.group.ThreadingGroup(*ips, user='ubuntu', connect_kwargs=connect_
 #for key, value in results.items():
 #    print(key, value)
 
-results = group.run('docker exec ray ray start --address=35.89.134.30')
-for key, value in results.items():
-    print(key, value)
-
-results = group.run('docker ps')
-for key, value in results.items():
-    print(key, value)
+#results = group.run('docker exec ray ray start --address=35.89.134.30')
+#for key, value in results.items():
+#    print(key, value)
+#
+#results = group.run('docker ps')
+#for key, value in results.items():
+#    print(key, value)
 
 #result = Connection('web1.example.com').run('uname -s', hide=True)
 #msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
 #print(msg.format(result))
 #print(ips)
+
+import click
+@click.group("Not sure yet.")
+def main():
+    pass
+
+@main.command()
+def pull():
+    group.run('docker pull rayproject/ray-ml:2.0.0-py36-cpu')
+
+@main.command()
+def run():
+    group.run('docker run -itd --net=host --name ray rayproject/ray-ml:2.0.0-py36-cpu sleep 365d')
+
+@main.command()
+def deldocker():
+    group.run('docker rm ray')
+
+@main.command()
+def start():
+    group.run('docker start ray')
+
+@main.command()
+def stop():
+    group.run('docker stop ray')
+
+@main.command()
+def ps():
+    group.run('docker ps')
+
+@main.command()
+def startray():
+    group.run('docker exec ray ray start --address=172.31.15.42:6379')
+
+@main.command()
+def stopray():
+    group.run('docker exec ray pkill ray')
+
+# looks like ill have to add select/prefix functionality on own
+
+if __name__ == "__main__":
+    main()
