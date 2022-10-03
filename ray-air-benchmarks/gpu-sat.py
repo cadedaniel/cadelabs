@@ -1,47 +1,66 @@
 #!/usr/bin/env python
 
 import torch
-import time
 
+def cuda_sleep():
+    # Warm-up CUDA.
+    torch.empty(1, device="cuda")
 
+    # From test/test_cuda.py in PyTorch.
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
+    torch.cuda._sleep(1000000)
+    end.record()
+    end.synchronize()
+    cycles_per_ms = 1000000 / start.elapsed_time(end)
 
-def do_test(with_nonblocking, with_pin):
-    print('Nonblocking copy' if with_nonblocking else 'Blocking copy')
+    def cuda_sleep(seconds):
+        torch.cuda._sleep(int(seconds * cycles_per_ms * 1000))
 
-    tensor = torch.ones((1024, 1024, 512 // 4), dtype=torch.float32, device='cpu')
-    torch.cuda.synchronize()
+    return cuda_sleep
 
-    print(f'Tensor size {tensor.nelement() * tensor.element_size() / (1 << 20)} MB')
-    if with_pin:
-        tensor = tensor.pin_memory()
-    print(f'tensor is pinned? {tensor.is_pinned()}')
-    
-    h2d_stream = torch.cuda.Stream()
+def test(overlap_io_and_compute: bool, source_tensor: torch.Tensor):
+
     compute_stream = torch.cuda.Stream()
+    if overlap_io_and_compute:
+        io_stream = torch.cuda.Stream()
+    else:
+        io_stream = compute_stream
 
-    num_iters = 32
-    start = time.time()
+    cuda_sleep_estimated_seconds = cuda_sleep()
 
-    for i in range(num_iters):
-        dev_tensor = tensor.to('cuda', non_blocking=with_nonblocking)
-        #dev_tensor.sum()
-        dev_tensor.matmul(dev_tensor[:, :128])
+    io_start = torch.cuda.Event(enable_timing=True)
+    io_end = torch.cuda.Event(enable_timing=True)
 
-        #with torch.cuda.stream(h2d_stream):
-        #    dev_tensor = tensor.to('cuda', non_blocking=with_nonblocking)
+    compute_start = torch.cuda.Event(enable_timing=True)
+    compute_end = torch.cuda.Event(enable_timing=True)
 
-        #with torch.cuda.stream(compute_stream):
-        #    dev_tensors.append(dev_tensor.sum())
+    io_data_ready = torch.cuda.Event()
+    
+    with torch.cuda.stream(io_stream):
+        # Schedule IO on the io stream.
+        io_start.record()
+        dev_tensor = cpu_tensor.to('cuda', non_blocking=True)
+        io_end.record()
+        io_data_ready.record()
 
-        #dev_tensors.append(tensor.to('cuda', non_blocking=with_nonblocking).sum())
+    with torch.cuda.stream(compute_stream):
+        # Schedule compute on the compute stream.
+        compute_start.record()
+        cuda_sleep_estimated_seconds(1)
+        compute_end.record()
 
-    torch.cuda.synchronize()
-    end = time.time()
-    duration_ms = (end - start) * 1e3
+        # Wait for the IO to be done.
+        io_data_ready.wait()
+    
+    compute_end.synchronize()
+    print(f'---- overlap_io_and_compute is {overlap_io_and_compute}')
+    print(f'IO time: {io_start.elapsed_time(io_end) / 1000:.02f} s')
+    print(f'Compute time: {compute_start.elapsed_time(compute_end) / 1000:.02f} s')
+    print(f'End-to-end time: {io_start.elapsed_time(compute_end) / 1000:.02f} s')
 
-    print(f'{duration_ms/num_iters:0.2f}ms per iteration')
+cpu_tensor = torch.ones(8 << 30, dtype=torch.uint8, device='cpu').pin_memory()
 
-do_test(with_nonblocking=True, with_pin=True)
-do_test(with_nonblocking=False, with_pin=True)
-#do_test(with_nonblocking=True, with_pin=False)
-#do_test(with_nonblocking=False, with_pin=False)
+test(True, cpu_tensor)
+test(False, cpu_tensor)
