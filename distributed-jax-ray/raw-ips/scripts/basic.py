@@ -5,21 +5,40 @@ import time
 import os
 
 runtime_env = {"pip": ["jax[cpu]",]}
-ray.init(runtime_env=runtime_env)
+ray.init()
 
 
 @ray.remote
 class JaxWorker:
-    def __init__(self):
-        pass
+    def __init__(self, rank, world_size):
+        try:
+            import jax
+        except ImportError:
+            print('Jax not installed where JaxWorker is running')
+            raise
+
+        self.rank = rank
+        self.world_size = world_size
 
     def get_hostname(self):
         import socket
         return socket.gethostname()
 
-    def run_proc(self, command: str):
+    def get_coordinator_address(self):
+        from ray.train._internal.utils import get_address_and_port
+        address, port = get_address_and_port()
+        return f'{address}:{port}'
+    
+    def run_proc(self, command: str, coordinator_address: str, *, env_mixin: dict = None):
+        env_mixin = env_mixin or {}
+
         print('run proc')
-        run_background_job(command)
+
+        env_mixin['COORDINATOR_ADDRESS'] = coordinator_address
+        env_mixin['WORLD_SIZE'] = str(self.world_size)
+        env_mixin['WORLD_RANK'] = str(self.rank)
+        # TODO get coord address from rank 0
+        run_background_job(command, env_mixin)
 
 
 def install_jax_on_all_worker_nodes():
@@ -29,10 +48,16 @@ def create_actors_on_each_node():
     from ray.util.placement_group import placement_group
     from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy
 
-    num_nodes = 4
+    world_size = 4
+
+    from ray.serve._private.utils import get_current_node_resource_key
+    bundles = [dict(CPU=1) for _ in range(world_size)]
+
+    # Rank 0 on head node
+    bundles[0][get_current_node_resource_key()] = 0.01
 
     pg = placement_group(
-        bundles=[dict(CPU=1) for _ in range(num_nodes)],
+        bundles=bundles,
         strategy="STRICT_SPREAD",
     )
     ray.get(pg.ready())
@@ -43,8 +68,9 @@ def create_actors_on_each_node():
             scheduling_strategy=PlacementGroupSchedulingStrategy(
                 placement_group=pg,
                 placement_group_bundle_index=rank
-            )
-        ).remote()
+            ),
+            runtime_env=runtime_env
+        ).remote(rank, world_size)
         for rank in range(4)
     ]
     hostnames = ray.get([w.get_hostname.remote() for w in workers])
@@ -55,8 +81,12 @@ def create_actors_on_each_node():
 
 def run_spmd_on_cluster():
     workers = create_actors_on_each_node()
-    command = 'python3 -c "print(555)"'
-    ray.get([w.run_proc.remote(command) for w in workers])
+
+    coordinator_address = ray.get(workers[0].get_coordinator_address.remote())
+
+    command = 'python jax-example.py'
+    ray.get([w.run_proc.remote(command, coordinator_address) for w in workers])
+
 
 import subprocess
 def _run_kill_child(
@@ -105,13 +135,13 @@ def _run_kill_child(
             )
     return subprocess.CompletedProcess(process.args, retcode or 0, stdout, stderr)
 
-def run_background_job(command: str) -> None:
+def run_background_job(command: str, env_mixin: dict) -> None:
     # Update the context with the runtime env uris
     env_vars = {
         "PYTHONUNBUFFERED": "1",  # Make sure python subprocess streams logs https://docs.python.org/3/using/cmdline.html#cmdoption-u
     }
     import os
-    env = {**os.environ, **env_vars}
+    env = {**os.environ, **env_vars, **env_mixin}
 
     try:
         # TODO(mattweber): Once the publicly named run_kill_child is
