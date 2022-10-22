@@ -4,7 +4,8 @@ import ray
 import time
 import os
 
-runtime_env = {"pip": ["jax[cpu]",]}
+#juntime_env = {"pip": ["jax[cuda] -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",]}
+runtime_env = {}
 ray.init()
 
 
@@ -37,12 +38,9 @@ class JaxWorker:
         env_mixin['COORDINATOR_ADDRESS'] = coordinator_address
         env_mixin['WORLD_SIZE'] = str(self.world_size)
         env_mixin['WORLD_RANK'] = str(self.rank)
+        env_mixin['CUDA_VISIBLE_DEVICES'] = '0'
         # TODO get coord address from rank 0
         run_background_job(command, env_mixin)
-
-
-def install_jax_on_all_worker_nodes():
-    create_actors_on_each_node()
 
 def create_actors_on_each_node():
     from ray.util.placement_group import placement_group
@@ -55,6 +53,8 @@ def create_actors_on_each_node():
 
     # Rank 0 on head node
     bundles[0][get_current_node_resource_key()] = 0.01
+
+    print('Bundles:', bundles)
 
     pg = placement_group(
         bundles=bundles,
@@ -78,15 +78,22 @@ def create_actors_on_each_node():
 
     return workers
 
+import typer
 
-def run_spmd_on_cluster():
+app = typer.Typer()
+@app.command()
+def spmd(command: str):
     workers = create_actors_on_each_node()
 
     coordinator_address = ray.get(workers[0].get_coordinator_address.remote())
 
-    command = 'python jax-example.py'
+    #command = 'python jax-example.py'
+    #command = 'nvidia-smi'
     ray.get([w.run_proc.remote(command, coordinator_address) for w in workers])
 
+@app.command()
+def verify():
+    create_actors_on_each_node()
 
 import subprocess
 def _run_kill_child(
@@ -151,5 +158,5 @@ def run_background_job(command: str, env_mixin: dict) -> None:
         # allow time for any logs to propogate before the task exits
         time.sleep(1)
 
-install_jax_on_all_worker_nodes()
-run_spmd_on_cluster()
+if __name__ == "__main__":
+    app()

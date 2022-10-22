@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-id=cade-development
+#id=cade-development
 
-ray job submit --submission-id $id --working-dir . -- python3 basic.py
+ray job submit --working-dir . -- python3 basic.py "$@"
 
-ray job stop $id
-#id=$(ray job list | grep RUNNING | sed -E "s/.*submission_id='(raysubmit_[^']*)'.*/\1/g")
+#ray job stop $id
+id=$(ray job list | grep RUNNING | sed -E "s/.*submission_id='(raysubmit_[^']*)'.*/\1/g")
 
-#echo $id | xargs -n 1 ray job stop
+echo $id | xargs -n 1 ray job stop

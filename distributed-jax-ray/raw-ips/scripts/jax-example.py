@@ -7,6 +7,13 @@ rank = int(os.environ.get("WORLD_RANK"))
 print(f"{coordinator_address} {rank} / {world_size}")
 import jax
 
+
+if rank == 0:
+    pass
+else:
+    import time
+    time.sleep(5)
+
 # Not connecting to coordinator address for some reason.
 # OR.. it's not correctly interpreting number of devices.
 jax.distributed.initialize(
@@ -18,9 +25,13 @@ jax.distributed.initialize(
 print('local_device_count', jax.local_device_count())
 print('device_count', jax.device_count())
 
+#xs = jax.numpy.ones(jax.local_device_count())
+#print(jax.pmap(lambda x: jax.numpy.sum(x), axis_name='i')(xs))
+
 while True:
     import time
     time.sleep(1)
+
 
 #xs = jax.numpy.ones(jax.local_device_count())
 #print(jax.pmap(lambda x: jax.lax.psum(x, 'i'), axis_name='i')(xs))
