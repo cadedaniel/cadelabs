@@ -1,0 +1,2 @@
+Got four instances running
+Worker ips couldn't connect to head node, OR the ray process on worker nodes wasn't running

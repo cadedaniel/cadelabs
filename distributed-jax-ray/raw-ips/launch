@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+out=$(aws \
+    ec2 \
+    run-instances \
+    --image-id ami-0463af0fa5d3a8fd4  \
+    --key-name cade-legacy-work \
+    --instance-type c5.xlarge \
+    --associate-public-ip-address \
+    --security-group-ids sg-08d7315b56742b5be \ 
+    --count 4)
+#vpc-09e0badca36eb1816
+echo "$out" | jq '.Instances[].InstanceId' -r

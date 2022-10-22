@@ -1,0 +1,30 @@
+cluster_name: cade-pssh-test
+
+docker:
+    image: "rayproject/ray-ml:latest-cpu" # You can change this to latest-cpu if you don't need GPU support and want a faster startup
+    # image: rayproject/ray:latest-gpu   # use this one if you don't need ML dependencies, it's faster to pull
+    container_name: "ray_container"
+    # If true, pulls latest version of image. Otherwise, `docker run` will only pull the image
+    # if no cached version is present.
+    pull_before_run: True
+    run_options:   # Extra options to pass into "docker run"
+        - --ulimit nofile=65536:65536
+
+provider:
+    type: local
+    head_ip: 35.87.255.124
+    worker_ips: [35.84.38.14, 35.87.193.135, 35.93.82.56]
+
+
+# How Ray will authenticate with newly launched nodes.
+auth:
+    ssh_user: ubuntu
+    ssh_private_key: ~/.ssh/cade-legacy-work.pem
+
+min_workers: 3
+
+max_workers: 3
+upscaling_speed: 1.0
+
+idle_timeout_minutes: 0
+

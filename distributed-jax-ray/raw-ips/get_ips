@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+aws \
+    ec2 \
+    describe-instances \
+    --filters \
+    "Name=instance-id,Values=$(cat cur_instances | xargs echo | sed 's/ /,/g')" \
+    --query \
+    'Reservations[*].Instances[*].[PublicIpAddress]' \
+    --output \
+    text
+

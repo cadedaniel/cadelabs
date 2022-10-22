@@ -1,0 +1,85 @@
+cluster_name: cade-jax-ray
+
+max_workers: 4
+
+upscaling_speed: 1.0
+docker:
+    image: rayproject/ray:nightly-cpu
+    container_name: "ray_container"
+    pull_before_run: True
+    run_options:
+        - --ulimit nofile=65536:65536
+
+idle_timeout_minutes: 5
+
+provider:
+    type: aws
+    region: us-west-2
+    availability_zone: us-west-2a,us-west-2b
+    cache_stopped_nodes: True
+
+# How Ray will authenticate with newly launched nodes.
+auth:
+    ssh_user: ubuntu
+    ssh_private_key: ~/.ssh/cade-legacy-work.pem
+
+available_node_types:
+    ray.head.default:
+        node_config:
+            InstanceType: c5.xlarge
+            ImageId: ami-0819ccbfa0d3a8750
+            KeyName: cade-legacy-work
+            # You can provision additional disk space with a conf as follows
+            BlockDeviceMappings:
+                - DeviceName: /dev/sda1
+                  Ebs:
+                      VolumeSize: 100
+            # Additional options in the boto docs.
+            TagSpecifications: 
+            - ResourceType: instance
+              Tags:
+              - Key: Type
+                Value: dev
+              - Key: anyscale-custodian
+                Value: ignore
+              - Key: anyscale-user
+                Value: cade@anyscale.com
+              - Key: owner
+                Value: cade@anyscale.com
+    ray.worker.default:
+        min_workers: 3
+        max_workers: 3
+        node_config:
+            InstanceType: c5.xlarge
+            ImageId: ami-0819ccbfa0d3a8750
+            KeyName: cade-legacy-work
+            TagSpecifications: 
+            - ResourceType: instance
+              Tags:
+              - Key: Type
+                Value: dev
+              - Key: anyscale-custodian
+                Value: ignore
+              - Key: anyscale-user
+                Value: cade@anyscale.com
+              - Key: owner
+                Value: cade@anyscale.com
+
+# Specify the node type of the head node (as configured above).
+head_node_type: ray.head.default
+
+initialization_commands: []
+
+setup_commands:
+    - sudo apt-get update
+
+head_setup_commands: []
+
+worker_setup_commands: []
+
+# Command to start ray on the head node. You don't need to change this.
+head_start_ray_commands:
+    - ray stop
+    - ray start --head --port=6379 --object-manager-port=8076 --autoscaling-config=~/ray_bootstrap_config.yaml
+
+#worker_start_ray_commands: []
