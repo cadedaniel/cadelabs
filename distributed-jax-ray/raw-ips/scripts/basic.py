@@ -43,7 +43,7 @@ class JaxWorker:
         # TODO improve this when more accelerators
         #env_mixin['CUDA_VISIBLE_DEVICES'] = '0'
         env_mixin['NCCL_SOCKET_IFNAME'] = 'ens5'
-        env_mixin['NCCL_DEBUG'] = 'INFO'
+        #env_mixin['NCCL_DEBUG'] = 'INFO'
         #env_mixin['XLA_PYTHON_CLIENT_ALLOCATOR'] = 'platform'
 
         # TODO get coord address from rank 0
