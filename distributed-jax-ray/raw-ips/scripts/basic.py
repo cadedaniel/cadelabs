@@ -5,8 +5,9 @@ import time
 import os
 
 #juntime_env = {"pip": ["jax[cuda] -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",]}
-runtime_env = {}
-ray.init()
+#runtime_env = {}
+runtime_env = {'working_dir': '.'}
+ray.init(runtime_env=runtime_env)
 
 
 @ray.remote(num_gpus=1)
