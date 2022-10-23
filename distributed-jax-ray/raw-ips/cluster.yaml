@@ -31,7 +31,7 @@ available_node_types:
         #    CPU: 0
         node_config:
             InstanceType: g4dn.xlarge #c5.xlarge
-            ImageId: ami-0819ccbfa0d3a8750
+            ImageId: ami-0a756033cf25106f8 # cuda 11.2 https://docs.nvidia.com/deploy/cuda-compatibility/index.html
             KeyName: cade-legacy-work
             # You can provision additional disk space with a conf as follows
             BlockDeviceMappings:
@@ -55,7 +55,7 @@ available_node_types:
         max_workers: 3
         node_config:
             InstanceType: g4dn.xlarge #c5.xlarge
-            ImageId: ami-0819ccbfa0d3a8750
+            ImageId: ami-0a756033cf25106f8 # cuda 11.2 https://docs.nvidia.com/deploy/cuda-compatibility/index.html
             KeyName: cade-legacy-work
             TagSpecifications: 
             - ResourceType: instance
@@ -77,9 +77,11 @@ initialization_commands: []
 setup_commands:
     - sudo apt-get update
 
-head_setup_commands: []
+head_setup_commands:
+    - pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
-worker_setup_commands: []
+worker_setup_commands:
+    - pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 # Command to start ray on the head node. You don't need to change this.
 head_start_ray_commands:

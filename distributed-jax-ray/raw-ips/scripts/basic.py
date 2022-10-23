@@ -9,7 +9,7 @@ runtime_env = {}
 ray.init()
 
 
-@ray.remote
+@ray.remote(num_gpus=1)
 class JaxWorker:
     def __init__(self, rank, world_size):
         try:
@@ -38,9 +38,19 @@ class JaxWorker:
         env_mixin['COORDINATOR_ADDRESS'] = coordinator_address
         env_mixin['WORLD_SIZE'] = str(self.world_size)
         env_mixin['WORLD_RANK'] = str(self.rank)
-        env_mixin['CUDA_VISIBLE_DEVICES'] = '0'
+
+        # TODO improve this when more accelerators
+        #env_mixin['CUDA_VISIBLE_DEVICES'] = '0'
+        env_mixin['NCCL_SOCKET_IFNAME'] = 'ens5'
+        env_mixin['NCCL_DEBUG'] = 'INFO'
+        #env_mixin['XLA_PYTHON_CLIENT_ALLOCATOR'] = 'platform'
+
         # TODO get coord address from rank 0
         run_background_job(command, env_mixin)
+
+    def get_interfaces(self):
+        import socket
+        return socket.if_nameindex()
 
 def create_actors_on_each_node():
     from ray.util.placement_group import placement_group
@@ -49,7 +59,7 @@ def create_actors_on_each_node():
     world_size = 4
 
     from ray.serve._private.utils import get_current_node_resource_key
-    bundles = [dict(CPU=1) for _ in range(world_size)]
+    bundles = [dict(CPU=1, GPU=1) for _ in range(world_size)]
 
     # Rank 0 on head node
     bundles[0][get_current_node_resource_key()] = 0.01
@@ -62,6 +72,8 @@ def create_actors_on_each_node():
     )
     ray.get(pg.ready())
 
+    print('PG ready')
+
     # TODO get cluster ips
     workers = [
         JaxWorker.options(
@@ -71,10 +83,14 @@ def create_actors_on_each_node():
             ),
             runtime_env=runtime_env
         ).remote(rank, world_size)
-        for rank in range(4)
+        for rank in range(world_size)
     ]
+
+    print('Getting hostnames')
+
     hostnames = ray.get([w.get_hostname.remote() for w in workers])
-    assert len(set(hostnames)) == len(hostnames), f"Hostnames not unique {hostnames}"
+    if len(hostnames) == 4:
+        assert len(set(hostnames)) == len(hostnames), f"Hostnames not unique {hostnames}"
 
     return workers
 
@@ -85,11 +101,25 @@ app = typer.Typer()
 def spmd(command: str):
     workers = create_actors_on_each_node()
 
+    print('Getting coordinator address')
     coordinator_address = ray.get(workers[0].get_coordinator_address.remote())
+    print(f'Coordinator address: {coordinator_address}')
 
     #command = 'python jax-example.py'
     #command = 'nvidia-smi'
     ray.get([w.run_proc.remote(command, coordinator_address) for w in workers])
+
+@app.command()
+def interfaces(skip_loopback: bool = True):
+    workers = create_actors_on_each_node()
+    interfaces = ray.get([w.get_interfaces.remote() for w in workers])
+    names = set(nic[1] for host in interfaces for nic in host)
+
+    if skip_loopback:
+        names = set(name for name in names if name != 'lo' and name != 'docker0')
+
+    print(names)
+
 
 @app.command()
 def verify():

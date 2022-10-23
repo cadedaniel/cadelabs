@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cat <(ray get-head-ip ../cluster.yaml) <(ray get-worker-ips ../cluster.yaml) | grep -v utils.py

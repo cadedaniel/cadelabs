@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+pssh -i -h ips -l ubuntu --extra-args "-o StrictHostKeyChecking=no" ip address show
+pssh -i -h ips -l ubuntu --extra-args "-o StrictHostKeyChecking=no" docker exec ray_container pip install cupy-cuda11x
+pssh -t 0 -i -h ips -l ubuntu --extra-args "-o StrictHostKeyChecking=no" docker exec ray_container pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html

@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+
+import ray
+import ray.util.collective as collective
+
+import cupy as cp
+
+
+@ray.remote(num_gpus=1)
+class Worker:
+   def __init__(self):
+       self.send = cp.ones((4, ), dtype=cp.float32)
+
+   def setup(self, world_size, rank):
+       collective.init_collective_group(world_size, rank, "nccl", "default")
+       return True
+
+   def compute(self):
+       collective.allreduce(self.send, "default")
+       return self.send
+
+   def destroy(self):
+       collective.destroy_group()
+
+# imperative
+num_workers = 4
+workers = []
+init_rets = []
+for i in range(num_workers):
+   w = Worker.remote()
+   workers.append(w)
+   init_rets.append(w.setup.remote(num_workers, i))
+_ = ray.get(init_rets)
+results = ray.get([w.compute.remote() for w in workers])
+print(results)
+
+## declarative
+#for i in range(num_workers):
+#   w = Worker.remote()
+#   workers.append(w)
+#
+#_options = {
+#   "group_name": "177",
+#   "world_size": 2,
+#   "ranks": [0, 1],
+#   "backend": "nccl"
+#}
+#collective.declare_collective_group(workers, **_options)
+#results = ray.get([w.compute.remote() for w in workers])
