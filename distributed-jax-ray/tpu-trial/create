@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+gcloud compute tpus tpu-vm create cade-tpu-test \
+  --zone=us-central1-b \
+  --accelerator-type=v2-8 \
+  --version=tpu-vm-tf-2.10.0
