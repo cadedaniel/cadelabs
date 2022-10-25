@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 commit=$1
-num_trials=5
+num_trials=1
+PATCH=~/bisect-logs/num_iters_patch
 
 if [ -z "$commit" ]; then
     echo 'no commit'
@@ -32,6 +33,9 @@ for i in $(seq $num_trials); do
     echo starting $commit $i
     clone_dir=~/bisect-logs/runs/${commit}_${i}
     pushd $clone_dir
+
+        git apply $PATCH
+
         ANYSCALE_HOST=https://console.anyscale.com \
         ANYSCALE_PROJECT=prj_FKRmeV5pA6X72aVscFALNC32 \
         PYTHONPATH=$PYTHONPATH:$(pwd)/release \

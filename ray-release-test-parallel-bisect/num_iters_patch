@@ -1,0 +1,45 @@
+diff --git a/release/microbenchmark/run_microbenchmark.py b/release/microbenchmark/run_microbenchmark.py
+index afa4e1b72..20ddaa7e9 100644
+--- a/release/microbenchmark/run_microbenchmark.py
++++ b/release/microbenchmark/run_microbenchmark.py
+@@ -13,10 +13,13 @@ def to_dict_key(key: str):
+ if __name__ == "__main__":
+     from ray._private.ray_perf import main
+ 
+-    results = main() or []
++    num_iters = int(os.environ.get("NUM_ITERS", 1))
++    results = [main() or [] for _ in range(num_iters)]
+ 
+     result_dict = {
+-        f"{to_dict_key(v[0])}": (v[1], v[2]) for v in results if v is not None
++        str(index): {
++            f"{to_dict_key(v[0])}": (v[1], v[2]) for v in run if v is not None
++        } for index, run in enumerate(results)
+     }
+ 
+     perf_metrics = [
+@@ -25,7 +28,7 @@ if __name__ == "__main__":
+             "perf_metric_value": v[1],
+             "perf_metric_type": "THROUGHPUT",
+         }
+-        for v in results
++        for v in results[0]
+         if v is not None
+     ]
+     result_dict["perf_metrics"] = perf_metrics
+diff --git a/release/release_tests.yaml b/release/release_tests.yaml
+index ae02046a4..3c6011f40 100644
+--- a/release/release_tests.yaml
++++ b/release/release_tests.yaml
+@@ -3445,8 +3445,8 @@
+     cluster_compute: tpl_64.yaml
+ 
+   run:
+-    timeout: 1800
+-    script: OMP_NUM_THREADS=64 RAY_ADDRESS=local python run_microbenchmark.py
++    timeout: 3600
++    script: TESTS_TO_RUN="1:1 actor calls async" NUM_ITERS=128 OMP_NUM_THREADS=64 RAY_ADDRESS=local python run_microbenchmark.py
+ 
+ 
+ - name: microbenchmark_staging
+
