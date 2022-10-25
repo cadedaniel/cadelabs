@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+commit=$1
+
+if [ -z "$commit" ]; then
+    echo 'no commit'
+    exit 1
+fi
+
+cat $(find test-logs -name "$commit*.log") \
+  | grep 'perf_metrics' \
+  | awk '{$1=""} {$2=""} {print $0}' \
+  | sed 's/'"'"'/"/g'  \
+  | jq '.[] | select(.perf_metric_name=="1_1_actor_calls_async")' -c

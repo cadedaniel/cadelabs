@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+commit=$1
+num_trials=5
+
+if [ -z "$commit" ]; then
+    echo 'no commit'
+    exit 1
+fi
+
+src_clone_dir=~/bisect-logs/runs/${commit}_src
+mkdir -p $src_clone_dir
+
+git clone git@github.com:ray-project/ray.git $src_clone_dir
+pushd $src_clone_dir
+    git checkout $commit
+popd
+
+for i in $(seq $num_trials); do
+    i=$((i-1))
+    echo $commit $i
+    clone_dir=~/bisect-logs/runs/${commit}_${i}
+
+    cp -R $src_clone_dir $src_clone_dir-2
+    mv $src_clone_dir-2 $clone_dir
+done
+
+mkdir -p ~/bisect-logs/test-logs
+
+for i in $(seq $num_trials); do
+    i=$((i-1))
+    echo starting $commit $i
+    clone_dir=~/bisect-logs/runs/${commit}_${i}
+    pushd $clone_dir
+        ANYSCALE_HOST=https://console.anyscale.com \
+        ANYSCALE_PROJECT=prj_FKRmeV5pA6X72aVscFALNC32 \
+        PYTHONPATH=$PYTHONPATH:$(pwd)/release \
+        python3 release/ray_release/scripts/run_release_test.py \
+        microbenchmark \
+        --ray-wheels https://s3-us-west-2.amazonaws.com/ray-wheels/master/${commit}/ray-3.0.0.dev0-cp37-cp37m-manylinux2014_x86_64.whl \
+        > ~/bisect-logs/test-logs/${commit}_${i}.log 2>&1 &
+        
+    popd
+
+    sleep 5
+
+done
+
+while [ $(jobs | wc -l) -gt 0 ]; do
+  jobs
+  sleep 30
+done
+
+#./get_perf_results $commit | tee ~/bisect-logs/test-logs/${commit}_summary

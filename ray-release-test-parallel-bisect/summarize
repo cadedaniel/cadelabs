@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+list_commits=$(find test-logs -type f | sed 's/\.\///g' | sed -r 's/_[0-9].log//g' | sort | uniq | xargs -n 1 basename)
+
+for commit in $list_commits; do
+    echo $commit
+    ./get_perf_results $commit
+done
