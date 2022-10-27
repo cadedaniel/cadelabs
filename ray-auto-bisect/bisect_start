@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+git bisect start
+#git bisect good 410fe1b5ec9e798d6e7ffbb5844e258d08e323b3
+#git bisect bad d99eff919bf785f911e4eebc87ddc4960344a139
+
+git bisect good 4027a0229967cd6af38a7ce62441911cebd455ff
+git bisect bad d99eff919bf785f911e4eebc87ddc4960344a139
+
+git bisect run ./run_test_3x 2>&1 | tee bisect_logs/bisect

@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+import sys
+
+s = 'enter yes or no: '
+while (a:=input(s)) not in ['yes', 'no']:
+    print('error')
+
+if a == 'yes':
+    sys.exit(0)
+if a == 'no':
+    sys.exit(1)

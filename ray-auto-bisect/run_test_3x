@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+
+#pip install -U "ray[all] @ https://s3-us-west-2.amazonaws.com/ray-wheels/master/410fe1b5ec9e798d6e7ffbb5844e258d08e323b3/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl"
+#git rev-parse HEAD
+
+#aws s3 ls "s3://ray-wheels/master/$(git rev-parse HEAD)/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl" | wc
+
+pip uninstall ray -y
+
+commit=$(git rev-parse HEAD)
+
+pip install --quiet -U "ray[all] @ https://s3-us-west-2.amazonaws.com/ray-wheels/master/${commit}/ray-3.0.0.dev0-cp38-cp38-manylinux2014_x86_64.whl"
+if [ $? -ne 0 ]; then
+    exit 0
+    #exit 125
+fi
+
+result=$(RAY_ADDRESS=local python3 release/benchmarks/single_node/cade-bisect.py 2>&1 | tee bisect_logs/full_out_${commit} | grep 'Finished queueing many tasks')
+echo ${commit} ${result}
+#echo "Is this a good result?"
+#set -e
+#python is_good
