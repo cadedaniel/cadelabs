@@ -78,10 +78,14 @@ setup_commands:
     - sudo apt-get update
 
 head_setup_commands:
-    - pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    #- pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    #- pip install jaxlib==0.3.15+cuda112.cudnn810 -f https://alpa-projects.github.io/wheels.html
+    - pip install --upgrade jaxlib==0.3.15+cuda112.cudnn810 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 worker_setup_commands:
-    - pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    #- pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    #- pip install jaxlib==0.3.15+cuda112.cudnn810 -f https://alpa-projects.github.io/wheels.html
+    - pip install --upgrade jaxlib==0.3.15+cuda112.cudnn810 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 # Command to start ray on the head node. You don't need to change this.
 head_start_ray_commands:
