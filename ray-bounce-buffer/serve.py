@@ -32,9 +32,11 @@ def main():
     def measure():
         return requests.post("http://localhost:1025/", json="").json()
 
-    durations_ms = sorted([(i, 1000 * measure()) for i in range(15)], key=lambda x: x[1])
-    durations_fmt = [f'{i:03}: {duration:0.2f}' for i, duration in durations_ms]
-    print('\n'.join(durations_fmt))
+    durations_ms = sorted(
+        [(i, 1000 * measure()) for i in range(15)], key=lambda x: x[1]
+    )
+    durations_fmt = [f"{i:03}: {duration:0.2f}" for i, duration in durations_ms]
+    print("\n".join(durations_fmt))
 
 
 if __name__ == "__main__":
