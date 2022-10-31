@@ -14,6 +14,7 @@ class Adder:
         self.increment = increment
 
     def predict(self, inp: int):
+        raise ValueError()
         return self.increment + inp
 
 
@@ -36,3 +37,4 @@ serve.run(DAGDriver.bind(dag, http_adapter=json_request))
 print(requests.post("http://localhost:8000/", json=100).json())
 # {"result": 101.5}
 
+serve.shutdown()
