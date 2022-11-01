@@ -1,0 +1,69 @@
+Name                           Value
+----                           -----
+_                              C:/Windows/System32/WindowsPowerShell/v1.0/po...
+ALLUSERSPROFILE                C:\ProgramData
+APPDATA                        C:\Users\ContainerAdministrator\AppData\Roaming
+BAZEL_PATH                     C:\bazel\bazel.exe
+BAZEL_SH                       C:\msys64\usr\bin\bash.exe
+BUILD                          1
+BUILDKITE                      true
+BUILDKITE_BAZEL_CACHE_URL      https://bazel-cache-dev.s3.us-west-2.amazonaw...
+BUILDKITE_BRANCH               master
+BUILDKITE_BUILD_ID             01843457-34f9-4d26-9590-deb0d6f3b84c
+BUILDKITE_BUILD_NUMBER         857
+BUILDKITE_BUILD_URL            https://buildkite.com/ray-project/oss-ci-buil...
+BUILDKITE_COMMIT               0044ed1acdf3b24d337790f36156eeaaa2730f1a
+BUILDKITE_GIT_REF              0044ed1acdf3b24d337790f36156eeaaa2730f1a
+BUILDKITE_JOB_ID               01843457-78c2-4027-8c85-97f77f72422f
+BUILDKITE_LABEL                :windows: Wheels
+BUILDKITE_MESSAGE              Adding logs to help debug Windows wheels flak...
+BUILDKITE_PULL_REQUEST         false
+ChocolateyInstall              C:\ProgramData\chocolatey
+ChocolateyLastPathUpdate       132836510462244507
+ChocolateyToolsLocation        C:\tools
+CI                             true
+COMMONPROGRAMFILES             C:\Program Files\Common Files
+CommonProgramFiles(x86)        C:\Program Files (x86)\Common Files
+CommonProgramW6432             C:\Program Files\Common Files
+COMPUTERNAME                   5F71DCCF249B
+COMSPEC                        C:\Windows\system32\cmd.exe
+DL                             1
+DriverData                     C:\Windows\System32\Drivers\DriverData
+HOME                           C:\Users\ContainerAdministrator
+JAVA_HOME                      /c/openjdk-16
+LANG                           en_US.UTF-8
+LC_ALL                         en_US.UTF-8
+LOCALAPPDATA                   C:\Users\ContainerAdministrator\AppData\Local
+NUMBER_OF_PROCESSORS           8
+NVM_SYMLINK                    C:\Program Files\nodejs
+OLDPWD                         C:/Install/ray
+OS                             Windows_NT
+PATH                           C:\openjdk-16\bin;C:\Program Files\Eclipse Fo...
+PATHEXT                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;....
+POWERSHELL_DISTRIBUTION_CHA... MSI:Windows Server 2019 Datacenter
+POWERSHELL_UPDATECHECK         Off
+PROCESSOR_ARCHITECTURE         AMD64
+PROCESSOR_IDENTIFIER           Intel64 Family 6 Model 85 Stepping 7, Genuine...
+PROCESSOR_LEVEL                6
+PROCESSOR_REVISION             5507
+ProgramData                    C:\ProgramData
+PROGRAMFILES                   C:\Program Files
+ProgramFiles(x86)              C:\Program Files (x86)
+ProgramW6432                   C:\Program Files
+PSModulePath                   C:\Users\ContainerAdministrator\Documents\Win...
+PUBLIC                         C:\Users\Public
+PWD                            C:/Install/ray/dashboard/client
+PYTHON                         3.6
+RAY_DEFAULT_BUILD              1
+RAY_USE_RANDOM_PORTS           1
+SHLVL                          4
+SYSTEMDRIVE                    C:
+SYSTEMROOT                     C:\Windows
+TEMP                           C:\Users\ContainerAdministrator\AppData\Local...
+TERM                           xterm-256color
+TMP                            C:\Users\ContainerAdministrator\AppData\Local...
+USERDOMAIN                     User Manager
+USERNAME                       ContainerAdministrator
+USERPROFILE                    C:\Users\ContainerAdministrator
+WINDIR                         C:\Windows
+WINDOWS_WHEELS                 1

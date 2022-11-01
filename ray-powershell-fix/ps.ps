@@ -7,6 +7,7 @@ Get-ChildItem env:* | %{
     if ($_.Name -eq 'PATH') {
       $value = $value -replace ';',':'
     }
-    Write-Output ("export " + $_.Name + "='" + $value + "'")
+    #Write-Output ("export " + $_.Name + "='" + $value + "'")
+    Write-Output ("export " + $_.Name + "=$`(cat <<- 'REFRESHENV_EOF'`n" + $value + "`nREFRESHENV_EOF`)")
   }
 }
