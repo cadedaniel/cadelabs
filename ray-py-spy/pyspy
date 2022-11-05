@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+import psutil
+import time
+import shlex
+import subprocess
+
+
+def start_test_ray_procs():
+    import ray
+    
+    @ray.remote
+    def long_running():
+        time.sleep(1000 * 1000)
+    
+    @ray.remote
+    def start():
+        [long_running.remote() for _ in range(3)]
+    
+    ray.get(start.remote())
+
+def iter_ray_worker_procs():
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            name = proc.name()
+        except psutil.NoSuchProcess:
+            continue
+
+        if name.startswith('ray::'):
+            yield proc
+
+pyspy_procs = {}
+
+def attach_pyspy(target_proc, duration_s=None):
+    print('attaching pyspy to', target_proc)
+
+    output_filename = f'flamegraph-{target_proc.pid}.svg'
+    command = [
+        'sudo',
+        '/home/ray/anaconda3/bin/py-spy',
+        'record',
+        '--native',
+        '--threads',
+        '--rate 50',
+        f'--pid {target_proc.pid}',
+        f'-o {output_filename}',
+    ]
+
+    if duration_s:
+        command.append(f'-d {duration_s}')
+
+    pyspy_procs[target_proc.pid] = subprocess.Popen(' '.join(command), shell=True)
+
+watch_duration_s = 120
+
+start = time.time()
+while time.time() - start < watch_duration_s:
+    for ray_worker_proc in iter_ray_worker_procs():
+        if ray_worker_proc.pid not in pyspy_procs:
+            attach_pyspy(ray_worker_proc)
+    
+    time.sleep(5)
+
+print('Shutting down')
+
+for pid, p in pyspy_procs.items():
+    print('Waiting for py-spy', pid)
+    p.wait()
