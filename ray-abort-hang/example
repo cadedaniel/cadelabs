@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+import os
+import ray
+
+@ray.remote
+class Actor:
+    def abort(self):
+        os.abort()
+
+
+a = Actor.remote()
+
+input('waiting')
+ray.get(a.abort.remote())
