@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+export ANYSCALE_HOST=https://console.anyscale.com
+export ANYSCALE_CLI_TOKEN=x
+export ANYSCALE_PROJECT=prj_FKRmeV5pA6X72aVscFALNC32
+export PYTHONPATH=$PYTHONPATH:$(pwd)
+
+python3 \
+    ray_release/scripts/run_release_test.py \
+    ray-data-bulk-ingest-out-of-core-benchmark \
+    --ray-wheels master \
+    --env prod \
+    2>&1 \
+    | tee cade-wth-fix
