@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+from ray.air import ScalingConfig
+from ray.train.torch import TorchTrainer
+from ray.train.torch.config import TorchConfig, _TorchBackend
+from ray.train._internal.worker_group import WorkerGroup
+
+import torch
+import torch.distributed as dist
+import time
+import os
+
+def train_func():
+
+    rank = torch.distributed.get_rank()
+    other_rank = 0 if rank else 1
+    print(f'train func {torch.distributed.is_initialized()} {torch.distributed.is_nccl_available()} {rank}')
+
+    x = torch.zeros([5,5]).to(f'cuda:{rank}')
+
+    if rank == 0:
+        print(f'rank {rank} coll')
+        torch.distributed.all_reduce(x)
+    else:
+        print(f'rank {rank} coll')
+
+
+class CustomConfig(TorchConfig):
+    pass
+
+    @property
+    def backend_cls(self):
+        return CustomBackend
+
+class CustomBackend(_TorchBackend):
+    pass
+    
+    def on_start(self, worker_group: WorkerGroup, backend_config: TorchConfig):
+
+        def set_env_vars():
+            print('setting env vars')
+            os.environ["NCCL_BLOCKING_WAIT"] = "0"
+            os.environ["NCCL_ASYNC_ERROR_HANDLING"] = "1"
+            #os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL"
+            os.environ["TORCH_CPP_LOG_LEVEL"]="INFO"
+
+        worker_group.execute(set_env_vars)
+
+        super(CustomBackend, self).on_start(worker_group, backend_config)
+
+
+use_gpu = True
+
+torch_config = CustomConfig(backend='nccl', timeout_s=5)
+
+trainer = TorchTrainer(
+    train_func,
+    torch_config=torch_config,
+    scaling_config=ScalingConfig(use_gpu=use_gpu, num_workers=2)
+)
+
+trainer.fit()

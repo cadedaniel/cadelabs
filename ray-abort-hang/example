@@ -3,13 +3,69 @@
 import os
 import ray
 
+import signal, os
+from helloworld import call_abort
+
 @ray.remote
-class Actor:
+class ActorExpectDump:
+
+    @staticmethod
+    def handler(signum, frame):
+        signame = signal.Signals(signum).name
+        print(f'Signal handler called with signal {signame} ({signum})')
+        raise ValueError()
+    
+    def set_signal_handler(self):
+        #signal.signal(signal.SIGINT, handler)
+        signal.signal(signal.SIGABRT, self.handler)
+        print(f'signal handler set for pid {os.getpid()}')
+
+    def write_filter(self):
+        """
+           bit 0  Dump anonymous private mappings.
+           bit 1  Dump anonymous shared mappings.
+           bit 2  Dump file-backed private mappings.
+           bit 3  Dump file-backed shared mappings.
+           bit 4 (since Linux 2.6.24)
+                  Dump ELF headers.
+           bit 5 (since Linux 2.6.28)
+                  Dump private huge pages.
+           bit 6 (since Linux 2.6.28)
+                  Dump shared huge pages.
+           bit 7 (since Linux 4.4)
+                  Dump private DAX pages.
+           bit 8 (since Linux 4.4)
+                  Dump shared DAX pages.
+        0x33 is default
+        0b110011
+
+        0b10000011 -> 0x83 # still dumps large file
+        0b10000001 -> 0x81 # does not dump large file.
+        0b11000001 -> 0xC1 # does not dump large file
+        """
+        print('writing coredump filter')
+        with open('/proc/self/coredump_filter', 'w') as f:
+            f.write('0x81')
+
     def abort(self):
-        os.abort()
+        #os.abort()
+        pid = os.getpid()
+        os.kill(pid, signal.SIGABRT)
+        #old = signal.signal(signal.SIGABRT, self.handler)
+        #print('old =', old)
+        #print(self.handler)
+        #call_abort()
 
 
-a = Actor.remote()
+a = ActorExpectDump.remote()
 
-input('waiting')
+
+#ray.get(a.set_signal_handler.remote())
+ray.get(a.write_filter.remote())
+#input('wait for abort')
+#
 ray.get(a.abort.remote())
+
+import time
+while True:
+    time.sleep(1)
