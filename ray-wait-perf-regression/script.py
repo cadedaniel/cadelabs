@@ -70,7 +70,6 @@ class DestinationActor:
         remaining = refs
         start_time = time.time()
         while remaining:
-            #print('wait iteration. Remaining:', len(remaining))
             _, remaining = ray.wait(remaining, fetch_local=fetch_local, timeout=0.1)
         end_time = time.time()
         print(f'Duration {end_time - start_time:.02f}')
