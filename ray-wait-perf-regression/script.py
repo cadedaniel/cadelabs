@@ -28,11 +28,14 @@ class Waiter:
 
 @ray.remote(num_cpus=0.001)
 class SourceActor:
-    def __init__(self, size_bytes):
-        self.returnval = np.empty(int(size_bytes), dtype=np.int8)
+    def __init__(self):
+        pass
 
     def is_started(self):
         return True
+
+    def create_returnval(self, size_bytes):
+        self.returnval = np.empty(int(size_bytes), dtype=np.int8)
 
     def get_large_object(self, waiter):
         while not ray.get(waiter.should_go.remote()):
@@ -45,13 +48,17 @@ class DestinationActor:
         pass
 
     def get_many_large_objects(self):
-        size_mb = 0.01
-        num_tasks = int(os.cpu_count() * 2)
+        size_mb = 10
+        num_tasks = int(os.cpu_count() * 10)
+        fetch_local = True
         
         print(f'Starting {num_tasks} actors')
-        actors = [SourceActor.remote(2**20 * size_mb) for _ in range(num_tasks)]
+        actors = [SourceActor.remote() for _ in range(num_tasks)]
         ray.get([actor.is_started.remote() for actor in actors])
         waiter = Waiter.remote()
+
+        print(f'Creating returnvals of size {size_mb} mb')
+        ray.get([actor.create_returnval.remote(2**20*size_mb) for actor in actors])
 
         print(f'Running {num_tasks} tasks, each returning {size_mb} MB objects')
         refs = [actor.get_large_object.remote(waiter) for actor in actors]
@@ -63,8 +70,8 @@ class DestinationActor:
         remaining = refs
         start_time = time.time()
         while remaining:
-            print('wait iteration. Remaining:', len(remaining))
-            _, remaining = ray.wait(remaining, fetch_local=False, timeout=0.1)
+            #print('wait iteration. Remaining:', len(remaining))
+            _, remaining = ray.wait(remaining, fetch_local=fetch_local, timeout=0.1)
         end_time = time.time()
         print(f'Duration {end_time - start_time:.02f}')
 
