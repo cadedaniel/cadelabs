@@ -1,0 +1,5 @@
+*.folded
+*.perf
+*.data
+*.old
+*.svg

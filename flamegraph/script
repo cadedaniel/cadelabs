@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sudo perf script > out.perf
+sudo ./stackcollapse-perf.pl out.perf > out.folded
+sudo ./flamegraph.pl out.folded > run.svg
