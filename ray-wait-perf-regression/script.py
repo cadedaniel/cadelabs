@@ -37,9 +37,9 @@ class SourceActor:
     def create_returnval(self, size_bytes):
         self.returnval = np.empty(int(size_bytes), dtype=np.int8)
 
-    def get_large_object(self, waiter):
-        while not ray.get(waiter.should_go.remote()):
-            time.sleep(0.1)
+    def get_large_object(self):
+        #while not ray.get(waiter.should_go.remote()):
+        #    time.sleep(0.1)
         return self.returnval
 
 @ray.remote
@@ -48,31 +48,65 @@ class DestinationActor:
         pass
 
     def get_many_large_objects(self):
-        size_mb = 10
-        num_tasks = int(os.cpu_count() * 10)
+        #size_mb = 0.125
+        #size_mb = 1.5 # 1200
+        size_mb = '0.001'
+        num_tasks = int(10 * 1e3)
         fetch_local = True
+
+        total_num_cpus = int(ray.cluster_resources()["CPU"])
         
-        print(f'Starting {num_tasks} actors')
-        actors = [SourceActor.remote() for _ in range(num_tasks)]
+        print(f'Starting {total_num_cpus} actors')
+        actors = [SourceActor.remote() for _ in range(total_num_cpus)]
         ray.get([actor.is_started.remote() for actor in actors])
-        waiter = Waiter.remote()
 
-        print(f'Creating returnvals of size {size_mb} mb')
-        ray.get([actor.create_returnval.remote(2**20*size_mb) for actor in actors])
+        print(f'Creating returnvals')
+        ray.get([actor.create_returnval.remote(1) for actor in actors])
 
-        print(f'Running {num_tasks} tasks, each returning {size_mb} MB objects')
-        refs = [actor.get_large_object.remote(waiter) for actor in actors]
+        durations = []
+        for _ in range(1):
+            print(f'Running {num_tasks} tasks, each returning {size_mb} MB objects')
+            #waiter = Waiter.remote()
+            refs = []
+            for i in range(int(num_tasks / len(actors))):
+                refs += [actor.get_large_object.remote() for actor in actors]
 
-        print('Unblocking tasks')
-        waiter.signal.remote()
+            #print('Unblocking tasks')
+            #waiter.signal.remote()
         
-        print('Waiting for results')
-        remaining = refs
-        start_time = time.time()
-        while remaining:
-            _, remaining = ray.wait(remaining, fetch_local=fetch_local, timeout=0.1)
-        end_time = time.time()
-        print(f'Duration {end_time - start_time:.02f}')
+            print('Waiting for results')
+            remaining = refs
+            start_time = time.time()
+            while remaining:
+                done, remaining = ray.wait(remaining, fetch_local=fetch_local, timeout=0.1)
+                #ray.get(done)
+            end_time = time.time()
+            duration = end_time - start_time
+            durations.append(duration)
+            print(f'Duration {end_time - start_time:.02f}')
+        print('Durations', ' '.join([f'{d:.02f}' for d in durations]))
 
 a = DestinationActor.remote()
 ray.get(a.get_many_large_objects.remote())
+
+"""
+Without our change:
+32 actors, 125KB each, fetch_local=True
+2.18s
+2.2s
+
+With our change:
+32 actors, 125KB each, fetch_local=True
+2.15s
+2.32s
+
+64 actors, 1.5MB each, fetch_local=True
+with our change: 3.47, 3.49 2.36 2.23
+without our change: 3.47, 2.26, 3.55 2.32 2.31
+
+14 actors, 1 byte, 20000 tasks
+Without our change: 46.30
+With our change: 113.03
+
+12->25
+"""
