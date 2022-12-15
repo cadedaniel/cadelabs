@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+export RAY_core_worker_new_path=5
+export RAY_core_worker_use_old_path=false
+
+ray stop --force
+ray start \
+    --head \
+    --port=6379 \
+    --object-manager-port=8076 \
+    --port=9031 \
+    --no-monitor 
+
+./many_tasks_script.py

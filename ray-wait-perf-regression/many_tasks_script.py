@@ -42,7 +42,7 @@ class SourceActor:
         #    time.sleep(0.1)
         return self.returnval
 
-@ray.remote
+#@ray.remote
 class DestinationActor:
     def __init__(self):
         pass
@@ -50,22 +50,25 @@ class DestinationActor:
     def get_many_large_objects(self):
         #size_mb = 0.125
         #size_mb = 1.5 # 1200
-        #size_mb = '0.001'
-        size_mb = 0.125
-        num_tasks = int(10 * 1e3)
+        size_mb = '0.001'
+        #size_mb = 0.125
+        num_tasks = int(5 * 1e3)
         fetch_local = True
 
-        total_num_cpus = int(ray.cluster_resources()["CPU"])
+        #total_num_cpus = int(ray.cluster_resources()["CPU"])
+        total_num_cpus = 16
         
         print(f'Starting {total_num_cpus} actors')
-        actors = [SourceActor.options(resources={'node:172.31.199.37': 0.0001}).remote() for _ in range(total_num_cpus)]
+        # 172.31.140.223 head
+        # 172.31.199.37
+        actors = [SourceActor.options(resources={'node:172.31.140.223': 0.0001}).remote() for _ in range(total_num_cpus)]
         ray.get([actor.is_started.remote() for actor in actors])
 
         print(f'Creating returnvals')
-        ray.get([actor.create_returnval.remote(1) for actor in actors])
+        ray.get([actor.create_returnval.remote(1 * 1024 * 1024) for actor in actors])
 
         durations = []
-        for _ in range(1):
+        for _ in range(20):
             print(f'Running {num_tasks} tasks, each returning {size_mb} MB objects')
             #waiter = Waiter.remote()
             refs = []
@@ -85,10 +88,12 @@ class DestinationActor:
             duration = end_time - start_time
             durations.append(duration)
             print(f'Duration {end_time - start_time:.02f}')
-        print('Durations', ' '.join([f'{d:.02f}' for d in durations]))
+        print('Durations', ' '.join([f'{d:.02f}' for d in sorted(durations)]))
 
-a = DestinationActor.remote()
-ray.get(a.get_many_large_objects.remote())
+#a = DestinationActor.remote()
+#ray.get(a.get_many_large_objects.remote())
+a = DestinationActor()
+a.get_many_large_objects()
 
 """
 Without our change:

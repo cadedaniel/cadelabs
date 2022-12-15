@@ -4,7 +4,6 @@ import ray
 import time
 import numpy as np
 
-
 @ray.remote
 def create_ds():
     # 15 GB
@@ -13,7 +12,7 @@ def create_ds():
     return ray.put(ds)
 
 # Create ds on worker node
-ref = ray.get(create_ds.options(resources={'node:172.31.164.1': 0.001}).remote())
+ref = ray.get(create_ds.options(resources={'node:172.31.199.37': 0.001}).remote())
 ds = ray.get(ref)
 print(ds.size_bytes() / 1e9, "GB")
 

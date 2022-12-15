@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 #export PATH=/home/ray/pypi/bin:$PATH
 #export PYTHONUSERBASE='/home/ray/pypi'
+# pushd python && pip install . --user --verbose && ~/cadelabs/change-workspace-python-user ; popd
 
-mv /mnt/cluster_storage/pypi /mnt/cluster_storage/pypi.old &
+set -x
+
+ray stop --force
+
+rm -rf /mnt/cluster_storage/pypi.old* &
 cp -R /home/ray/pypi /mnt/cluster_storage/pypi.new &
+mv /mnt/cluster_storage/pypi /mnt/cluster_storage/pypi.old.$RANDOM &
 
 wait
 mv /mnt/cluster_storage/pypi.new /mnt/cluster_storage/pypi

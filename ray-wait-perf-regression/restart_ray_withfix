@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ray stop --force
-RAY_core_worker_new_path=0 RAY_core_worker_use_old_path=true RAY_core_worker_prefetch_waits=true ray start \
+RAY_core_worker_new_path=5 RAY_core_worker_use_old_path=false RAY_core_worker_prefetch_waits=true ray start \
     --head \
     --port=6379 \
     --object-manager-port=8076 \
