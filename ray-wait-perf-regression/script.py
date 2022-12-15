@@ -58,7 +58,7 @@ class DestinationActor:
         total_num_cpus = int(ray.cluster_resources()["CPU"])
         
         print(f'Starting {total_num_cpus} actors')
-        actors = [SourceActor.options(resources={'node:172.31.164.1': 0.0001}).remote() for _ in range(total_num_cpus)]
+        actors = [SourceActor.options(resources={'node:172.31.199.37': 0.0001}).remote() for _ in range(total_num_cpus)]
         ray.get([actor.is_started.remote() for actor in actors])
 
         print(f'Creating returnvals')

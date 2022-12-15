@@ -1,2 +1,9 @@
-export PATH=/home/ray/pypi/bin:$PATH
-export PYTHONUSERBASE='/home/ray/pypi'
+#!/usr/bin/env bash
+#export PATH=/home/ray/pypi/bin:$PATH
+#export PYTHONUSERBASE='/home/ray/pypi'
+
+mv /mnt/cluster_storage/pypi /mnt/cluster_storage/pypi.old &
+cp -R /home/ray/pypi /mnt/cluster_storage/pypi.new &
+
+wait
+mv /mnt/cluster_storage/pypi.new /mnt/cluster_storage/pypi
