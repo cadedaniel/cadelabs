@@ -1,0 +1,2 @@
+export PATH=/home/ray/pypi/bin:$PATH
+export PYTHONUSERBASE='/home/ray/pypi'
