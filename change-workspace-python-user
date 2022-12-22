@@ -2,6 +2,7 @@
 #export PATH=/home/ray/pypi/bin:$PATH
 #export PYTHONUSERBASE='/home/ray/pypi'
 # pushd python && pip install . --user --verbose && ~/cadelabs/change-workspace-python-user ; popd
+# ln -s /data/cache /home/ray/.cache/bazel
 
 # Compile into local pypi, but copy output to /mnt/cluster_storage/pypi for worker nodes.
 
