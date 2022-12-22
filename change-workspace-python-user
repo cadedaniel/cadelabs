@@ -3,6 +3,8 @@
 #export PYTHONUSERBASE='/home/ray/pypi'
 # pushd python && pip install . --user --verbose && ~/cadelabs/change-workspace-python-user ; popd
 
+# Compile into local pypi, but copy output to /mnt/cluster_storage/pypi for worker nodes.
+
 set -x
 
 ray stop --force
