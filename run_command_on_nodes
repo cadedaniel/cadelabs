@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+from ray.util.placement_group import (
+    placement_group,
+    placement_group_table,
+    remove_placement_group,
+)
+from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy
+
+import ray
+
+ray.init()
+
+
+@ray.remote(num_cpus=0.01)
+class Latch:
+    def __init__(self, count):
+        self.count = count
+        self.original_count = count
+
+    def is_ready(self):
+        return self.count == 0
+
+    def count_down(self):
+        self.count = max(self.count - 1, 0)
+
+    def reset(self):
+        self.count = self.original_count
+
+
+@ray.remote(num_cpus=0.01)
+def waiter(latch, index, shell_command):
+    import time
+
+    latch.count_down.remote()
+    while not ray.get(latch.is_ready.remote()):
+        time.sleep(0.1)
+
+    print(f'running command "{shell_command}"')
+    import subprocess
+
+    shell_command = f'sudo iperf3 -c 172.31.220.209 -p {1025 + index} -O 1 --bytes 5G'
+    subprocess.run(shell_command, shell=True, timeout=60)
+
+    import socket
+
+    return socket.gethostname()
+
+
+def schedule_on_node(node_id, soft=False):
+    return ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy(
+        node_id=node_id, soft=soft
+    )
+
+
+install_nvme_commands = [
+    "sudo apt install xfsprogs -y",
+    "sudo mkfs -t xfs /dev/nvme1n1",
+    "sudo mkdir /data",
+    "sudo mount /dev/nvme1n1 /data",
+    "sudo chown -R ray /data",
+]
+
+check_disk_speed_commands = [
+    "sudo apt install hdparm -y",
+    "sudo hdparm -t /dev/nvme1n1",
+]
+
+# command = f'sudo iperf3 -s -B {ip_addr} -p {1025 + index}'
+# command = f'sudo iperf3 -c 172.31.212.191 -p {1025 + index} --bidir'
+
+
+def main():
+    #commands = ['sudo apt-get install iperf3 -y']
+    commands = ['sudo iperf3 -c 172.31.220.209 -p {1025 + index}']
+
+    node_ids = [node["NodeID"] for node in ray.nodes() if node['Resources'].get('GPU') is None]
+    latch = Latch.remote(len(node_ids))
+    for command in commands:
+        hostnames = ray.get(
+            [
+                waiter.options(scheduling_strategy=schedule_on_node(node_id)).remote(
+                    latch, i, command
+                )
+                for i, node_id in enumerate(node_ids)
+            ]
+        )
+        ray.get(latch.reset.remote())
+        assert len(set(hostnames)) == len(hostnames)
+
+
+if __name__ == "__main__":
+    main()
