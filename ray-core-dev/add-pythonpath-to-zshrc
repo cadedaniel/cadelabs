@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+printf Adding path/pythonpath to zshrc and bashrc\n
+cat << 'EOF' | tee --append ~/.zshrc | tee --append ~/.bashrc
+# Added by cade
+export PATH=/data/pypi/bin:$PATH
+export PYTHONUSERBASE='/data/pypi'
+# End added by cade
+EOF

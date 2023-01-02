@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-#export PATH=/data/pypi/bin:$PATH
-#export PYTHONUSERBASE='/data/pypi'
-# pushd python && pip install . --user --verbose && ~/cadelabs/change-workspace-python-user ; popd
-# ln -s /data/cache /home/ray/.cache/bazel
-
+# This script is only necessary if there are worker nodes.
 # Compile into local pypi, but copy output to /mnt/cluster_storage/pypi for worker nodes.
+# pushd python && pip install . --user --verbose && ~/cadelabs/change-workspace-python-user ; popd
 
 set -x
 

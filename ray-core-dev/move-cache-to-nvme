@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+mv ~/.cache /data/cache
+ln -s /data/cache /home/ray/.cache/bazel
