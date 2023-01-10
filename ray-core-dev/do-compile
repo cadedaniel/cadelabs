@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ray stop --force
+
 pushd python
     pip install . --user --verbose
     # if there are worker nodes, 
