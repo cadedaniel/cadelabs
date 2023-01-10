@@ -2,4 +2,4 @@
 
 set -e
 mv ~/.cache /data/cache
-ln -s /data/cache /home/ray/.cache/bazel
+ln -s /data/cache /home/ray/.cache

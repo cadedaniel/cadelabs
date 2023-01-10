@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -x
+
+./mount_nvme
+
+./move-cache-to-nvme
+./move-tmp-ray-to-nvme
+
+./add-pythonpath-to-zshrc-and-bashrc

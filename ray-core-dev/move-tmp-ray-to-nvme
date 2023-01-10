@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+ray stop --force
+sudo umount /tmp/ray
+sudo rm -r /tmp/ray
+mkdir -p /data/tmpray
+sudo ln -s /data/tmpray /tmp/ray
