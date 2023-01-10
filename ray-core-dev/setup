@@ -7,4 +7,5 @@ set -x
 ./move-cache-to-nvme
 ./move-tmp-ray-to-nvme
 
+# Remember to source zshrc!
 ./add-pythonpath-to-zshrc-and-bashrc
