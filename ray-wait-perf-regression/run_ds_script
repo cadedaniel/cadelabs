@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 
-export RAY_core_worker_new_path=0
-export RAY_core_worker_use_old_path=false
+path_to_use=$(python3 << 'EOF'
+import os
+value = os.environ.get('RAY_core_worker_new_path', None)
+
+if value is None:
+    raise ValueError('Expected RAY_core_worker_new_path to be defined')
+else:
+    print(value)
+EOF
+)
+
+export RAY_core_worker_new_path=$path_to_use
 
 ray stop --force
 ray start \

@@ -12,9 +12,10 @@ def create_ds():
     return ray.put(ds)
 
 # Create ds on worker node
-ref = ray.get(create_ds.options(resources={'node:172.31.199.37': 0.001}).remote())
+#ref = ray.get(create_ds.options(resources={'node:172.31.199.37': 0.001}).remote())
+ref = ray.get(create_ds.remote())
 ds = ray.get(ref)
-print(ds.size_bytes() / 1e9, "GB")
+print(ds.size_bytes() / 2**30, "GB")
 
 context = ray.data.context.DatasetContext.get_current()
 context.actor_prefetcher_enabled = False
