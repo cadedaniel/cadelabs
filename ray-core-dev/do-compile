@@ -5,5 +5,5 @@ ray stop --force
 pushd python
     pip install . --user --verbose
     # if there are worker nodes, 
-    ~/cadelabs/change-workspace-python-user
+    ~/cadelabs/ray-core-dev/change-workspace-python-user
 popd

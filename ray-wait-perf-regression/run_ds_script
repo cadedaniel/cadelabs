@@ -13,13 +13,13 @@ EOF
 
 export RAY_core_worker_new_path=$path_to_use
 
-ray stop --force
-ray start \
-    --head \
-    --port=6379 \
-    --object-manager-port=8076 \
-    --port=9031 \
-    --no-monitor \
-    --num-cpus 36
+#ray stop --force
+#ray start \
+#    --head \
+#    --port=6379 \
+#    --object-manager-port=8076 \
+#    --port=9031 \
+#    --no-monitor \
+#    --num-cpus 36
 
-./ds_script.py
+./crash_repro.py
