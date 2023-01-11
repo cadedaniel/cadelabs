@@ -6,6 +6,7 @@ RAY_core_worker_new_path=0 RAY_core_worker_use_old_path=true ray start \
     --port=6379 \
     --object-manager-port=8076 \
     --port=9031 \
-    --no-monitor 
+    --no-monitor \
+    --num-cpus 36
 
     #--object-store-memory 78643200

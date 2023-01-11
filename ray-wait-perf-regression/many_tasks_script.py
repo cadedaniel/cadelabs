@@ -52,7 +52,7 @@ class DestinationActor:
         #size_mb = 1.5 # 1200
         size_mb = '0.001'
         #size_mb = 0.125
-        num_tasks = int(5 * 1e3)
+        num_tasks = int(10 * 1e3)
         fetch_local = True
 
         #total_num_cpus = int(ray.cluster_resources()["CPU"])
@@ -61,14 +61,15 @@ class DestinationActor:
         print(f'Starting {total_num_cpus} actors')
         # 172.31.140.223 head
         # 172.31.199.37
-        actors = [SourceActor.options(resources={'node:172.31.140.223': 0.0001}).remote() for _ in range(total_num_cpus)]
+        actors = [SourceActor.options().remote() for _ in range(total_num_cpus)]
+        #actors = [SourceActor.options(resources={'node:172.31.140.223': 0.0001}).remote() for _ in range(total_num_cpus)]
         ray.get([actor.is_started.remote() for actor in actors])
 
         print(f'Creating returnvals')
         ray.get([actor.create_returnval.remote(1 * 1024 * 1024) for actor in actors])
 
         durations = []
-        for _ in range(20):
+        for _ in range(5):
             print(f'Running {num_tasks} tasks, each returning {size_mb} MB objects')
             #waiter = Waiter.remote()
             refs = []
@@ -89,6 +90,7 @@ class DestinationActor:
             durations.append(duration)
             print(f'Duration {end_time - start_time:.02f}')
         print('Durations', ' '.join([f'{d:.02f}' for d in sorted(durations)]))
+        print(f'Avg duration { sum(durations)/len(durations):.2f}s')
 
 #a = DestinationActor.remote()
 #ray.get(a.get_many_large_objects.remote())

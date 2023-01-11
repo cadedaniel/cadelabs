@@ -9,6 +9,7 @@ ray start \
     --port=6379 \
     --object-manager-port=8076 \
     --port=9031 \
-    --no-monitor 
+    --no-monitor \
+    --num-cpus 36
 
 ./ds_script.py
