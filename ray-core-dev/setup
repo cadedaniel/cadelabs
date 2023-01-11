@@ -9,3 +9,5 @@ set -x
 
 # Remember to source zshrc!
 ./add-pythonpath-to-zshrc-and-bashrc
+
+mv ~/ray /data/

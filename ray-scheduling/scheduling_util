@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+
+import ray
+
+def wait_for_total_node_count(count):
+    import time
+    while True:
+        nodes = ray.nodes()
+        if len(nodes) >= count:
+            return
+        print(f'Waiting for total node count {count}, have {len(nodes)}')
+        time.sleep(1)
+
+def get_nodes_with_cpu_gpu(cpu_count, gpu_count):
+    nodes = ray.nodes()
+    matching = []
+    for node in nodes:
+        if node['Resources'].get('CPU', 0) != cpu_count:
+            continue
+
+        if node['Resources'].get('GPU', 0) != gpu_count:
+            continue
+
+        matching.append(node)
+    return matching
+
+def create_node_resource(node):
+    return {'node:{}'.format(node['NodeName']): 0.001}
+
+def cpu_bundle(num_cpu):
+    return {"CPU": num_cpu}
+
+def create_blocking_pg(num_nodes_to_block, cpu_per_node, block_cpus_per_node=None, all_nodes=None):
+    if all_nodes is None:
+        all_nodes = get_nodes_with_cpu_gpu(cpu_per_node, 0)
+
+    if block_cpus_per_node is None:
+        block_cpus_per_node = cpu_per_node
+
+    #assert num_nodes_to_block < len(all_nodes), "must not block all nodes"
+    nodes_to_block, nodes_to_use = all_nodes[:num_nodes_to_block], all_nodes[num_nodes_to_block:]
+
+    from ray.util.placement_group import placement_group
+    nodes_to_block_pg = placement_group(
+        [{**cpu_bundle(block_cpus_per_node), **create_node_resource(node)} for node in nodes_to_block],
+        strategy='STRICT_SPREAD',
+    )
+
+    return nodes_to_block_pg, nodes_to_use, nodes_to_block
