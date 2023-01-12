@@ -10,15 +10,29 @@ import numpy as np
 
 ray.init()
 
-@ray.remote()
-def source_task():
+@ray.remote(num_cpus=36)
+def source_task(latch):
     print('src task')
+
+    ray.get(latch.count_down.remote())
+    while not ray.get(latch.is_ready.remote()):
+        time.sleep(1)
+
     ds = ray.data.range_tensor(10)
     return ds
 
-@ray.remote()
-def dest_task(ref):
-    ds = ray.get(ref)
+@ray.remote(num_cpus=36)
+def dest_task(latch):
+
+    future = source_task.options(num_cpus=36).remote(latch)
+
+    print('dest task')
+
+    ray.get(latch.count_down.remote())
+    while not ray.get(latch.is_ready.remote()):
+        time.sleep(1)
+
+    ds = ray.get(future)
     print(ds.size_bytes() / 2**30, "GB")
     
     context = ray.data.context.DatasetContext.get_current()
@@ -37,106 +51,42 @@ def dest_task(ref):
 def cpu_bundle(num_cpu):
     return {"CPU": num_cpu}
 
+@ray.remote(num_cpus=0)
+class Latch:
+    def __init__(self, count):
+        self.count = count
+        self.original_count = count
+
+    def is_ready(self):
+        return self.count == 0
+
+    def count_down(self):
+        self.count = max(self.count - 1, 0)
+
+    def reset(self):
+        self.count = self.original_count
+
 if __name__ == '__main__':
+
+    latch = Latch.remote(3)
 
     from ray.util.placement_group import placement_group
     from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy
 
-    pg = placement_group([cpu_bundle(1), cpu_bundle(1)], strategy='STRICT_SPREAD')
-    ray.get(pg.ready())
+    #pg = placement_group([cpu_bundle(36), cpu_bundle(36)], strategy='STRICT_SPREAD')
+    #ray.get(pg.ready())
+    #strategy = PlacementGroupSchedulingStrategy(placement_group=pg)
 
-    ref = source_task.options(
-        scheduling_strategy=PlacementGroupSchedulingStrategy(placement_group=pg)
-    ).remote()
+    #ref = source_task.options(
+    #    #scheduling_strategy=strategy,
+    #    num_cpus=1,
+    #).remote(latch)
 
-    ray.get(dest_task.options(
-        scheduling_strategy=PlacementGroupSchedulingStrategy(placement_group=pg)
-    ).remote(ref))
+    future = dest_task.options(
+        #scheduling_strategy=strategy,
+        num_cpus=36,
+    ).remote(latch)
 
-    #wait_for_total_node_count(2)
-    #nodes = get_nodes_with_cpu_gpu(cpu_count=36, gpu_count=0)
-    #assert len(nodes) == 2
-    #resources = [create_node_resource(node) for node in nodes]
-
-    #ds = ray.get(source_task.options(
-    #    #resources={**resources[0]}
-    #).remote())
-    #ray.get(dest_task.options(
-    #    #resources={**resources[1]}
-    #).remote())
-
-    ray.get(dest_task.remote())
-
-#@ray.remote
-#def create_ds():
-#    # 15 GB
-#    ds = ray.data.range_tensor(100000, shape=(80, 80, 3), parallelism=200)
-#
-#    return ray.put(ds)
-#
-## Create ds on worker node
-##ref = ray.get(create_ds.options(resources={'node:172.31.199.37': 0.001}).remote())
-#ref = ray.get(create_ds.remote())
-#ds = ray.get(ref)
-#print(ds.size_bytes() / 2**30, "GB")
-#
-#context = ray.data.context.DatasetContext.get_current()
-#context.actor_prefetcher_enabled = False
-#
-#start = time.time()
-#latencies = []
-#for _ in ds.iter_batches(batch_size=None, prefetch_blocks=10):
-#    latencies.append(time.time() - start)
-#    start = time.time()
-#    if len(latencies) % 10 == 0:
-#            print("Latencies (mean/50/90)", np.mean(latencies), np.median(latencies), np.quantile(latencies, 0.9))
-#
-#print(ds.stats())
-
-
-"""
-Traceback (most recent call last):
-  File "/home/ray/cadelabs/ray-wait-perf-regression/./ds_script.py", line 67, in <module>
-    ray.get(dest_task.options(
-  File "/data/pypi/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
-    return func(*args, **kwargs)
-  File "/data/pypi/lib/python3.10/site-packages/ray/_private/worker.py", line 2309, in get
-    raise value.as_instanceof_cause()
-ray.exceptions.RayTaskError: ray::dest_task() (pid=5175, ip=172.31.121.0)
-  File "/home/ray/cadelabs/ray-wait-perf-regression/./ds_script.py", line 25, in dest_task
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/dataset.py", line 2720, in iter_batches
-    yield from batch_block_refs(
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 101, in batch_block_refs
-    yield from batch_blocks(
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 145, in batch_blocks
-    for formatted_batch in batch_iter:
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 305, in _format_batches
-    for block in block_iter:
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 268, in _blocks_to_batches
-    for block in block_iter:
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 169, in _resolve_blocks
-    for block_ref in block_ref_iter:
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/block_batching.py", line 210, in _prefetch_blocks
-    sliding_window = collections.deque(
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/lazy_block_list.py", line 414, in __next__
-    ref, meta = next(self._base_iter)
-  File "/home/ray/anaconda3/lib/python3.10/site-packages/ray/data/_internal/lazy_block_list.py", line 459, in __next__
-    generator = ray.get(generator_ref)
-ray.exceptions.RayTaskError: ray::_execute_read_task_split() (pid=76752, ip=172.31.98.252)
-  At least one of the input arguments for this task could not be computed:
-ray.exceptions.RaySystemError: System error: Can't get attribute '_make_function' on <module 'ray.cloudpickle.cloudpickle' from '/data/pypi/lib/python3.10/site-packages/ray/cloudpickle/cloudpickle.py'>
-traceback: Traceback (most recent call last):
-AttributeError: Can't get attribute '_make_function' on <module 'ray.cloudpickle.cloudpickle' from '/data/pypi/lib/python3.10/site-packages/ray/cloudpickle/cloudpickle.py'>
-(_execute_read_task_split pid=76752) 2023-01-10 17:37:46,969    ERROR serialization.py:371 -- Can't get attribute '_make_function' on <module 'ray.cloudpickle.cloudpickle' from '/data/pypi/lib/python3.10/site-packages/ray/cloudpickle/cloudpickle.py'>
-(_execute_read_task_split pid=76752) Traceback (most recent call last):
-(_execute_read_task_split pid=76752)   File "/data/pypi/lib/python3.10/site-packages/ray/_private/serialization.py", line 369, in deserialize_objects
-(_execute_read_task_split pid=76752)     obj = self._deserialize_object(data, metadata, object_ref)
-(_execute_read_task_split pid=76752)   File "/data/pypi/lib/python3.10/site-packages/ray/_private/serialization.py", line 252, in _deserialize_object
-(_execute_read_task_split pid=76752)     return self._deserialize_msgpack_data(data, metadata_fields)
-(_execute_read_task_split pid=76752)   File "/data/pypi/lib/python3.10/site-packages/ray/_private/serialization.py", line 207, in _deserialize_msgpack_data
-(_execute_read_task_split pid=76752)     python_objects = self._deserialize_pickle5_data(pickle5_data)
-(_execute_read_task_split pid=76752)   File "/data/pypi/lib/python3.10/site-packages/ray/_private/serialization.py", line 197, in _deserialize_pickle5_data
-(_execute_read_task_split pid=76752)     obj = pickle.loads(in_band)
-(_execute_read_task_split pid=76752) AttributeError: Can't get attribute '_make_function' on <module 'ray.cloudpickle.cloudpickle' from '/data/pypi/lib/python3.10/site-packages/ray/cloudpickle/cloudpickle.py'>
-(dest_task pid=5175, ip=172.31.121.0) 14.30511474609375 GB
-"""
+    input('waiting')
+    latch.count_down.remote()
+    ray.get(future)
