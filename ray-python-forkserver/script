@@ -16,6 +16,7 @@ class ProcessStarter:
 class ForkBasedProcessStarter(ProcessStarter):
     def __init__(self):
         self._forkserver = None
+        self._child_pids = []
     
     @property
     def fs(self):
@@ -24,7 +25,14 @@ class ForkBasedProcessStarter(ProcessStarter):
         return self._forkserver
 
     def start_proc(self):
-        self.fs.create_proc()
+        child_pid = self.fs.create_proc()
+        self._child_pids.append(child_pid)
+
+    def __del__(self):
+        import signal
+        import os
+        for pid in self._child_pids:
+            os.kill(pid, signal.SIGTERM)
 
 class Forkserver:
     def __init__(self):
@@ -38,19 +46,36 @@ class Forkserver:
 
     @staticmethod
     def _server_func(pipe):
+        import os
+
+        import slow_import
+
         while True:
-            r = pipe.recv()
+            pipe.recv()
 
-            # Spawn process.
-            # Use fork syscall.
+            r, w = os.pipe()
+            pid = os.fork()
 
-            pipe.send('done')
+            if pid == 0:
+                os.close(r)
+                stdout_fd = 1
+                os.dup2(w, stdout_fd)
+
+                print('Child process')
+                __import__('user_script')
+
+                os._exit(0)
+            else:
+                wait_for_stream_to_emit_bytes(r, b'Sleeping forever')
+                pipe.send(f'done {pid}')
 
     def create_proc(self):
-        print('create proc')
         self.pipe.send('create')
         output = self.pipe.recv()
         assert 'done' in output, f'got {output}'
+        _, child_pid = output.split(' ')
+
+        return int(child_pid)
 
     def __del__(self):
         self._server.kill()
@@ -58,12 +83,19 @@ class Forkserver:
 
 def wait_for_stream_to_emit_bytes(stream, bstr):
     import select
+    import os
 
     proc_is_initialized = False
     data = b''
     while not proc_is_initialized:
         ready, _, _ = select.select([stream], [], [])
-        data += ready[0].read1()
+
+        ready_stream = ready[0]
+        if isinstance(ready_stream, int):
+            data += os.read(ready_stream, 1024)
+        else:
+            data += ready_stream.read1()
+
         proc_is_initialized = bstr in data
 
 class SpawnBasedProcessStarter(ProcessStarter):
@@ -80,12 +112,11 @@ class SpawnBasedProcessStarter(ProcessStarter):
         wait_for_stream_to_emit_bytes(proc.stdout, b'Sleeping forever.')
 
     def __del__(self):
-        print(f'Killing {len(self._proc_list)} procs')
         for proc in self._proc_list:
             proc.kill()
 
-def run_test(num_procs_to_start, method='default'):
-    if method not in ['forkserver', 'default']:
+def run_test(num_procs_to_start, method='spawn'):
+    if method not in ['forkserver', 'spawn']:
         raise ValueError(f'unknown method {method}')
 
     cls = ForkBasedProcessStarter if method == 'forkserver' else SpawnBasedProcessStarter
@@ -97,11 +128,11 @@ def run_test(num_procs_to_start, method='default'):
         process_starter.start_proc()
 
     dur_s = time.time() - start_time
-    print(f'{method} {num_procs_to_start} {dur_s:.02f}s')
+    print(f'Started {num_procs_to_start} processes using {method} method. Duration: {dur_s:.02f}s')
 
     del process_starter
 
 if __name__ == '__main__':
-    num_procs = 1
+    num_procs = 10
     run_test(num_procs, 'forkserver')
-    #run_test(num_procs, 'default')
+    run_test(num_procs, 'spawn')

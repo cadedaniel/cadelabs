@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#import slow_import
+import slow_import
 import os
 import time
 import sys
