@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from threadpoolctl import threadpool_limits, threadpool_info
+import psutil
+import os
+
+proc = psutil.Process(os.getpid())
+
+print('pid', os.getpid())
+print('threads:', len(proc.threads()))
+
+# I can keep one thread via OPENBLAS_NUM_THREADS=1
+# https://github.com/joblib/threadpoolctl
+
+print(threadpool_info())
+
+with threadpool_limits(limits=2, user_api='blas'):
+    import numpy
+    print('numpy imported')
+    print('threads:', len(proc.threads()))
+    print(threadpool_info())
+
+print('threads:', len(proc.threads()))
+print(threadpool_info())
