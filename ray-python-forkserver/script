@@ -14,25 +14,55 @@ class ProcessStarter:
         raise NotImplementedError
 
 class ForkBasedProcessStarter(ProcessStarter):
+    def __init__(self):
+        self._forkserver = None
     
     @property
-    def _forkserver(self):
-        pass
+    def fs(self):
+        if self._forkserver is None:
+            self._forkserver = Forkserver()
+        return self._forkserver
 
     def start_proc(self):
-        pass
+        self.fs.create_proc()
 
 class Forkserver:
     def __init__(self):
-        pass
+        from multiprocessing import Process, Pipe
 
-def wait_for_proc_to_emit_bytes(proc, bstr):
+        server_pipe, self.pipe = Pipe()
+
+        args = (server_pipe,)
+        self._server = Process(target=self._server_func, args=args)
+        self._server.start()
+
+    @staticmethod
+    def _server_func(pipe):
+        while True:
+            r = pipe.recv()
+
+            # Spawn process.
+            # Use fork syscall.
+
+            pipe.send('done')
+
+    def create_proc(self):
+        print('create proc')
+        self.pipe.send('create')
+        output = self.pipe.recv()
+        assert 'done' in output, f'got {output}'
+
+    def __del__(self):
+        self._server.kill()
+        self._server.join()
+
+def wait_for_stream_to_emit_bytes(stream, bstr):
     import select
 
     proc_is_initialized = False
     data = b''
     while not proc_is_initialized:
-        ready, _, _ = select.select([proc.stdout], [], [])
+        ready, _, _ = select.select([stream], [], [])
         data += ready[0].read1()
         proc_is_initialized = bstr in data
 
@@ -42,13 +72,12 @@ class SpawnBasedProcessStarter(ProcessStarter):
 
     def start_proc(self):
         import subprocess
-        print('starting proc')
         proc = subprocess.Popen(
             "./user_script.py",
             stdout=subprocess.PIPE,
         )
         self._proc_list.append(proc)
-        wait_for_proc_to_emit_bytes(proc, b'Sleeping forever.')
+        wait_for_stream_to_emit_bytes(proc.stdout, b'Sleeping forever.')
 
     def __del__(self):
         print(f'Killing {len(self._proc_list)} procs')
@@ -73,6 +102,6 @@ def run_test(num_procs_to_start, method='default'):
     del process_starter
 
 if __name__ == '__main__':
-    num_procs = 5
-    #run_test(num_procs, 'forkserver')
-    run_test(num_procs, 'default')
+    num_procs = 1
+    run_test(num_procs, 'forkserver')
+    #run_test(num_procs, 'default')
