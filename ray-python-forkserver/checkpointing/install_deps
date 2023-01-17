@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+sudo apt-get install \
+    libprotobuf-dev \
+    libprotobuf-c-dev \
+    protobuf-c-compiler \
+    protobuf-compiler \
+    python3-protobuf \
+    libnl-3-dev \
+    libnet-dev \
+    libcap-dev \
+    libnftables-dev
