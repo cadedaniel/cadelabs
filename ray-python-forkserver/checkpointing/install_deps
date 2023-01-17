@@ -10,6 +10,6 @@ sudo apt-get install \
     libnet-dev \
     libcap-dev \
     libnftables-dev \
-    make \
     gcc \
-    pkg-config
+    pkg-config \
+    make
