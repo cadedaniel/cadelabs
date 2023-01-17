@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+from threadpoolctl import threadpool_limits, threadpool_info
+import psutil
+import os
+
+proc = psutil.Process(os.getpid())
+
+print('pid', os.getpid())
+print('threads:', len(proc.threads()))
+
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+
+import numpy
+
+print('threads:', len(proc.threads()))
+
+os.environ['OPENBLAS_NUM_THREADS'] = '12'
+
+import numpy
+print('threads:', len(proc.threads()))
