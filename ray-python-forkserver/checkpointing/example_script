@@ -2,8 +2,10 @@
 
 import os
 import time
+import tensorflow
 
 print(f'Example script is running, pid={os.getpid()}')
 
 while True:
     time.sleep(1)
+    print('sleep 1')

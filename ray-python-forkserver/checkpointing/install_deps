@@ -9,4 +9,7 @@ sudo apt-get install \
     libnl-3-dev \
     libnet-dev \
     libcap-dev \
-    libnftables-dev
+    libnftables-dev \
+    make \
+    gcc \
+    pkg-config
