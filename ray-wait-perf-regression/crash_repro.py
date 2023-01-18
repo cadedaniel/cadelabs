@@ -1,92 +1,41 @@
 #!/usr/bin/env python3
 
 import ray
-import time
-import numpy as np
 
-# This appears to have a bug -- I can't deserialize the dataset across nodes.
-# My workspace is somehow borked. I need to start from scratch.
-# I am going to restart the workspace and see if I can repro.
 
-ray.init()
+def node_assignment(node):
+    return {'node:{}'.format(node['NodeName']): 0.001}
 
-@ray.remote(num_cpus=36)
-def source_task(latch):
+
+@ray.remote
+def source_task():
     print('src task')
-
-    ray.get(latch.count_down.remote())
-    while not ray.get(latch.is_ready.remote()):
-        time.sleep(1)
-
     ds = ray.data.range_tensor(10)
     return ds
 
-@ray.remote(num_cpus=36)
-def dest_task(latch):
 
-    future = source_task.options(num_cpus=36).remote(latch)
+@ray.remote
+def destination_task(other_node):
+    future = source_task.options(
+        resources=node_assignment(other_node)
+    ).remote()
 
     print('dest task')
-
-    ray.get(latch.count_down.remote())
-    while not ray.get(latch.is_ready.remote()):
-        time.sleep(1)
-
     ds = ray.get(future)
-    print(ds.size_bytes() / 2**30, "GB")
-    
-    context = ray.data.context.DatasetContext.get_current()
-    context.actor_prefetcher_enabled = False
-    
-    start = time.time()
-    latencies = []
-    for _ in ds.iter_batches(batch_size=None, prefetch_blocks=10):
-        latencies.append(time.time() - start)
-        start = time.time()
-        if len(latencies) % 10 == 0:
-                print("Latencies (mean/50/90)", np.mean(latencies), np.median(latencies), np.quantile(latencies, 0.9))
-    
-    print(ds.stats())
+    print(ds.size_bytes())
 
-def cpu_bundle(num_cpu):
-    return {"CPU": num_cpu}
-
-@ray.remote(num_cpus=0)
-class Latch:
-    def __init__(self, count):
-        self.count = count
-        self.original_count = count
-
-    def is_ready(self):
-        return self.count == 0
-
-    def count_down(self):
-        self.count = max(self.count - 1, 0)
-
-    def reset(self):
-        self.count = self.original_count
 
 if __name__ == '__main__':
+    ray.init()
 
-    latch = Latch.remote(3)
+    # Need to guarantee that the src and dest tasks run on different nodes.
+    nodes = ray.nodes()
+    assert len(nodes) >= 2, "Must have at least two nodes to reproduce crash"
+    destination_node = nodes[0]
+    source_node = nodes[1]
 
-    from ray.util.placement_group import placement_group
-    from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy
+    future = destination_task.options(
+        resources=node_assignment(destination_node),
+    ).remote(source_node)
 
-    #pg = placement_group([cpu_bundle(36), cpu_bundle(36)], strategy='STRICT_SPREAD')
-    #ray.get(pg.ready())
-    #strategy = PlacementGroupSchedulingStrategy(placement_group=pg)
-
-    #ref = source_task.options(
-    #    #scheduling_strategy=strategy,
-    #    num_cpus=1,
-    #).remote(latch)
-
-    future = dest_task.options(
-        #scheduling_strategy=strategy,
-        num_cpus=36,
-    ).remote(latch)
-
-    input('waiting')
-    latch.count_down.remote()
     ray.get(future)
