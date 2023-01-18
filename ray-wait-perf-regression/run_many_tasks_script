@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 path_to_use=$(python3 << 'EOF'
 import os
 value = os.environ.get('RAY_core_worker_new_path', None)
@@ -10,6 +11,8 @@ else:
     print(value)
 EOF
 )
+
+set +e
 
 export RAY_core_worker_new_path=$path_to_use
 
