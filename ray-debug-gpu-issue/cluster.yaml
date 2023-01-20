@@ -1,0 +1,60 @@
+cluster_name: cade-ray-gpu-debug
+
+#max_workers: 2
+
+#docker:
+#  image: "959243851260.dkr.ecr.us-west-2.amazonaws.com/cade-test:ray-dist-jax"
+#  #image: "rayproject/ray:2.0.0-py37-gpu"
+#  container_name: "ray_container"
+#  worker_run_options:
+#    - --gpus=all
+#  #pull_before_run: True
+
+provider:
+  type: aws
+  region: us-west-2
+  availability_zone: us-west-2a
+  cache_stopped_nodes: False
+
+auth:
+  ssh_user: ubuntu
+  ssh_private_key: ~/.ssh/cade-legacy-work.pem
+
+#initialization_commands:
+#    - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 959243851260.dkr.ecr.us-west-2.amazonaws.com
+
+available_node_types:
+  # Configurations for the head node.
+  head:
+    resources:
+      cpu: 64
+      gpu: 1
+    node_config:
+      InstanceType: g5.16xlarge
+      ImageId: ami-038a67efa1691a1af
+      KeyName: cade-legacy-work
+      IamInstanceProfile:
+        Arn: arn:aws:iam::959243851260:instance-profile/ray-autoscaler-v1 
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 1000
+
+  worker:
+    min_workers: 1
+    max_workers: 1
+    resources:
+      cpu: 64
+      gpu: 1
+    node_config:
+      InstanceType: g5.16xlarge
+      ImageId: ami-038a67efa1691a1af
+      KeyName: cade-legacy-work
+      IamInstanceProfile:
+        Arn: arn:aws:iam::959243851260:instance-profile/ray-autoscaler-v1 
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 1000
+
+head_node_type: head
