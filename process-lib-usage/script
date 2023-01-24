@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+import csv
+import json
+from collections import defaultdict
+
+histogram = defaultdict(int)
+
+with open('data.csv') as f:
+    table = csv.reader(f)
+
+    for i, row in enumerate(table):
+        if i == 0:
+            continue
+
+        try:
+            s = row[0]
+            if not s:
+                continue
+            libs = json.loads(s)
+            for lib in libs:
+                histogram[lib] += 1
+        except:
+            print(s, row)
+            raise
+
+sorted_by_count = list(reversed(sorted((count, lib) for lib, count in histogram.items())))
+
+for count, lib in sorted_by_count:
+    print(count, lib)
