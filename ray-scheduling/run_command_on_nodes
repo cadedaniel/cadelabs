@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+from typing import Callable
+import ray
+import os
+import sys
+
 from ray.util.placement_group import (
     placement_group,
     placement_group_table,
@@ -7,10 +12,7 @@ from ray.util.placement_group import (
 )
 from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy
 
-import ray
-
 ray.init()
-
 
 @ray.remote(num_cpus=0.01)
 class Latch:
@@ -39,7 +41,7 @@ def waiter(latch, index, shell_command):
     print(f'running command "{shell_command}"')
     import subprocess
 
-    shell_command = f'sudo iperf3 -c 172.31.220.209 -p {1025 + index} -O 1 --bytes 5G'
+    # shell_command = f'sudo iperf3 -c 172.31.220.209 -p {1025 + index} -O 1 --bytes 5G'
     subprocess.run(shell_command, shell=True, timeout=60)
 
     import socket
@@ -51,6 +53,20 @@ def schedule_on_node(node_id, soft=False):
     return ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy(
         node_id=node_id, soft=soft
     )
+
+
+def get_non_gpu_nodes():
+    return [node for node in ray.nodes() if node['Resources'].get('GPU') is None]
+
+
+def wait_for_total_node_count(count, node_generator: Callable = None):
+    import time
+    while True:
+        nodes = ray.nodes() if not node_generator else node_generator()
+        if len(nodes) >= count:
+            return nodes
+        print(f'Waiting for total node count {count}, have {len(nodes)}')
+        time.sleep(1)
 
 
 install_nvme_commands = [
@@ -71,10 +87,27 @@ check_disk_speed_commands = [
 
 
 def main():
-    #commands = ['sudo apt-get install iperf3 -y']
-    commands = ['sudo iperf3 -c 172.31.220.209 -p {1025 + index}']
+    # commands = ['sudo apt-get install iperf3 -y']
+    # commands = ['sudo iperf3 -c 172.31.220.209 -p {1025 + index}']
 
-    node_ids = [node["NodeID"] for node in ray.nodes() if node['Resources'].get('GPU') is None]
+    commands = None
+
+    if os.environ.get('COMMAND_FROM_STDIN', False):
+        print('Reading commands from stdin')
+        commands = [x.strip() for x in sys.stdin.readlines()]
+    else:
+        commands = install_nvme_commands
+
+    print('Running commands:')
+    for command in commands:
+        print(f'\t{command}')
+
+    expected_nodes = 5
+    #node_generator = get_non_gpu_nodes
+    node_generator = lambda: ray.nodes()
+    node_ids = [node['NodeID'] for node in wait_for_total_node_count(
+        count=expected_nodes, node_generator=node_generator)]
+
     latch = Latch.remote(len(node_ids))
     for command in commands:
         hostnames = ray.get(
