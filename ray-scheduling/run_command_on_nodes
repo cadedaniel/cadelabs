@@ -85,14 +85,25 @@ check_disk_speed_commands = [
 # command = f'sudo iperf3 -s -B {ip_addr} -p {1025 + index}'
 # command = f'sudo iperf3 -c 172.31.212.191 -p {1025 + index} --bidir'
 
+def parse_args():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--num-nodes", type=int, required=True)
+    args = parser.parse_args()
+
+    return args
 
 def main():
     # commands = ['sudo apt-get install iperf3 -y']
     # commands = ['sudo iperf3 -c 172.31.220.209 -p {1025 + index}']
 
+    args = parse_args()
+    print(f'expecting {args.num_nodes}', file=sys.stderr)
     commands = None
 
-    if os.environ.get('COMMAND_FROM_STDIN', False):
+    #if os.environ.get('COMMAND_FROM_STDIN', False):
+    if True:
         print('Reading commands from stdin')
         commands = [x.strip() for x in sys.stdin.readlines()]
     else:
@@ -102,7 +113,7 @@ def main():
     for command in commands:
         print(f'\t{command}')
 
-    expected_nodes = 5
+    expected_nodes = args.num_nodes
     #node_generator = get_non_gpu_nodes
     node_generator = lambda: ray.nodes()
     node_ids = [node['NodeID'] for node in wait_for_total_node_count(
