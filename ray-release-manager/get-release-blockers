@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# TODO recommend sorting by issue number, since it makes updating the table easier with existing comments
+gh search issues --repo ray-project/ray --label release-blocker --state=open --json url,title,assignees,labels --jq '.' \
+	| jq '.[] | {url: .url, title: .title, assignees: (.assignees | map(.login) | sort | join(",") | if .=="" then "(no assignees)" else . end), labels: (.labels | map(.name) | sort | join(",")) }' \
+	| jq -s '.' \
+	| jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @tsv' \
+	| tail -n +2 \
+	| sort -k3 -t$'\t' \
+	| pbcopy
