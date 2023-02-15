@@ -1,0 +1,5 @@
+sudo ctr run --rm -t docker.io/rayproject/ray:sha256:0bb8cdafa694a02a3066bf3364e30ca722625e8e4540cc6c7a83bd16e6264b29 cade4 python3 -c 'import ray; print(ray.__commit__)'
+
+sudo ctr content fetch docker.io/rayproject/ray:sha256:0bb8cdafa694a02a3066bf3364e30ca722625e8e4540cc6c7a83bd16e6264b29
+
+sudo ctr images pull docker.io/rayproject/ray:sha256:0bb8cdafa694a02a3066bf3364e30ca722625e8e4540cc6c7a83bd16e6264b29
