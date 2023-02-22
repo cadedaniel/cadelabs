@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for wheel_name in ray-*.whl; do
+        path=$(unzip -Z1 $wheel_name | grep -E '((purelib/)|^)ray/__init__.py')
+        commit=$(unzip -p $wheel_name $path | grep '__commit__ = ' | awk '{print $3}' | sed 's/"//g')
+        echo "$commit $wheel_name"
+done
