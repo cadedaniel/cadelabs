@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+# example output
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp310-cp310-macosx_11_0_arm64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp310-cp310-manylinux2014_aarch64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp310-cp310-manylinux2014_x86_64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp310-cp310-win_amd64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp36-cp36m-manylinux2014_aarch64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp36-cp36m-manylinux2014_x86_64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp37-cp37m-manylinux2014_aarch64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp37-cp37m-manylinux2014_x86_64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp37-cp37m-win_amd64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp38-cp38-macosx_11_0_arm64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp38-cp38-manylinux2014_aarch64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp38-cp38-manylinux2014_x86_64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp38-cp38-win_amd64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp39-cp39-macosx_11_0_arm64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp39-cp39-manylinux2014_aarch64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp39-cp39-manylinux2014_x86_64.whl
+# cf7a56b4b0b648c324722df7c99c168e92ff0b45 ray-2.3.0-cp39-cp39-win_amd64.whl
+
 for wheel_name in ray-*.whl; do
         path=$(unzip -Z1 $wheel_name | grep -E '((purelib/)|^)ray/__init__.py')
         commit=$(unzip -p $wheel_name $path | grep '__commit__ = ' | awk '{print $3}' | sed 's/"//g')
