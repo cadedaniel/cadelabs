@@ -16,11 +16,17 @@ create_cluster_environment = CreateClusterEnvironment(
         "post_build_cmds": [
             "sudo apt-get update -y",
             "sudo apt-get upgrade -y",
+            "pip install --upgrade pip",
             #"sudo apt-get install zsh curl silversearcher-ag jq sysstat vim htop clang-format-12 -y"
             "sudo ln -s /usr/bin/clang-format-12 /usr/bin/clang-format",
             "mkdir -p ~/.vim/cade-cluster-env-token",
         ],
-        "python": [],
+        "python": [
+            "black==22.10.0", # for ray lint
+            "flake8==3.9.1", # for ray lint
+            "mypy==0.982", # for ray lint
+            "isort==5.10.1", # for ray lint
+        ],
         "debian_packages": [
             "zsh",
             "curl",
