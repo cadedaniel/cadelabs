@@ -114,7 +114,7 @@ class NodeActor:
             subprocess.check_call(f"sudo iperf3 -s -B {self_ip} -p {port} --one-off", shell=True)
         else:
             time.sleep(1)
-            subprocess.check_call(f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --bytes 10G --bidir", shell=True)
+            subprocess.check_call(f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --bytes 5G --bidir", shell=True)
 
         print('iperf3 done')
 
