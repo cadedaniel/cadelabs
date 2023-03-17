@@ -6,6 +6,39 @@ import time
 
 ray.init()
 
+@ray.remote(num_cpus=0)
+class NodeStateManager:
+    def setup(self):
+        cache_dir = "/home/ray/.cache/gloo-deps-src"
+
+        if subprocess.run(f"ls {cache_dir} > /dev/null", shell=True).returncode != 0:
+            subprocess.check_call(f"mkdir {cache_dir}", shell=True)
+        
+        if subprocess.run(f"ls {cache_dir}/ray > /dev/null", shell=True).returncode != 0:
+            print('Shallow clone ray')
+            subprocess.check_call(
+                f"git clone --depth 1 https://github.com/ray-project/ray.git "
+                f"{cache_dir}/ray",
+                shell=True
+            )
+
+        if subprocess.run(f"ls {cache_dir}/pygloo > /dev/null", shell=True).returncode != 0:
+            print('Shallow clone pygloo')
+            subprocess.check_call(
+                f"git clone --depth 1 https://github.com/ray-project/pygloo.git "
+                f"{cache_dir}/pygloo",
+                shell=True
+            )
+
+        if subprocess.run("ls ~/bin/bazel > /dev/null", shell=True).returncode != 0:
+            # install bazel
+            subprocess.check_call("sudo apt-get install curl", shell=True)
+            subprocess.check_call(f"cd {cache_dir}/ray; bash ./ci/env/install-bazel.sh", shell=True)
+            subprocess.check_call("ls ~/bin/bazel", shell=True)
+        
+        if subprocess.run("pip show pygloo > /dev/null", shell=True).returncode != 0:
+            subprocess.check_call(f"cd {cache_dir}/pygloo; python setup.py install", shell=True)
+
 @ray.remote
 class NodeActor:
     def __init__(self, rank, world_size, redis_hostname, redis_port):
@@ -19,22 +52,22 @@ class NodeActor:
     def get_hostname(self):
         import socket
         return socket.gethostname()
-
-    def install_gloo(self):
-        pass
-        #subprocess.run("pip install pygloo", shell=True)
     
+    def clear_redis(self):
+        print('clearing redis')
+        import redis
+        redis_client = redis.Redis(host=self.redis_hostname, port=self.redis_port)
+        redis_client.flushall()
+
     def test_gloo(self, prefix):
         import pygloo
 
         context = pygloo.rendezvous.Context(self.rank, self.world_size)
 
         attr = pygloo.transport.tcp.attr(self.get_hostname())
-        #attr = pygloo.transport.tcp.attr("localhost")
         dev = pygloo.transport.tcp.CreateDevice(attr)
-        #file_store = pygloo.rendezvous.FileStore(self.file_store_dir)
+        print('device:', dev)
         store = pygloo.rendezvous.RedisStore(self.redis_hostname, self.redis_port)
-        store = pygloo.rendezvous.PrefixStore(str(prefix), store)
 
         print('connectFullMesh start')
         # Getting segfault here
@@ -51,10 +84,18 @@ def alive(nodes):
         if node['Alive']:
             yield node
 
-redis_port = 7777
-redis_hostname = "ip-10-0-24-230"
+redis_actor = ray.get_actor(name='redis_actor', namespace='redis_actor_namespace')
+redis_hostname, redis_port = ray.get(redis_actor.get_connection_info.remote())
 
 alive_nodes = list(alive(ray.nodes()))
+
+state_manager_actors = [
+    NodeStateManager.options(
+        scheduling_strategy=schedule_on_node(node)
+    ).remote() for node in alive_nodes
+]
+
+ray.get([a.setup.remote() for a in state_manager_actors])
 
 actors = [
     NodeActor.options(
@@ -69,13 +110,13 @@ actors = [
 
 prefix = f"{time.time()}"
 
+ray.get(actors[0].clear_redis.remote())
 ray.get([actor.test_gloo.remote(prefix) for actor in actors])
 
 while True:
     import time
     time.sleep(1)
 
-#ray.get([actor.install_gloo.remote() for actor in actors])
 #ray.get([actor.test_redis.remote() for actor in actors])
 
 """

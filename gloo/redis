@@ -2,6 +2,7 @@
 
 import ray
 import subprocess
+import socket
 
 ray.init()
     
@@ -9,17 +10,21 @@ ray.init()
 class RedisActor:
     def __init__(self):
         self.redis_server_proc = None
+        self.port = None
 
     def start(self, port):
         subprocess.run("sudo apt-get install redis -y", shell=True)
         subprocess.run("pkill redis-server", shell=True)
         self.redis_server_proc = subprocess.Popen(f"redis-server --port {port} --protected-mode no", shell=True)
+        self.port = port
         
         import time
         time.sleep(5)
 
-        import socket
         return socket.gethostname()
+
+    def get_connection_info(self):
+        return socket.gethostname(), self.port
 
     def stop(self):
         print('Killing redis')
@@ -36,7 +41,7 @@ def alive(nodes):
         if node['Alive']:
             yield node
 
-redis_actor = RedisActor.remote()
+redis_actor = RedisActor.options(name="redis_actor", namespace="redis_actor_namespace").remote()
 redis_port = 7777
 redis_hostname = ray.get(redis_actor.start.remote(port=redis_port))
 
