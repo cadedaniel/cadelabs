@@ -87,7 +87,7 @@ class NodeActor:
 
         self.test_small_p2p_comm(context)
         self.test_network_bandwidth_without_glue()
-        #self.test_large_p2p_comm(context)
+        self.test_large_p2p_comm(context)
 
     def test_small_p2p_comm(self, context):
         import pygloo
@@ -116,7 +116,7 @@ class NodeActor:
         port = 1026
 
         report_interval_s = 5
-        total_time_s = 30
+        total_time_s = 5
         if self.rank == 0:
             subprocess.check_call(
                 f"sudo iperf3 -s -B {self_ip} -p {port} --one-off -i {report_interval_s}",
@@ -135,6 +135,19 @@ class NodeActor:
         import pygloo
         print('Starting large P2P communication')
         tag = 0
+        '''
+        Getting about 8.8 Gbit/s communication.
+        There are two issues I see with pygloo:
+            * currently sends are sync, so only single thread can be used
+            * currently creates send buffer each time (instead of pinned memory)
+
+        not that hard to fix these things. but i wonder if using different lib would be easier.
+
+        ucx and libfabric are good but I think another level of optimization
+        I should start with pygloo on multiple threads (I can only saturate 25Gbit/s link
+        with 4 iperf streams). if I can get to ~25Gbit/s that way, then done (until RDMA).
+        Otherwise will have to use something else (ucx looks easier).
+        '''
 
         shape =  10 * 2**30
         value_to_send = np.ones(shape, dtype=np.uint8)
