@@ -3,6 +3,7 @@
 import ray
 import subprocess
 import time
+import numpy as np
 
 ray.init()
 
@@ -52,6 +53,13 @@ class NodeActor:
     def get_hostname(self):
         import socket
         return socket.gethostname()
+
+    def get_hostname_with_rank(self):
+        return (self.rank, self.get_hostname())
+
+    def set_hostnames(self, hostnames_by_rank):
+        self.hostnames = hostnames_by_rank
+        print(self.hostnames)
     
     def clear_redis(self):
         print('clearing redis')
@@ -70,10 +78,71 @@ class NodeActor:
         store = pygloo.rendezvous.RedisStore(self.redis_hostname, self.redis_port)
 
         print('connectFullMesh start')
-        # Getting segfault here
         context.connectFullMesh(store, dev)
-        print('connectFullMesh done')
-    
+
+        self.test_small_p2p_comm(context)
+        self.test_network_bandwidth_without_glue()
+        self.test_large_p2p_comm(context)
+
+    def test_small_p2p_comm(self, context):
+        import pygloo
+        print('Starting small P2P communication')
+        tag = 0
+        
+        value_to_send = np.ones(5, dtype=np.float32)
+        if self.rank == 0:
+            send_buf = value_to_send
+            sendptr = send_buf.ctypes.data
+            pygloo.send(context, sendptr, size=5, datatype=pygloo.glooDataType_t.glooFloat32, peer=1, tag=tag)
+        else:
+            recv_buf = np.zeros(5, dtype=np.float32)
+            recvptr = recv_buf.ctypes.data
+            pygloo.recv(context, recvptr, size=5, datatype=pygloo.glooDataType_t.glooFloat32, peer=0, tag=tag)
+            assert np.allclose(recv_buf, value_to_send), "Small fail"
+            print("Small send/recv passed")
+
+    def test_network_bandwidth_without_glue(self):
+        if subprocess.run("which iperf3", shell=True).returncode != 0:
+            subprocess.run("sudo apt-get install iperf3 -y", shell=True)
+
+        peer_rank = 0 if self.rank == 1 else 1
+        peer_ip = self.hostnames[peer_rank]
+        self_ip = self.hostnames[self.rank]
+        port = 1026
+
+        if self.rank == 0:
+            subprocess.check_call(f"sudo iperf3 -s -B {self_ip} -p {port} --one-off", shell=True)
+        else:
+            time.sleep(1)
+            subprocess.check_call(f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --bytes 10G --bidir", shell=True)
+
+        print('iperf3 done')
+
+    def test_large_p2p_comm(self, context):
+        import pygloo
+        print('Starting large P2P communication')
+        tag = 0
+
+        shape =  10 * 2**30
+        value_to_send = np.ones(shape, dtype=np.uint8)
+        if self.rank == 0:
+            send_buf = value_to_send
+            sendptr = send_buf.ctypes.data
+            for tag in range(5):
+                start = time.time()
+                pygloo.send(context, sendptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=1, tag=tag)
+                dur_s = time.time() - start
+                print(f'send took {dur_s:.02f} s, {(8 * (shape/2**30)/ dur_s):.02f} Gbit/s')
+        else:
+            recv_buf = np.empty(shape, dtype=np.uint8)
+            recvptr = recv_buf.ctypes.data
+            for tag in range(5):
+                start = time.time()
+                pygloo.recv(context, recvptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=0, tag=tag)
+                dur_s = time.time() - start
+                print(f'recv took {dur_s:.02f} s, {(8 * (shape/2**30)/ dur_s):.02f} Gbit/s')
+
+
 def schedule_on_node(node, soft=False):
     return ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy(
         node_id=node['NodeID'], soft=soft
@@ -111,11 +180,13 @@ actors = [
 prefix = f"{time.time()}"
 
 ray.get(actors[0].clear_redis.remote())
+hostnames = {rank: hostname for rank, hostname in ray.get([a.get_hostname_with_rank.remote() for a in actors])}
+ray.get([a.set_hostnames.remote(hostnames) for a in actors])
 ray.get([actor.test_gloo.remote(prefix) for actor in actors])
 
-while True:
-    import time
-    time.sleep(1)
+#while True:
+#    import time
+#    time.sleep(1)
 
 #ray.get([actor.test_redis.remote() for actor in actors])
 
