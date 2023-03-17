@@ -4,6 +4,7 @@ import ray
 import subprocess
 import time
 import numpy as np
+import socket
 
 ray.init()
 
@@ -51,7 +52,6 @@ class NodeActor:
         print(self.redis_hostname, self.redis_port)
 
     def get_hostname(self):
-        import socket
         return socket.gethostname()
 
     def get_hostname_with_rank(self):
@@ -68,6 +68,11 @@ class NodeActor:
         redis_client.flushall()
 
     def test_gloo(self, prefix):
+        import os
+        print('niceness', os.nice(0))
+        subprocess.run(f"sudo renice 0 -p {os.getpid()}", shell=True)
+        print('niceness', os.nice(0))
+
         import pygloo
 
         context = pygloo.rendezvous.Context(self.rank, self.world_size)
@@ -82,7 +87,7 @@ class NodeActor:
 
         self.test_small_p2p_comm(context)
         self.test_network_bandwidth_without_glue()
-        self.test_large_p2p_comm(context)
+        #self.test_large_p2p_comm(context)
 
     def test_small_p2p_comm(self, context):
         import pygloo
@@ -110,11 +115,19 @@ class NodeActor:
         self_ip = self.hostnames[self.rank]
         port = 1026
 
+        report_interval_s = 5
+        total_time_s = 30
         if self.rank == 0:
-            subprocess.check_call(f"sudo iperf3 -s -B {self_ip} -p {port} --one-off", shell=True)
+            subprocess.check_call(
+                f"sudo iperf3 -s -B {self_ip} -p {port} --one-off -i {report_interval_s}",
+                shell=True,
+            )
         else:
             time.sleep(1)
-            subprocess.check_call(f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --bytes 5G --bidir", shell=True)
+            subprocess.check_call(
+                f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --time {total_time_s} -P 4 -i {report_interval_s}",
+                shell=True,
+            )
 
         print('iperf3 done')
 
@@ -142,6 +155,46 @@ class NodeActor:
                 dur_s = time.time() - start
                 print(f'recv took {dur_s:.02f} s, {(8 * (shape/2**30)/ dur_s):.02f} Gbit/s')
 
+@ray.remote(num_cpus=0)
+class RedisActor:
+    def __init__(self):
+        self.redis_server_proc = None
+        self.port = None
+
+    def start(self, port):
+        subprocess.run("sudo apt-get install redis -y", shell=True)
+        subprocess.run("pkill redis-server", shell=True)
+        self.redis_server_proc = subprocess.Popen(f"redis-server --port {port} --protected-mode no", shell=True)
+        self.port = port
+        
+        import redis
+        # TODO add loop here
+        redis_client = redis.Redis(host='localhost', port=self.port)
+
+        return socket.gethostname()
+
+    def get_connection_info(self):
+        return socket.gethostname(), self.port
+
+    def stop(self):
+        print('Killing redis')
+        self.redis_server_proc.kill()
+        self.redis_server_proc = None
+
+def get_or_start_redis_actor(name, namespace):
+    try:
+        redis_actor = ray.get_actor(name=name, namespace=namespace)
+    except ValueError as e:
+        if not 'Failed to look up actor with name' in str(e):
+            raise
+        print('redis actor not found, recreating')
+        redis_actor = RedisActor.options(
+            name=name,
+            namespace=namespace,
+            lifetime='detached',
+        ).remote()
+        ray.get(redis_actor.start.remote(port=7777))
+    return redis_actor
 
 def schedule_on_node(node, soft=False):
     return ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy(
@@ -153,7 +206,10 @@ def alive(nodes):
         if node['Alive']:
             yield node
 
-redis_actor = ray.get_actor(name='redis_actor', namespace='redis_actor_namespace')
+redis_actor_name = 'redis_actor'
+redis_actor_namespace = 'redis_actor_namespace'
+
+redis_actor = get_or_start_redis_actor(redis_actor_name, redis_actor_namespace)
 redis_hostname, redis_port = ray.get(redis_actor.get_connection_info.remote())
 
 alive_nodes = list(alive(ray.nodes()))
