@@ -107,7 +107,7 @@ class NodeActor:
             print("Small send/recv passed")
 
     def test_network_bandwidth_without_glue(self):
-        if subprocess.run("which iperf3", shell=True).returncode != 0:
+        if subprocess.run("which iperf3 > /dev/null", shell=True).returncode != 0:
             subprocess.run("sudo apt-get install iperf3 -y", shell=True)
 
         peer_rank = 0 if self.rank == 1 else 1
@@ -125,7 +125,7 @@ class NodeActor:
         else:
             time.sleep(1)
             subprocess.check_call(
-                f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --time {total_time_s} -P 4 -i {report_interval_s}",
+                f"sudo iperf3 -c {peer_ip} -p {port} -O 1 --time {total_time_s} -P 6 -i {report_interval_s}",
                 shell=True,
             )
 
@@ -135,19 +135,6 @@ class NodeActor:
         import pygloo
         print('Starting large P2P communication')
         tag = 0
-        '''
-        Getting about 8.8 Gbit/s communication.
-        There are two issues I see with pygloo:
-            * currently sends are sync, so only single thread can be used
-            * currently creates send buffer each time (instead of pinned memory)
-
-        not that hard to fix these things. but i wonder if using different lib would be easier.
-
-        ucx and libfabric are good but I think another level of optimization
-        I should start with pygloo on multiple threads (I can only saturate 25Gbit/s link
-        with 4 iperf streams). if I can get to ~25Gbit/s that way, then done (until RDMA).
-        Otherwise will have to use something else (ucx looks easier).
-        '''
 
         shape =  10 * 2**30
         value_to_send = np.ones(shape, dtype=np.uint8)
@@ -259,41 +246,21 @@ ray.get([actor.test_gloo.remote(prefix) for actor in actors])
 
 #ray.get([actor.test_redis.remote() for actor in actors])
 
-"""
-import os
-import ray
-import pygloo
-import numpy as np
+'''
+Getting about 8.8 Gbit/s communication.
+There are two issues I see with pygloo:
+    * currently sends are sync, so only single thread can be used
+    * currently creates send buffer each time (instead of pinned memory)
 
-@ray.remote(num_cpus=1)
-def test_allreduce(rank, world_size, fileStore_path):
-    '''
-    rank  # Rank of this process within list of participating processes
-    world_size  # Number of participating processes
-    fileStore_path # The path to create filestore
-    '''
-    context = pygloo.rendezvous.Context(rank, world_size)
-    # Prepare device and store for rendezvous
-    attr = pygloo.transport.tcp.attr("localhost")
-    dev = pygloo.transport.tcp.CreateDevice(attr)
-    fileStore = pygloo.rendezvous.FileStore(fileStore_path)
-    store = pygloo.rendezvous.PrefixStore(str(world_size), fileStore)
+not that hard to fix these things. but i wonder if using different lib would be easier.
 
-    context.connectFullMesh(store, dev)
+ucx and libfabric are good but I think another level of optimization
+I should start with pygloo on multiple threads (I can only saturate 25Gbit/s link
+with 4 iperf streams). if I can get to ~25Gbit/s that way, then done (until RDMA).
+Otherwise will have to use something else (ucx looks easier).
 
-    sendbuf = np.array([[1,2,3],[1,2,3]], dtype=np.float32)
-    recvbuf = np.zeros_like(sendbuf, dtype=np.float32)
-    sendptr = sendbuf.ctypes.data
-    recvptr = recvbuf.ctypes.data
+---
 
-    pygloo.allreduce(context, sendptr, recvptr,
-                    sendbuf.size, pygloo.glooDataType_t.glooFloat32,
-                    pygloo.ReduceOp.SUM, pygloo.allreduceAlgorithm.RING)
-
-if __name__ == "__main__":
-    ray.init(num_cpus=6)
-    world_size = 2
-    fileStore_path = f"{ray.worker._global_node.get_session_dir_path()}" + "/collective/gloo/rendezvous"
-    os.makedirs(fileStore_path)
-    ray.get([test_allreduce.remote(rank, world_size, fileStore_path) for rank in range(world_size)])
-"""
+Before moving to ucx or libfabric, I should add a method to pygloo which calls send but not waitcompletion.
+We can keep track of the outstanding bytes to limit them. Hm, I doubt 10GB is gunna be bottlenecked by our wait completion.
+'''
