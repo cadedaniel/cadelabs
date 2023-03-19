@@ -133,15 +133,19 @@ class NodeActor:
 
     def test_large_p2p_comm(self, context):
         import pygloo
-        print('Starting large P2P communication')
         tag = 0
 
-        shape =  10 * 2**30
+        #shape =  10 * 2**30
+        shape = 40 * 2**20
+        repeats = 20
+
+        print(f'Starting larger P2P communication (size={shape/2**20:.02f}MB)')
+
         value_to_send = np.ones(shape, dtype=np.uint8)
         if self.rank == 0:
             send_buf = value_to_send
             sendptr = send_buf.ctypes.data
-            for tag in range(5):
+            for tag in range(repeats):
                 start = time.time()
                 pygloo.send(context, sendptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=1, tag=tag)
                 dur_s = time.time() - start
@@ -149,7 +153,7 @@ class NodeActor:
         else:
             recv_buf = np.empty(shape, dtype=np.uint8)
             recvptr = recv_buf.ctypes.data
-            for tag in range(5):
+            for tag in range(repeats):
                 start = time.time()
                 pygloo.recv(context, recvptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=0, tag=tag)
                 dur_s = time.time() - start
