@@ -12,7 +12,7 @@ ray.init()
 class NodeStateManager:
     def setup(self):
         cache_dir = "/home/ray/.cache/gloo-deps-src"
-
+        # htop iproute2
         if subprocess.run(f"ls {cache_dir} > /dev/null", shell=True).returncode != 0:
             subprocess.check_call(f"mkdir {cache_dir}", shell=True)
         
@@ -24,22 +24,41 @@ class NodeStateManager:
                 shell=True
             )
 
-        if subprocess.run(f"ls {cache_dir}/pygloo > /dev/null", shell=True).returncode != 0:
-            print('Shallow clone pygloo')
-            subprocess.check_call(
-                f"git clone --depth 1 https://github.com/ray-project/pygloo.git "
-                f"{cache_dir}/pygloo",
-                shell=True
-            )
-
         if subprocess.run("ls ~/bin/bazel > /dev/null", shell=True).returncode != 0:
             # install bazel
             subprocess.check_call("sudo apt-get install curl", shell=True)
             subprocess.check_call(f"cd {cache_dir}/ray; bash ./ci/env/install-bazel.sh", shell=True)
             subprocess.check_call("ls ~/bin/bazel", shell=True)
+
+        # Compiling fork
+        require_recompile = False
+        if require_recompile:
+            subprocess.run(f"rm -rf {cache_dir}/pygloo", shell=True)
+
+        if subprocess.run(f"ls {cache_dir}/pygloo > /dev/null", shell=True).returncode != 0:
+            print('Shallow clone pygloo')
+            subprocess.check_call(
+                # Has my modifications
+                f"git clone --depth 1 https://github.com/cadedaniel/pygloo.git "
+                f"{cache_dir}/pygloo",
+                shell=True
+            )
         
-        if subprocess.run("pip show pygloo > /dev/null", shell=True).returncode != 0:
+        if subprocess.run("pip show pygloo > /dev/null", shell=True).returncode != 0 or require_recompile:
             subprocess.check_call(f"cd {cache_dir}/pygloo; python setup.py install", shell=True)
+
+        ## This negatively impacts throughput. TCP window scaling allows OS to go beyond 65k window size.
+        #use_max_tcp_window_size = True
+        #if use_max_tcp_window_size:
+        #    # https://serverfault.com/a/778178/381697
+        #    subprocess.run("sudo bash -c \"echo 1 > /proc/sys/net/ipv4/tcp_window_scaling\"", shell=True)
+
+        ## This has no impact on throughput. I'm not sure if TCP window scaling is able to go higher with this.
+        #use_max_tcp_window_size = True
+        #if use_max_tcp_window_size:
+        #    # https://serverfault.com/questions/778503/possible-to-force-tcp-window-scaling-to-a-higher-value
+        #    subprocess.run("sudo bash -c 'echo 33554432 > /proc/sys/net/core/rmem_max'", shell=True)
+        #    subprocess.run("sudo bash -c 'echo \"4096 33554432 33554432\" > /proc/sys/net/ipv4/tcp_rmem'", shell=True)
 
 @ray.remote
 class NodeActor:
@@ -79,7 +98,7 @@ class NodeActor:
 
         attr = pygloo.transport.tcp.attr(self.get_hostname())
         dev = pygloo.transport.tcp.CreateDevice(attr)
-        print('device:', dev)
+        print('device:', dev, 'speed:', dev.getInterfaceSpeed())
         store = pygloo.rendezvous.RedisStore(self.redis_hostname, self.redis_port)
 
         print('connectFullMesh start')
@@ -88,6 +107,7 @@ class NodeActor:
         self.test_small_p2p_comm(context)
         self.test_network_bandwidth_without_glue()
         self.test_large_p2p_comm(context)
+        #self.test_multi_thread_comm(context)
 
     def test_small_p2p_comm(self, context):
         import pygloo
@@ -131,12 +151,56 @@ class NodeActor:
 
         print('iperf3 done')
 
+
+    def test_multi_thread_comm(self, context):
+        import concurrent.futures
+        import pygloo
+
+        repeats = 20
+        def send_recv(base_tag, repeats):
+            #shape =  10 * 2**30
+            shape = 40 * 2**20
+
+            #print(f'Starting larger P2P communication (size={shape/2**20:.02f}MB)')
+
+            value_to_send = np.ones(shape, dtype=np.uint8)
+            if self.rank == 0:
+                send_buf = value_to_send
+                sendptr = send_buf.ctypes.data
+                for tag in range(repeats):
+                    tag = base_tag + tag
+                    print(f'send tag {tag}\n', end='')
+                    start = time.time()
+                    pygloo.send(context, sendptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=1, tag=tag)
+                    dur_s = time.time() - start
+                    print(f'send took {dur_s:.02f} s, {(8 * (shape/2**30)/ dur_s):.02f} Gbit/s\n', end='')
+            else:
+                recv_buf = np.empty(shape, dtype=np.uint8)
+                recvptr = recv_buf.ctypes.data
+                for tag in range(repeats):
+                    tag = base_tag + tag
+                    print(f'recv tag {tag}\n', end='')
+                    start = time.time()
+                    pygloo.recv(context, recvptr, size=shape, datatype=pygloo.glooDataType_t.glooUint8, peer=0, tag=tag)
+                    dur_s = time.time() - start
+                    print(f'recv took {dur_s:.02f} s, {(8 * (shape/2**30)/ dur_s):.02f} Gbit/s\n', end='')
+
+        print('Starting multi-thread-comm')
+        pool_size = 2
+        comm_repeats = 200 * 8
+        with concurrent.futures.ThreadPoolExecutor(max_workers=pool_size) as pool:
+            futures = [pool.submit(send_recv, i * comm_repeats, comm_repeats) for i in range(pool_size)]
+            [f.result() for f in futures]
+        print('multi-thread-comm done')
+            
+
     def test_large_p2p_comm(self, context):
+        # This might have issues on my fork of pygloo (we release gil)
         import pygloo
         tag = 0
 
-        #shape =  10 * 2**30
-        shape = 40 * 2**20
+        shape =  10 * 2**30
+        #shape = 40 * 2**20
         repeats = 20
 
         print(f'Starting larger P2P communication (size={shape/2**20:.02f}MB)')
@@ -228,7 +292,8 @@ ray.get([a.setup.remote() for a in state_manager_actors])
 
 actors = [
     NodeActor.options(
-        scheduling_strategy=schedule_on_node(node)
+        #scheduling_strategy=schedule_on_node(node),
+        num_gpus=1 if rank == 0 else 0,
     ).remote(
         rank=rank,
         world_size=len(alive_nodes),
