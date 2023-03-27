@@ -5,9 +5,13 @@ set -x
 ./mount_nvme
 
 ./move-cache-to-nvme
-./move-tmp-ray-to-nvme
+#./move-tmp-ray-to-nvme
 
 # Remember to source zshrc!
 ./add-pythonpath-to-zshrc-and-bashrc
 
-mv ~/ray /data/
+#mv ~/ray /data/
+./clone_ray
+
+# lint
+pip install -U black==22.10.0 flake8==3.9.1 mypy==0.982 isort==5.10.1

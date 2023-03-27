@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -x
+
+git clone git@github.com:cadedaniel/ray.git /data/ray
+pushd /data/ray
+    git remote add upstream git@github.com:ray-project/ray.git
+    git remote add chen git@github.com:scv119/ray.git
+    git fetch
+popd
