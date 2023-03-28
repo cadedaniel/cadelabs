@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -x
+
+pushd /data/ray
+    ./ci/env/install-bazel.sh
+popd

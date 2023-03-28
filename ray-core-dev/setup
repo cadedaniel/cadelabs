@@ -13,5 +13,7 @@ set -x
 #mv ~/ray /data/
 ./clone_ray
 
+./install_bazel
+
 # lint
 pip install -U black==22.10.0 flake8==3.9.1 mypy==0.982 isort==5.10.1
