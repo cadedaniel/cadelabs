@@ -5,3 +5,11 @@ set -x
 pushd /data/ray
     ./ci/env/install-bazel.sh
 popd
+
+
+printf Adding ~/bin to path for bazel
+cat << 'EOF' | tee --append ~/.zshrc | tee --append ~/.bashrc
+# Added by cade
+export PATH=~/bin:$PATH
+# End added by cade
+EOF
