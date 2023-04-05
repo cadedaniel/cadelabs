@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+import json
+
+with open('json', 'r') as f:
+    data = json.load(f)
+
+metrics = []
+
+for perf_metric in data["perf_metrics"]:
+    perf_metric_name = perf_metric["perf_metric_name"]
+    perf_metric_value = perf_metric["perf_metric_value"]
+    
+    name = perf_metric_name.replace('p50.', '')
+    metrics.append(
+        {
+            "value": float(perf_metric_value),
+            "split": name.split('-'),
+        }
+    )
+
+metrics = sorted(metrics ,key=lambda element: element["value"], reverse=True)
+
+for metric in metrics:
+    value = metric["value"]
+    split = metric["split"]
+    
+    name, which_import, which_gpu, which_num_node, which_runtime_env, which_node = split
+    to_print = [
+        'actors' if 'actor' in name else 'tasks',
+        'warm_start' if 'warm' in name else 'cold_start',
+        which_import,
+        which_gpu,
+        which_runtime_env,
+        value,
+    ]
+
+
+    print(*to_print)
