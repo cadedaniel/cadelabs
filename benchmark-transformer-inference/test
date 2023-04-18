@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+deepspeed --num_gpus 4 \
+    DeepSpeedExamples/inference/huggingface/text-generation/inference-test.py \
+    --name EleutherAI/gpt-neo-2.7B \
+    --batch_size 1024 \
+    --test_performance \
+    --ds_inference

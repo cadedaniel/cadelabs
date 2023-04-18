@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import subprocess
+#subprocess.run("sudo apt install mpich", shell=True)
+#subprocess.run("pip install mpi4py", shell=True)
+#conda install --force-reinstall conda
+#conda install -c conda-forge mpi4py openmpi
+
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+import torch
+
+import os
+local_rank = int(os.environ.get('LOCAL_RANK'))
+world_size = int(os.environ.get('WORLD_SIZE'))
+
+#checkpoint = "EleutherAI/gpt-neo-125m"
+checkpoint = "EleutherAI/gpt-neo-2.7B"
+config = AutoConfig.from_pretrained(checkpoint)
+model = AutoModelForCausalLM.from_config(config)
+#model = model.to(torch.float16)
+model = model.to(local_rank)
+
+#model = model.transformer.h[0] 
+import deepspeed
+# modify supported in AutoTP auto_tp.py to return True
+
+ds_engine = deepspeed.init_inference(
+    model,
+    mp_size=world_size,
+    dtype=torch.float16,
+    checkpoint=None,
+    #replace_with_kernel_inject=True,
+)
+
+#hidden_input = torch.rand(batch_size, context_length, self.config.hidden_size, device=self.device).to(torch.float16)
+start_event = torch.cuda.Event(enable_timing=True)
+end_event = torch.cuda.Event(enable_timing=True)
+
+model = ds_engine.module
+bs = 32
+ctx_len = 32
+vocab_size = 50257
+
+input_ids = (torch.rand(bs, ctx_len) * vocab_size).to(torch.int64).to(local_rank)
+out = model.forward(input_ids)
+
+import os
+#rank = int(os.environ.get('LOCAL_RANK'))
+#print('got rank', rank)
+#if rank == 0 or True:
+#    input_ids = (torch.rand(bs, ctx_len) * vocab_size).to(torch.int64).to('cuda:0')
+#    out = model.forward(input_ids)
+#    print(f'output rank {rank}', out)
+#
+##print(ds_engine.module)
+#
+import time
+
+print('sleeping rank ', local_rank)
+while True:
+    time.sleep(1)

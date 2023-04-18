@@ -1,0 +1,3 @@
+[submodule "benchmark-transformer-inference/DeepSpeedExamples"]
+	path = benchmark-transformer-inference/DeepSpeedExamples
+	url = git@github.com:microsoft/DeepSpeedExamples.git

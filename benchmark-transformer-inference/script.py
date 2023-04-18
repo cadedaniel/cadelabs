@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
-#subprocess.check_call("pip install -U accelerate 'numpy<1.24' transformers", shell=True)
-
+subprocess.check_call("pip install -U accelerate 'numpy<1.24' transformers deepspeed", shell=True)
 
 from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map, dispatch_model
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
@@ -103,6 +102,22 @@ class Trial:
         self.model = model
         self.config = config
 
+    def load_only_transformer_block_with_ds(self):
+        self.load_only_transformer_block()
+
+        import deepspeed
+
+        # Initialize the DeepSpeed-Inference engine
+        ds_engine = deepspeed.init_inference(
+            self.model,
+            mp_size=4,
+            dtype=torch.float16,
+            checkpoint=None,
+            replace_with_kernel_inject=True,
+        )
+        model = ds_engine.module
+        output = model('Input String')
+
     def normal_model_fwd_pass(self, batch_size, context_length):
         start_event = torch.cuda.Event(enable_timing=True)
         end_event = torch.cuda.Event(enable_timing=True)
@@ -158,7 +173,8 @@ checkpoint_2p7b = "EleutherAI/gpt-neo-2.7B"
 def trial(checkpoint, dtype, metrics_actor):
     t = Trial(checkpoint, dtype)
     #t.load_model()
-    t.load_only_transformer_block()
+    #t.load_only_transformer_block()
+    t.load_only_transformer_block_with_ds()
 
     for num_blks in [1, 2, 4, 8]:
         for bs in [1]:
