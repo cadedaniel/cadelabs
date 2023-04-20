@@ -1,61 +1,91 @@
 #!/usr/bin/env python3
 
-import subprocess
-#subprocess.run("sudo apt install mpich", shell=True)
-#subprocess.run("pip install mpi4py", shell=True)
-#conda install --force-reinstall conda
-#conda install -c conda-forge mpi4py openmpi
-
-from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
-import torch
-
 import os
-local_rank = int(os.environ.get('LOCAL_RANK'))
-world_size = int(os.environ.get('WORLD_SIZE'))
+del os.environ['RAY_RUNTIME_ENV_HOOK']
+del os.environ['RAY_JOB_SUBMIT_HOOK']
 
-#checkpoint = "EleutherAI/gpt-neo-125m"
-checkpoint = "EleutherAI/gpt-neo-2.7B"
-config = AutoConfig.from_pretrained(checkpoint)
-model = AutoModelForCausalLM.from_config(config)
-#model = model.to(torch.float16)
-model = model.to(local_rank)
+import ray
 
-#model = model.transformer.h[0] 
-import deepspeed
-# modify supported in AutoTP auto_tp.py to return True
+@ray.remote
+def task(world_size, local_rank, tp_size):
+    import os
+    os.environ['LOCAL_RANK'] = str(local_rank)
+    os.environ['WORLD_SIZE'] = str(world_size)
+    os.environ['TP_SIZE'] = str(tp_size)
+    os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(d) for d in range(world_size)])
+    os.environ["MASTER_ADDR"] = 'localhost'
+    os.environ["MASTER_PORT"] = "29500"
 
-ds_engine = deepspeed.init_inference(
-    model,
-    mp_size=world_size,
-    dtype=torch.float16,
-    checkpoint=None,
-    #replace_with_kernel_inject=True,
-)
+    import torch
+    torch.distributed.init_process_group(
+        backend='nccl',
+        world_size=world_size,
+        rank=local_rank,
+    )
 
-#hidden_input = torch.rand(batch_size, context_length, self.config.hidden_size, device=self.device).to(torch.float16)
-start_event = torch.cuda.Event(enable_timing=True)
-end_event = torch.cuda.Event(enable_timing=True)
+    import subprocess
+    #subprocess.run("sudo apt install mpich", shell=True)
+    #subprocess.run("pip install mpi4py", shell=True)
+    #conda install --force-reinstall conda
+    #conda install -c conda-forge mpi4py openmpi
+    
+    import time
+    from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+    import torch
+    
+    import os
+    local_rank = int(os.environ.get('LOCAL_RANK'))
+    world_size = int(os.environ.get('WORLD_SIZE'))
+    tp_size = int(os.environ.get('TP_SIZE', world_size))
+    
+    #checkpoint = "EleutherAI/gpt-neo-125m"
+    #checkpoint = "EleutherAI/gpt-neo-1.3B"
+    checkpoint = "EleutherAI/gpt-neo-2.7B"
+    config = AutoConfig.from_pretrained(checkpoint)
+    model = AutoModelForCausalLM.from_config(config)
+    
+    model = model.to(torch.float16)
+    #model = model.to(local_rank)
+    
+    # modify supported in AutoTP auto_tp.py to return True
+    #model = model.transformer.h[0] 
+    import deepspeed
+    
+    from deepspeed.accelerator import set_accelerator, get_accelerator
+    from deepspeed.accelerator.cuda_accelerator import CUDA_Accelerator
+    #cu_accel = CUDA_Accelerator()
+    #cu_accel.set_device(local_rank)
+    #set_accelerator(cu_accel)
+    #
+    #from deepspeed.inference.config import DeepSpeedInferenceConfig
+    #config = DeepSpeedInferenceConfig(
+    #    tensor_parallel={"tp_size": tp_size},
+    #    dtype=torch.float16,
+    #)
 
-model = ds_engine.module
-bs = 32
-ctx_len = 32
-vocab_size = 50257
+    #os.environ['CADE_TP_SIZE'] = str(tp_size)
+    ds_engine = deepspeed.init_inference(
+        model,
+        tensor_parallel={"tp_size": tp_size},
+        dtype=torch.float16,
+        #checkpoint=None,
+        #replace_with_kernel_inject=True,
+    )
+    
+    for _ in range(1):
+        reserved = []
+        allocated = []
+        for dev in range(world_size):
+            r = torch.cuda.memory_reserved(dev)
+            a = torch.cuda.memory_allocated(dev)
+            round_digit = 2
+            reserved.append(round(r / 2**30, round_digit))
+            allocated.append(round(a / 2**30, round_digit))
+    
+        print(f'Rank: {local_rank} Reserved: {reserved}, allocated {allocated}\n', end='')
+        time.sleep(1)
 
-input_ids = (torch.rand(bs, ctx_len) * vocab_size).to(torch.int64).to(local_rank)
-out = model.forward(input_ids)
-
-import os
-#rank = int(os.environ.get('LOCAL_RANK'))
-#print('got rank', rank)
-#if rank == 0 or True:
-#    input_ids = (torch.rand(bs, ctx_len) * vocab_size).to(torch.int64).to('cuda:0')
-#    out = model.forward(input_ids)
-#    print(f'output rank {rank}', out)
-#
-##print(ds_engine.module)
-#
-import time
-
-print('sleeping rank ', local_rank)
-while True:
-    time.sleep(1)
+world_size = 4
+tp_size = 4
+t = [task.remote(world_size, local_rank, tp_size) for local_rank in range(world_size)]
+ray.get(t)
