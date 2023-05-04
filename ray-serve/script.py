@@ -9,10 +9,18 @@ import os
 import torch
 print('imports done')
 
-config = AutoConfig.from_pretrained("cerebras/Cerebras-GPT-111M")
-model = AutoModelForCausalLM.from_config(config)
-model = model.to(torch.float16).eval().to('cuda:0')
+small_model = "cerebras/Cerebras-GPT-111M"
+full_model = "cerebras/Cerebras-GPT-6.7B"
 
-print('model loaded to gpu')
+config = AutoConfig.from_pretrained(full_model)
+print('config loaded')
+model = AutoModelForCausalLM.from_config(config)
+print('cpu model instantiated')
+model = model.eval()
+print('model eval set')
+model = model.to(torch.float16)
+print('float16 set')
+model = model.to('cuda:0')
+print('sent to gpu')
 
 input('waiting')
