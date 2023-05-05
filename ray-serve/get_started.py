@@ -26,10 +26,11 @@ stub = Stub("example-stable-diff-bot")
 
 CACHE_PATH = "/root/model_cache"
 
-volume = SharedVolume().persist("stable-diff-model-vol")
+volume = SharedVolume().persist("stable-diff-model-vol-2")
 
 @stub.function(
-    gpu="A10G",
+    gpu="A100",
+    cpu=10.5,
     image=(
         Image.debian_slim()
         .run_commands(
@@ -40,41 +41,35 @@ volume = SharedVolume().persist("stable-diff-model-vol")
     shared_volumes={CACHE_PATH: volume},
     #secret=Secret.from_name("huggingface-secret"),
 )
-async def run_stable_diffusion(prompt, channel_name = None):
-    from diffusers import StableDiffusionPipeline
-    from torch import float16
+async def run_stable_diffusion():
+    import time
+    start_time = time.time()
+    import torch
+    from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map, dispatch_model
+    from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+    print(f'imports done {time.time()-start_time:.02f}')
 
-    pipe = StableDiffusionPipeline.from_pretrained(
-        "runwayml/stable-diffusion-v1-5",
-        #use_auth_token=os.environ["HUGGINGFACE_TOKEN"],
-        revision="fp16",
-        torch_dtype=float16,
-        cache_dir=CACHE_PATH,
-        device_map="auto",
-    )
+    small_model = "cerebras/Cerebras-GPT-111M"
+    full_model = "cerebras/Cerebras-GPT-6.7B"
+    model_to_use = small_model
 
-    image = pipe(prompt, num_inference_steps=1).images[0]
+    config = AutoConfig.from_pretrained(model_to_use, cache_dir=CACHE_PATH)
+    print(f'config loaded {time.time()-start_time:.02f}')
+    model = AutoModelForCausalLM.from_config(config)
+    print(f'cpu model instantiated {time.time()-start_time:.02f}')
+    model = model.eval()
+    print(f'eval mode set {time.time()-start_time:.02f}')
+    model = model.to(torch.float16)
+    print(f'fp16 set {time.time()-start_time:.02f}')
+    model = model.to('cuda:0')
+    print(f'sent to gpu {time.time()-start_time:.02f}')
 
-    # Convert PIL Image to PNG byte array.
-    with io.BytesIO() as buf:
-        image.save(buf, format="PNG")
-        img_bytes = buf.getvalue()
+    print(f'memory available {torch.cuda.get_device_properties(0).total_memory / 2**30:.02f}')
 
-    if channel_name:
-        # `post_image_to_slack` is implemented further below.
-        post_image_to_slack.call(prompt, channel_name, img_bytes)
 
-    return img_bytes
 
 @stub.local_entrypoint()
-def run(
-    prompt: str = "oil painting of a shiba",
-    output_dir: str = "/tmp/stable-diffusion",
-):
-    os.makedirs(output_dir, exist_ok=True)
-    img_bytes = run_stable_diffusion.call(prompt)
-    output_path = os.path.join(output_dir, "output.png")
-    with open(output_path, "wb") as f:
-        f.write(img_bytes)
-    print(f"Wrote data to {output_path}")
+def run():
+    run_stable_diffusion.call()
+    print('done')
 
