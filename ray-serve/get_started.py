@@ -47,11 +47,13 @@ async def run_stable_diffusion():
     import torch
     from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map, dispatch_model
     from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+    from transformers.generation.logits_process import LogitsProcessorList, LogitNormalization
     print(f'imports done {time.time()-start_time:.02f}')
 
-    small_model = "cerebras/Cerebras-GPT-111M"
-    full_model = "cerebras/Cerebras-GPT-6.7B"
-    model_to_use = small_model
+    model_to_use = "cerebras/Cerebras-GPT-111M"
+    #model_to_use = "cerebras/Cerebras-GPT-6.7B"
+    #model_to_use = "EleutherAI/gpt-neo-125m"
+    #model_to_use = "facebook/opt-13b"
 
     config = AutoConfig.from_pretrained(model_to_use, cache_dir=CACHE_PATH)
     print(f'config loaded {time.time()-start_time:.02f}')
@@ -65,6 +67,54 @@ async def run_stable_diffusion():
     print(f'sent to gpu {time.time()-start_time:.02f}')
 
     print(f'memory available {torch.cuda.get_device_properties(0).total_memory / 2**30:.02f}')
+    
+    batch_size = 1
+    context_length = 512
+    device = 'cuda:0'
+    vocab_size = 50257
+
+    #input_ids = (torch.rand(batch_size, context_length, device=device) * vocab_size).to(torch.int64)
+
+
+    from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, GenerationConfig
+    tokenizer = AutoTokenizer.from_pretrained(model_to_use, cache_dir=CACHE_PATH)
+    inputs = tokenizer("The quick brown fox jumped over the lazy", return_tensors="pt")
+    #inputs = {k: v.to(device) for k, v in inputs.items()}
+    inputs = inputs['input_ids'].to(device)
+    print(inputs)
+    outputs = model.generate(inputs, max_new_tokens=5, pad_token_id=tokenizer.eos_token_id, do_sample=True)
+    print(outputs)
+    print(tokenizer.batch_decode(outputs))
+
+    #lm_logits = model.forward(
+    #    input_ids,
+    #    return_dict=False,
+    #    output_attentions=False,
+    #    output_hidden_states=False,
+    #)
+    #print([type(x) for x in lm_logits])
+
+    ##torch.Size([1, 512, 50257])
+    #print(lm_logits[0].shape)
+    #print([type(x) for x in lm_logits[1][0]])
+    #print([x.shape for x in lm_logits[1][0]])
+
+
+    #next_token_logits = lm_logits[:, -1, :]
+    #processors = LogitsProcessorList()
+    #processors.append(LogitNormalization())
+    #next_token_scores = processors(input_ids, next_token_logits)
+    #probs = nn.functional.softmax(next_token_scores, dim=-1)
+    #next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
+
+    #print(next_tokens.shape)
+
+    #for _ in range(64):
+    #    input_ids = torch.cat([input_ids, next_tokens[:, None]], dim=-1)
+    #next_token_logits = outputs.logits[:, -1, :]
+    #probs = torch.nn.functional.softmax(next_token_logits, dim=-1)
+    #next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
+    #print(next_token_logits)
 
 
 
