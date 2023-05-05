@@ -48,17 +48,18 @@ async def run_stable_diffusion():
     import os
     os.environ['TRANSFORMERS_CACHE'] = CACHE_PATH
 
-    model_to_use = "cerebras/Cerebras-GPT-111M"
+    #model_to_use = "cerebras/Cerebras-GPT-111M"
     #model_to_use = "cerebras/Cerebras-GPT-6.7B"
     #model_to_use = "EleutherAI/gpt-neo-125m"
     #model_to_use = "facebook/opt-13b"
+    model_to_use = "mosaicml/mpt-7b-instruct"
 
     from transformers import pipeline
     import torch
     #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
 
     print('creating pipeline')
-    generator = pipeline('text-generation', model=model_to_use, device='cuda:0', torch_dtype=torch.float16)
+    generator = pipeline('text-generation', model=model_to_use, device='cuda:0', torch_dtype=torch.float16, trust_remote_code=True)
     print('starting inference')
     for _ in range(5):
         out = generator("The quick brown fox jumps over", do_sample=True, min_length=50, max_length=50)
