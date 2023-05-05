@@ -40,9 +40,10 @@ volume = SharedVolume().persist("stable-diff-model-vol-2")
     ),
     shared_volumes={CACHE_PATH: volume},
     #secret=Secret.from_name("huggingface-secret"),
-    timeout=1200,
+    timeout=2*3600,
 )
 async def run_stable_diffusion():
+    print('starting')
 
     import os
     os.environ['TRANSFORMERS_CACHE'] = CACHE_PATH
@@ -53,8 +54,12 @@ async def run_stable_diffusion():
     #model_to_use = "facebook/opt-13b"
 
     from transformers import pipeline
+    import torch
     #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
-    generator = pipeline('text-generation', model=model_to_use, device='cuda:0')
+
+    print('creating pipeline')
+    generator = pipeline('text-generation', model=model_to_use, device='cuda:0', torch_dtype=torch.float16)
+    print('starting inference')
     for _ in range(5):
         out = generator("The quick brown fox jumps over", do_sample=True, min_length=50, max_length=50)
         print(out)
