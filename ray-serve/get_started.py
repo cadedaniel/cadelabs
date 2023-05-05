@@ -32,11 +32,15 @@ volume = SharedVolume().persist("stable-diff-model-vol-2")
     gpu="A100",
     cpu=10.5,
     image=(
-        Image.debian_slim()
+        #Image.debian_slim()
+        Image.from_dockerhub(
+            "rayproject/ray:2.4.0-gpu",
+            #"nvidia/cuda:11.7.0-devel-ubuntu18.04"
+        )
         .run_commands(
             "pip install torch --extra-index-url https://download.pytorch.org/whl/cu117"
         )
-        .pip_install("diffusers", "transformers", "scipy", "ftfy", "accelerate")
+        .pip_install("diffusers", "transformers", "scipy", "ftfy", "accelerate", "einops", "flash-attn==1.0.3.post0", "triton==2.0.0.dev20221202")
     ),
     shared_volumes={CACHE_PATH: volume},
     #secret=Secret.from_name("huggingface-secret"),
@@ -45,6 +49,7 @@ volume = SharedVolume().persist("stable-diff-model-vol-2")
 async def run_stable_diffusion():
     print('starting')
 
+    import time
     import os
     os.environ['TRANSFORMERS_CACHE'] = CACHE_PATH
 
@@ -54,16 +59,65 @@ async def run_stable_diffusion():
     #model_to_use = "facebook/opt-13b"
     model_to_use = "mosaicml/mpt-7b-instruct"
 
-    from transformers import pipeline
+    from transformers import pipeline, AutoConfig, AutoTokenizer, AutoModelForCausalLM
     import torch
     #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
 
+    print('creating config')
+
+    assert model_to_use == 'mosaicml/mpt-7b-instruct'
+    config = AutoConfig.from_pretrained(
+        model_to_use,
+        trust_remote_code=True,
+        cache_dir=CACHE_PATH,
+    )
+    config.attn_config['attn_impl'] = 'triton'
+
+    print('creating model')
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_to_use,
+        config=config,
+        torch_dtype=torch.float16,
+        trust_remote_code=True,
+        cache_dir=CACHE_PATH,
+    )
+    print('sending model to gpu')
+
+    model.to(device='cuda:0')
+
+    print('creating tokenizer')
+
+    from transformers import AutoTokenizer
+    tokenizer = AutoTokenizer.from_pretrained(
+        "EleutherAI/gpt-neox-20b",
+        cache_dir=CACHE_PATH,
+    )
+
     print('creating pipeline')
-    generator = pipeline('text-generation', model=model_to_use, device='cuda:0', torch_dtype=torch.float16, trust_remote_code=True)
+    generator = pipeline(
+        'text-generation',
+        model=model,
+        config=config,
+        tokenizer=tokenizer,
+        device='cuda:0',
+        #torch_dtype=torch.float16,
+        trust_remote_code=True,
+    )
+
     print('starting inference')
-    for _ in range(5):
-        out = generator("The quick brown fox jumps over", do_sample=True, min_length=50, max_length=50)
+    prompt = ("The " * 512)[:-1]
+
+    start_time = time.time()
+    while True:
+        dur_s = time.time() - start_time
+        if dur_s >= 60:
+            break
+
+        out = generator(prompt, do_sample=True, min_length=512 + 64, max_length=512 + 64)
         print(out)
+
+    print(f'dur_s {dur_s:.02f}')
 
     #import time
     #start_time = time.time()
