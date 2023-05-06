@@ -61,11 +61,11 @@ async def run_stable_diffusion():
     bs = 1
     if True:
 
-        #model_to_use = "mosaicml/mpt-7b-instruct"
-        #tokenizer_to_use = "EleutherAI/gpt-neox-20b"
+        model_to_use = "mosaicml/mpt-7b-instruct"
+        tokenizer_to_use = "EleutherAI/gpt-neox-20b"
 
-        model_to_use = "EleutherAI/gpt-neo-125m"
-        tokenizer_to_use = "EleutherAI/gpt-neo-125m"
+        #model_to_use = "EleutherAI/gpt-neo-125m"
+        #tokenizer_to_use = "EleutherAI/gpt-neo-125m"
 
         from transformers import pipeline, AutoConfig, AutoTokenizer, AutoModelForCausalLM
         import torch
@@ -143,7 +143,7 @@ async def run_stable_diffusion():
                 while True:
                     yield prompt
             
-            bs = 16
+            bs = 4
             count = 0
             start_time = time.time()
             for out in pipe(
