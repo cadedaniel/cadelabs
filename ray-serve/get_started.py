@@ -57,67 +57,142 @@ async def run_stable_diffusion():
     #model_to_use = "cerebras/Cerebras-GPT-6.7B"
     #model_to_use = "EleutherAI/gpt-neo-125m"
     #model_to_use = "facebook/opt-13b"
-    model_to_use = "mosaicml/mpt-7b-instruct"
 
-    from transformers import pipeline, AutoConfig, AutoTokenizer, AutoModelForCausalLM
-    import torch
-    #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
+    bs = 1
+    if True:
 
-    print('creating config')
+        #model_to_use = "mosaicml/mpt-7b-instruct"
+        #tokenizer_to_use = "EleutherAI/gpt-neox-20b"
 
-    assert model_to_use == 'mosaicml/mpt-7b-instruct'
-    config = AutoConfig.from_pretrained(
-        model_to_use,
-        trust_remote_code=True,
-        cache_dir=CACHE_PATH,
-    )
-    config.attn_config['attn_impl'] = 'triton'
+        model_to_use = "EleutherAI/gpt-neo-125m"
+        tokenizer_to_use = "EleutherAI/gpt-neo-125m"
 
-    print('creating model')
+        from transformers import pipeline, AutoConfig, AutoTokenizer, AutoModelForCausalLM
+        import torch
+        #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_to_use,
-        config=config,
-        torch_dtype=torch.float16,
-        trust_remote_code=True,
-        cache_dir=CACHE_PATH,
-    )
-    print('sending model to gpu')
+        print('creating config')
 
-    model.to(device='cuda:0')
+        #assert model_to_use == 'mosaicml/mpt-7b-instruct'
+        config = AutoConfig.from_pretrained(
+            model_to_use,
+            trust_remote_code=True,
+            cache_dir=CACHE_PATH,
+        )
+        if model_to_use == 'mosaicml/mpt-7b-instruct':
+            config.attn_config['attn_impl'] = 'triton'
 
-    print('creating tokenizer')
+        print('creating tokenizer')
+        print(f'config.eos_token_id is {config.eos_token_id}')
 
-    from transformers import AutoTokenizer
-    tokenizer = AutoTokenizer.from_pretrained(
-        "EleutherAI/gpt-neox-20b",
-        cache_dir=CACHE_PATH,
-    )
+        from transformers import AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained(
+            tokenizer_to_use,
+            cache_dir=CACHE_PATH,
+            pad_token_id=config.eos_token_id,
+            padding=True,
+        )
 
-    print('creating pipeline')
-    generator = pipeline(
-        'text-generation',
-        model=model,
-        config=config,
-        tokenizer=tokenizer,
-        device='cuda:0',
-        #torch_dtype=torch.float16,
-        trust_remote_code=True,
-    )
+        print(f'tokenizer.eos_token_id is {tokenizer.eos_token_id}, eos_token {tokenizer.eos_token}')
+        if tokenizer.pad_token is None:
+            tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        print(f'tokenizer.pad_token is {tokenizer.pad_token}')
+        print('creating model')
 
-    print('starting inference')
-    prompt = ("The " * 512)[:-1]
+        model = AutoModelForCausalLM.from_pretrained(
+            model_to_use,
+            config=config,
+            torch_dtype=torch.float16,
+            trust_remote_code=True,
+            cache_dir=CACHE_PATH,
+        )
+        print('sending model to gpu')
 
-    start_time = time.time()
-    while True:
-        dur_s = time.time() - start_time
-        if dur_s >= 60:
-            break
+        model = model.eval()
+        #model = model.to(device='cuda:0')
 
-        out = generator(prompt, do_sample=True, min_length=512 + 64, max_length=512 + 64)
-        print(out)
+        print('creating pipeline')
+        generator = pipeline(
+            'text-generation',
+            model=model,
+            config=config,
+            tokenizer=tokenizer,
+            device='cuda:0',
+            #torch_dtype=torch.float16,
+            trust_remote_code=True,
+        )
+        print('starting inference')
 
-    print(f'dur_s {dur_s:.02f}')
+        if False:
+            prompt = ("The " * 512)[:-1]
+            count = 0
+            start_time = time.time()
+            while True:
+                dur_s = time.time() - start_time
+                if dur_s >= 60:
+                    break
+
+                out = generator(prompt, do_sample=True, min_length=512 + 64, max_length=512 + 64)
+                print(out)
+                count += 1
+        else:
+            pipe = generator
+
+            def data_gen():
+                prompt = ("The " * 512)[:-1]
+                while True:
+                    yield prompt
+            
+            bs = 16
+            count = 0
+            start_time = time.time()
+            for out in pipe(
+                data_gen(),
+                do_sample=True,
+                min_length=512+64,
+                max_length=512+64,
+                batch_size=bs,
+            ):
+                print(out)
+                count += 1
+
+                dur_s = time.time() - start_time
+                if dur_s >= 60:
+                    break
+    else:
+        model_to_use = "EleutherAI/gpt-neo-125m"
+
+        from transformers import pipeline, AutoConfig, AutoTokenizer, AutoModelForCausalLM
+        import torch
+        #generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
+        
+        print('creating pipeline')
+        pipe = pipeline(
+            'text-generation',
+            model=model_to_use,
+            device='cuda:0',
+            torch_dtype=torch.float16,
+            trust_remote_code=True,
+        )
+
+        def data_gen():
+            prompt = ("The " * 512)[:-1]
+            while True:
+                yield prompt
+
+        count = 0
+        start_time = time.time()
+        for out in pipe(data_gen(), do_sample=True, min_length=512+64, max_length=512+64):
+            #out = generator(prompt, do_sample=True, min_length=512 + 64, max_length=512 + 64)
+            print(out)
+            count += 1
+
+            dur_s = time.time() - start_time
+            if dur_s >= 60:
+                break
+
+
+    print(f'dur_s {dur_s:.02f} count {count} bs {bs}')
 
     #import time
     #start_time = time.time()
