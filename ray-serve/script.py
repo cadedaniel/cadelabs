@@ -35,6 +35,7 @@ def gen_random_prompts(tokenizer, vocab_range, num_context_tokens, num_prompts):
 @ray.remote
 def run_experiments():
     # Attention config
+    #attn_impls = ['torch', 'triton', 'flash']
     attn_impls = ['torch']
     assert all(attn_impl in ['torch', 'triton', 'flash'] for attn_impl in attn_impls)
     
