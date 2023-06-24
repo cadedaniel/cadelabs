@@ -22,28 +22,36 @@ class Actor:
         import torch
         
         torch.distributed.init_process_group()
-        numel = 2**30
+        numel = 5 * 2**30
         device_tensor = torch.ones(numel, dtype=torch.uint8, device='cuda')
 
-        start = torch.cuda.Event(enable_timing=True)
-        end = torch.cuda.Event(enable_timing=True)
+        num_iters = 100
+        warmup_runs = 5
+        start_events = [torch.cuda.Event(enable_timing=True) for _ in range(num_iters)]
+        end_events = [torch.cuda.Event(enable_timing=True) for _ in range(num_iters)]
 
-        start.record()
-        if self.rank == 0:
-
-            torch.distributed.send(device_tensor, 1)
-            torch.distributed.recv(device_tensor, 1)
-        else:
-            torch.distributed.recv(device_tensor, 0)
-            torch.distributed.send(device_tensor, 0)
-        end.record()
+        for start, end in zip(start_events, end_events):
+            start.record()
+            if self.rank == 0:
+                torch.distributed.send(device_tensor, 1)
+                torch.distributed.recv(device_tensor, 1)
+            else:
+                torch.distributed.recv(device_tensor, 0)
+                torch.distributed.send(device_tensor, 0)
+            end.record()
         
-        end.synchronize()
-        dur_s = start.elapsed_time(end) / 1000
-        bytes_comm = numel * 2
+        dur_s = 0
+        sent_bytes = 0
+        for i, (start, end) in enumerate(zip(start_events, end_events)):
+            if i < warmup_runs:
+                continue
+            end.synchronize()
 
+            dur_s += start.elapsed_time(end) / 1000
+            sent_bytes += 2 * numel
+        
         if self.rank == 0:
-            print(f'[{self.devs[0]} -> {self.devs[1]}] {dur_s=:.02f} rate {(bytes_comm/2**30)/dur_s:.02f} GB/s')
+            print(f'[{self.devs[0]} -> {self.devs[1]}] {dur_s=:.02f} rate {(sent_bytes/2**30)/dur_s:.02f} GB/s')
 
 
 def test_speed(a, b):
