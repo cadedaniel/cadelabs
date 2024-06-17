@@ -12,10 +12,11 @@ set -x
 # Remember to source zshrc!
 ./add-pythonpath-to-zshrc-and-bashrc
 
+echo "not cloning ray build deps"
 #mv ~/ray /data/
-./clone_ray
+#./clone_ray
 
-./install_bazel
+#./install_bazel
 
 # lint
-pip install -U black==22.10.0 flake8==3.9.1 mypy==0.982 isort==5.10.1 pip
+#pip install -U black==22.10.0 flake8==3.9.1 mypy==0.982 isort==5.10.1 pip
